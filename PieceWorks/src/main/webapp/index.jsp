@@ -17,6 +17,7 @@
 <p><button onclick="location.href='project.com'">Project Sidebar</button></p>
 <p><button onclick="location.href='login.me'">Login</button></p>
 <p><button id="chattingDetailForm">chattingDetailForm</button></p>
+<p><button onclick="location.href='calendarTest3.ca'">캘린더 테스트</button></p>
 
 </body>
 <script>

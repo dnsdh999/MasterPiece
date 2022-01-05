@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="calendarMapper">
+	
+   	<insert id="insertEvent">
+		insert into calendar
+		values(seq_calendar.nextval, #{cCreator}, to_date(#{cStartDate}, 'YYYY-MM-DD HH24:MI:SS'), to_date(#{cEndDate}, 'YYYY-MM-DD HH24:MI:SS'), 
+				null, #{cCategory}, default, #{cTitle}, #{cContent}, #{cBgColor}, #{cAllday}, 1)
+	</insert>
+  
+</mapper>

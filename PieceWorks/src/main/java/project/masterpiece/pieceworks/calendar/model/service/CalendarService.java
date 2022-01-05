@@ -1,5 +1,10 @@
 package project.masterpiece.pieceworks.calendar.model.service;
 
-public class CalendarService {
+import project.masterpiece.pieceworks.calendar.model.vo.Calendar;
+
+public interface CalendarService {
+
+	int insertEvent(Calendar c);
+
 
 }
