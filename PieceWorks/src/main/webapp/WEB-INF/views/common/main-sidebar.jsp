@@ -77,6 +77,7 @@
                     <h6 class="collapse-header">MY PROJECTS</h6>
                     <a class="collapse-item" href="utilities-color.html">프로젝트 목록</a>
                     <a class="collapse-item" href="utilities-border.html">새 프로젝트 생성</a>
+                    <a class="collapse-item" href="fullCal.ca">프로젝트상세일정(임시)</a>
                 </div>
             </div>
         </li>
