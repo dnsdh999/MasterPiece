@@ -17,8 +17,67 @@
 		<result column="CHAT_NO" property="chatNo"/>
 		<result column="CHAT_WRITER" property="chatWriter"/>
 	</resultMap>
+	
+	
+	<select id="selectChattingList" resultMap="ChattingListSet">
+		SELECT CHAT_NO, CHAT_STATUS, CHAT_TITLE, CHAT_CREATER, PROJECT_NO, CREATE_DATE, CHAT_MESSAGE, SEND_TIME, cast(send_time as DATE) as send_date, nvl(unread,0) as unread_count, chat_member, nickname AS MEMBER_NAME
+		FROM CHAT_JOIN 
+		JOIN (SELECT * FROM
+		(SELECT CHAT_NO, CHAT_MESSAGE, SEND_TIME, RANK() OVER (PARTITION BY CHAT_NO ORDER BY SEND_TIME DESC) AS RANK FROM CHAT_MESSAGE) WHERE RANK = 1 ORDER BY SEND_TIME DESC) USING(CHAT_NO)
+		JOIN CHAT_ROOM USING(CHAT_NO) 
+		JOIN MEMBER ON (CHAT_MEMBER = EMAIL)
+        left join (select chat_no, count(*) as unread from(
+        select chat_no, chat_member, confirm_time, send_time, chat_message, chat_writer 
+        from chat_message 
+        join (select chat_no, chat_member, confirm_time from chat_join where chat_member = #{email})
+        using (chat_no)
+        where chat_no in (select chat_no from chat_join where chat_member = #{email}) and confirm_time <![CDATA[ < ]]> send_time) group by chat_no) using(chat_no)
+		WHERE chat_no in (select chat_no from chat_join where chat_member in(#{email})) and CHAT_STATUS='Y' order by send_time desc
+	</select>
+	
+	<resultMap type="ChattingList" id="ChattingListSet">
+		<id column="CHAT_NO" property="chatNo"/>
+		<result column="CHAT_STATUS" property="chatStatus"/>
+		<result column="CHAT_TITLE" property="chatTitle"/>
+		<result column="CHAT_CREATER" property="chatCreator"/>
+		<result column="PROJECT_NO" property="projectNo"/>
+		<result column="CREATE_DATE" property="createDate"/>
+		<result column="CHAT_MESSAGE" property="chatMessage"/>
+		<result column="SEND_TIME" property="sendTime"/>
+		<result column="SEND_DATE" property="sendDate"/>
+		<result column="UNREAD_COUNT" property="unreadCount"/>
+		<collection resultMap="joinMemberResultSet" property="joinMember" javaType="arrayList"/>
+	</resultMap>
+	
+	 <resultMap type="JoinMember" id="joinMemberResultSet">
+	 	<result column="CHAT_MEMBER" property="chatMember"/> <!-- 일반컬럼 -->
+	 	<result column="MEMBER_NAME" property="memberName"/>
+	 </resultMap>
+	
+
 	<insert id="insertChatting">
 		insert into chat_message
 		values(SEQ_CMN.NEXTVAL,#{chatMessage},sysdate,#{chatNo},#{chatWriter})
 	</insert>
+	
+	<insert id="insertChatRoom">
+		insert into chat_room
+		values(SEQ_CHATROOM.NEXTVAL,DEFAULT,#{roomName},#{userEmail},#{projectNo},sysdate)
+	</insert>
+	
+	<update id="insertChatJoin" parameterType="java.util.List">
+		<foreach collection="list" item="mem" open="INSERT ALL" close="select * from dual" separator=" ">
+			into chat_join values
+			(SEQ_CHATROOM.currval, #{mem}, sysdate - (INTERVAL '5' SECOND))
+		</foreach>
+	</update>
+	
+	<insert id="insertFirstMeg">
+		insert into chat_message
+		values(SEQ_CMN.NEXTVAL, #{firstMessage},SYSDATE,SEQ_CHATROOM.currval,#{creator})
+	</insert>
+	
+	<update id="updateChatTitle">
+		update chat_room set chat_title = #{chatTitle} where chat_no = #{chatNo}
+	</update>
 </mapper>

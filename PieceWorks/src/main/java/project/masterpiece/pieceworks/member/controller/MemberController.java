@@ -70,7 +70,7 @@ public class MemberController {
 		if(bcrypt.matches(m.getPwd(), loginMember.getPwd())) {
 			model.addAttribute("loginUser", loginMember);
 			//상단바 우측 닉네임 테스트 때문에 임의로 commonForm으로 넘어가게 수정해뒀어요
-			return "redirect:common.com";
+			return "redirect:/";
 		} else {
 			throw new MemberException("로그인에 실패하였습니다.");
 		}

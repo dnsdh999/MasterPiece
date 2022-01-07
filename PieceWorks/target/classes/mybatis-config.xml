@@ -7,13 +7,15 @@
 
 	<typeAliases>
 		<typeAlias type="project.masterpiece.pieceworks.member.model.vo.Member" alias="Member"/>
-					<typeAlias type="project.masterpiece.pieceworks.chatting.model.vo.ChattingMessage" alias="ChattingMessage"/>
-		
-		
+		<typeAlias type="project.masterpiece.pieceworks.chatting.model.vo.ChattingMessage" alias="ChattingMessage"/>
+		<typeAlias type="project.masterpiece.pieceworks.chatting.model.vo.ChattingList" alias="ChattingList"/>
+		<typeAlias type="project.masterpiece.pieceworks.chatting.model.vo.JoinMember" alias="JoinMember"/>
+		<typeAlias type="project.masterpiece.pieceworks.calendar.model.vo.Calendar" alias="Calendar"/>
+
 	</typeAliases>
 	<mappers>
 		<mapper resource="mappers/member-mapper.xml"/>
-				<mapper resource="mappers/chatting-mapper.xml" />
-		
+		<mapper resource="mappers/chatting-mapper.xml" />
+		<mapper resource="mappers/calendar-mapper.xml"/>
 	</mappers>
 </configuration>

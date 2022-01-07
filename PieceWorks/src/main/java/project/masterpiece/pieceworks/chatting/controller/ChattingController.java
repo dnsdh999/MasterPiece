@@ -5,7 +5,9 @@ package project.masterpiece.pieceworks.chatting.controller;
 import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.GregorianCalendar;
+import java.util.HashMap;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -15,6 +17,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.servlet.ModelAndView;
 
@@ -24,6 +27,7 @@ import com.google.gson.JsonIOException;
 
 import project.masterpiece.pieceworks.chatting.model.ChattingException;
 import project.masterpiece.pieceworks.chatting.model.service.ChattingService;
+import project.masterpiece.pieceworks.chatting.model.vo.ChattingInvite;
 import project.masterpiece.pieceworks.chatting.model.vo.ChattingList;
 import project.masterpiece.pieceworks.chatting.model.vo.ChattingMessage;
 import project.masterpiece.pieceworks.member.model.vo.Member;
@@ -60,7 +64,10 @@ public class ChattingController {
          
          sqlDate = new java.sql.Date(new GregorianCalendar(year,month,day).getTimeInMillis());
 	      
+         
+         
          model.addAttribute("today", sqlDate);
+         
          
          return "chattingList";
 	}
@@ -88,6 +95,81 @@ public class ChattingController {
 		}else {
 			throw new ChattingException("채팅목록 불러오기 실패");
 		}
+	}
+	
+	@RequestMapping("chattingInvite.ch")
+	public ModelAndView chattingInvite(HttpServletRequest request,
+										@RequestParam("emails") String emails,
+										@RequestParam("roomName") String roomName,
+										@RequestParam("memberNames") String memberNames,
+										ModelAndView mv) {
+		
+		String userEmail = ((Member)request.getSession().getAttribute("loginUser")).getEmail();
+		
+		int projectNo = 1000;	//프로젝트 구현되고 수정할 부분
+		System.out.println(memberNames);
+		ChattingInvite ci = new ChattingInvite(userEmail, roomName, projectNo);
+		int result = cService.insertChatRoom(ci);
+		
+		if(result>0) {
+			
+			String[] email = emails.split(",");
+			ArrayList<String> eList = new ArrayList<String>(Arrays.asList(email));
+			
+			int jResult = cService.insertChatJoin(eList);
+			
+			if(jResult > 0) {
+				String[] memberNameArr = memberNames.split(",");
+				ArrayList<String> mNameList = new ArrayList<String>(Arrays.asList(memberNameArr));
+				
+				String firstMessage = ((Member)request.getSession().getAttribute("loginUser")).getNickName() + "님이 ";
+				
+				for(int i = 0; i<mNameList.size(); i++) {
+					if(i!=mNameList.size()-1) {
+						firstMessage += mNameList.get(i) + "님, ";
+					}
+					if(i==mNameList.size()-1) {
+						firstMessage += mNameList.get(i) + "님을 초대했습니다.";
+					}
+				}
+				
+				HashMap<String, String> map = new HashMap<String, String>();
+				map.put("firstMessage", firstMessage);
+				map.put("creator", userEmail);
+				
+				int megResult = cService.insertFirstMeg(map);
+				
+				if(megResult > 0) {
+					mv.setViewName("redirect:chatList.ch");
+				}else {
+					throw new ChattingException("실패하였습니다.");
+				}
+			}else {
+				throw new ChattingException("실패하였습니다.");
+			}
+		}else {
+			throw new ChattingException("실패하였습니다.");
+		}
+		
+		return mv;
+	}
+	
+	@RequestMapping("updateChatTitle.ch")
+	public ModelAndView updateChatTitle(@RequestParam("chatNo") int chatNo,
+										@RequestParam("chatTitle") String chatTitle,
+										ModelAndView mv) {
+		ChattingList cl = new ChattingList();
+		cl.setChatNo(chatNo);
+		cl.setChatTitle(chatTitle);
+		
+		int result = cService.updateChatTitle(cl);
+		if(result>0) {
+			mv.setViewName("redirect:chatList.ch");
+		}else {
+			throw new ChattingException("실패하였습니다.");
+		}
+		
+		return mv;
 	}
 	
 	@RequestMapping("chattingDetailForm.ch")

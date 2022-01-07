@@ -20,7 +20,7 @@
 	
 	
 	<select id="selectChattingList" resultMap="ChattingListSet">
-		SELECT CHAT_NO, CHAT_STATUS, CHAT_TITLE, CHAT_CREATER, PROJECT_NO, CREATE_DATE, CHAT_MESSAGE, SEND_TIME, cast(send_time as DATE) as send_date, nvl(unread,0) as unread_count, chat_member, NAME AS MEMBER_NAME
+		SELECT CHAT_NO, CHAT_STATUS, CHAT_TITLE, CHAT_CREATER, PROJECT_NO, CREATE_DATE, CHAT_MESSAGE, SEND_TIME, cast(send_time as DATE) as send_date, nvl(unread,0) as unread_count, chat_member, nickname AS MEMBER_NAME
 		FROM CHAT_JOIN 
 		JOIN (SELECT * FROM
 		(SELECT CHAT_NO, CHAT_MESSAGE, SEND_TIME, RANK() OVER (PARTITION BY CHAT_NO ORDER BY SEND_TIME DESC) AS RANK FROM CHAT_MESSAGE) WHERE RANK = 1 ORDER BY SEND_TIME DESC) USING(CHAT_NO)
@@ -59,4 +59,25 @@
 		insert into chat_message
 		values(SEQ_CMN.NEXTVAL,#{chatMessage},sysdate,#{chatNo},#{chatWriter})
 	</insert>
+	
+	<insert id="insertChatRoom">
+		insert into chat_room
+		values(SEQ_CHATROOM.NEXTVAL,DEFAULT,#{roomName},#{userEmail},#{projectNo},sysdate)
+	</insert>
+	
+	<update id="insertChatJoin" parameterType="java.util.List">
+		<foreach collection="list" item="mem" open="INSERT ALL" close="select * from dual" separator=" ">
+			into chat_join values
+			(SEQ_CHATROOM.currval, #{mem}, sysdate - (INTERVAL '5' SECOND))
+		</foreach>
+	</update>
+	
+	<insert id="insertFirstMeg">
+		insert into chat_message
+		values(SEQ_CMN.NEXTVAL, #{firstMessage},SYSDATE,SEQ_CHATROOM.currval,#{creator})
+	</insert>
+	
+	<update id="updateChatTitle">
+		update chat_room set chat_title = #{chatTitle} where chat_no = #{chatNo}
+	</update>
 </mapper>

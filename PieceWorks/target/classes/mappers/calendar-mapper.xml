@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="calendarMapper">
+	<insert id="addEvent">
+		insert into calendar
+		values(seq_cal.nextval, #{cCreator}, to_date(#{cStartDate}, 'YYYY-MM-DD HH24:MI'), to_date(#{cEndDate}, 'YYYY-MM-DD HH24:MI'), sysdate, #{category}, default, #{calTitle}, #{calContent}, #{bgColor}, #{allDay}, 10000)
+	</insert>
+	
+	<select id="getEventList" resultMap="EventResultSet">
+		select *
+		from (select *
+			  from calendar
+			  	   join member on(c_creator = email)
+			  where c_start_date between to_date(#{cStartDate}, 'YYYY-MM-DD HH24:MI')
+			  					 and to_date(#{cEndDate}, 'YYYY-MM-DD HH24:MI')
+			  		or c_end_date between to_date(#{cStartDate}, 'YYYY-MM-DD HH24:MI')
+			  					  and to_date(#{cEndDate}, 'YYYY-MM-DD HH24:MI'))
+<!-- 		select * -->
+<!-- 		from calendar -->
+<!-- 			 join member on(c_creator = email) -->
+<!-- 		where c_start_date between to_date(#{cStartDate}, 'YYYY-MM-DD HH24:MI') -->
+<!-- 			  			   and to_date(#{cEndDate}, 'YYYY-MM-DD HH24:MI') -->
+<!-- 			  or c_end_date between to_date(#{cStartDate}, 'YYYY-MM-DD HH24:MI') -->
+<!-- 			  				and to_date(#{cEndDate}, 'YYYY-MM-DD HH24:MI') -->
+	</select>
+	<resultMap type="Calendar" id="EventResultSet">
+		<id column="CALENDAR_NO" property="calendarNo"/>
+		<result column="C_CREATOR" property="cCreator"/>
+		<result column="NICKNAME" property="nickName"/>
+		<result column="C_START_DATE" property="cStartDate"/>
+		<result column="C_END_DATE" property="cEndDate"/>
+		<result column="MODIFY_DATE" property="modifyDate"/>
+		<result column="C_CATEGORY" property="category"/>
+		<result column="C_STATUS" property="calStatus"/>
+		<result column="C_TITLE" property="calTitle"/>
+		<result column="C_CONTENT" property="calContent"/>
+		<result column="C_BGCOLOR" property="bgColor"/>
+		<result column="ALLDAY" property="allDay"/>
+		<result column="PROJECT_NO" property="projectNo"/>
+	</resultMap>
+
+</mapper>

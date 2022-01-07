@@ -122,8 +122,9 @@ function getChattingList(){
 		success:function(data){
 			console.log(data);
 			
-			$wholeChatList = $("#wholeChatList");
-		    $wholeChatList.html("");
+			$chatList = $("#wholeChatList");
+		    $chatList.html("");
+		    
 			if(data.length>0){
 				for(var i in data){
 					$li = $([
@@ -179,8 +180,8 @@ function getChattingList(){
                 	$li.find(".outRoom").html('<a class="dropdown-item" id="chatExit" data-toggle="modal" data-target="#chatExitModal">나가기</a>');
                     
                     if(data[i].joinMember.length > 2 && "${ loginUser.email }" == data[i].chatCreator){
-                    	$li.find('.modifyRoom').html('<a class="dropdown-item" id="chatNameChange" data-toggle="modal" data-target="#chatNameChangeModal">이름수정</a>');
-                    }
+                    	$li.find('.modifyRoom').html('<a class="dropdown-item" id="chatNameChange" data-toggle="modal" data-target="#chatNameChangeModal"  onclick="modifyRoomName(' + data[i].chatNo + ', `' + data[i].chatTitle + '`)"' + '>이름수정</a>');
+                    }																																						
                     
                     
                     if("${ loginUser.email }" == data[i].chatCreator){
@@ -189,8 +190,10 @@ function getChattingList(){
                     
                     $li.find(".chatmeg").text(data[i].chatMessage);
                     
-                    $wholeChatList.append($li);
+                    $chatList.append($li);
 				}
+
+				
 			}else{
 				
 				
@@ -221,7 +224,31 @@ function chatDeatilGo(num){
 	 frm.submit();
 }
 
+function modifyRoomName(num, title){
+	if(title == 'undefined'){
+		document.getElementById("exampleModalLabelchange").value = '새로운 채팅방 이름 입력';
+	}else{
+		document.getElementById("exampleModalLabelchange").value = title;
+	}
+	
+	document.getElementById("chatNumber").value=num;
 
+	//if(yesorno == true){
+	//	location.href="chattingInvite.ch?emails="+chk_id+"&roomName="+roomName+"&memberNames="+memberName;
+	//	alert("채팅방이 생성되었습니다.");
+	//}
+}
+
+function updateChatName(){
+	var chatNum = document.getElementById("chatNumber").value;
+	var chatTitle = document.getElementById("exampleModalLabelchange").value;
+	
+	var yesorno = confirm(chatTitle + "로(으로) 채팅방 이름을 변경하시겠습니까?");
+	if(yesorno == true){
+	location.href="updateChatTitle.ch?chatNo="+chatNum+"&chatTitle="+chatTitle;
+	}
+	
+}
 </script>
 <body id="page-top">
 	<form action="chattingDetailForm.ch" method="post" name="frm">
@@ -294,36 +321,49 @@ function chatDeatilGo(num){
 	                </div>
 	                <div class="modal-body">
 							<div class="input-group">
-	                            <input type="text" class="form-control bg-light border-0 small" placeholder="채팅방 이름 ..."
+	                            <input type="text" id="chatRoomName" class="form-control bg-light border-0 small" placeholder="채팅방 이름 ..."
 	                                aria-label="Search" aria-describedby="basic-addon2">
 	                        </div>
 	                        
 	                        <div class="dropdown-divider"></div>
 	                        
 	                        <div>
-					<input type="checkbox" name="checkChat">
+					<input type="checkbox" name="checkChat" value="zz@zz" class="projectmem">
+					<input type="hidden" value="건강강" name="memname">
 						<svg
 						 xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-person-circle" viewBox="0 0 16 16">
 			  <path d="M11 6a3 3 0 1 1-6 0 3 3 0 0 1 6 0z"/>
 			  <path fill-rule="evenodd" d="M0 8a8 8 0 1 1 16 0A8 8 0 0 1 0 8zm8-7a7 7 0 0 0-5.468 11.37C3.242 11.226 4.805 10 8 10s4.757 1.225 5.468 2.37A7 7 0 0 0 8 1z"/>
 			</svg>
-					간겅강</div>
+					건강강</div>
 					<div class="dropdown-divider"></div>
-					<div><input type="checkbox" name="checkChat">
+					<div><input type="checkbox" name="checkChat" value="xx@xx" class="projectmem">
+					<input type="hidden" value="대담도" name="memname">
 						<svg
 						 xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-person-circle" viewBox="0 0 16 16">
 			  <path d="M11 6a3 3 0 1 1-6 0 3 3 0 0 1 6 0z"/>
 			  <path fill-rule="evenodd" d="M0 8a8 8 0 1 1 16 0A8 8 0 0 1 0 8zm8-7a7 7 0 0 0-5.468 11.37C3.242 11.226 4.805 10 8 10s4.757 1.225 5.468 2.37A7 7 0 0 0 8 1z"/>
 			</svg>
-					남나눔</div>
+					대담도</div>
 					<div class="dropdown-divider"></div>
-					<div><input type="checkbox" name="checkChat">
+					<div><input type="checkbox" name="checkChat" value="aa@aa" class="projectmem">
+					<input type="hidden" value="미미문" name="memname">
 						<svg
 						 xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-person-circle" viewBox="0 0 16 16">
 			  <path d="M11 6a3 3 0 1 1-6 0 3 3 0 0 1 6 0z"/>
 			  <path fill-rule="evenodd" d="M0 8a8 8 0 1 1 16 0A8 8 0 0 1 0 8zm8-7a7 7 0 0 0-5.468 11.37C3.242 11.226 4.805 10 8 10s4.757 1.225 5.468 2.37A7 7 0 0 0 8 1z"/>
 			</svg>
-					도대담
+					미미문
+				</div>
+				<div class="dropdown-divider"></div>
+					<div><input type="checkbox" name="checkChat" value="ee@ee" class="projectmem">
+					<input type="hidden" value="윤오남" name="memname">
+						<svg
+						 xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-person-circle" viewBox="0 0 16 16">
+			  <path d="M11 6a3 3 0 1 1-6 0 3 3 0 0 1 6 0z"/>
+			  <path fill-rule="evenodd" d="M0 8a8 8 0 1 1 16 0A8 8 0 0 1 0 8zm8-7a7 7 0 0 0-5.468 11.37C3.242 11.226 4.805 10 8 10s4.757 1.225 5.468 2.37A7 7 0 0 0 8 1z"/>
+			</svg>
+					윤오남
 				</div>
 				<div class="chatBottom" align="right"><input class="chatAllBottom" type="checkbox" name="allCheck">전체선택 </div>
 				<script type="text/javascript">
@@ -340,8 +380,30 @@ function chatDeatilGo(num){
 					</div>
 	                <div class="modal-footer">
 	                    <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancel</button>
-	                    <a class="btn btn-primary" href="login.html">초대하기</a>
+	                    <a class="btn btn-primary" onclick="invite();">초대하기</a>
 	                </div>
+	                
+	                <script>
+	                	function invite(){
+	                		var chk_id = [];
+	                		var memberName = [];
+	                		
+	                		$(".projectmem:checked").each(function(){
+	                			var id = $(this).val();
+	                			var name = $(this).next().val();
+	                			memberName.push(name);
+	                			chk_id.push(id);
+	                			});
+	                		
+	                		var roomName = document.getElementById("chatRoomName").value;
+	                	
+	                		var yesorno = confirm("입력한 정보로 채팅방을 생성하시겠습니까?");
+	                		if(yesorno == true){
+	                			location.href="chattingInvite.ch?emails="+chk_id+"&roomName="+roomName+"&memberNames="+memberName;
+	                			alert("채팅방이 생성되었습니다.");
+	                		}
+	                	}
+	                </script>
 	            </div>
 	        </div>
 	    </div>
@@ -379,11 +441,11 @@ function chatDeatilGo(num){
 	                </div>
 	                <div class="input-group">
 	                            <input type="text" class="form-control bg-light border-0 small" placeholder="채팅방 이름..."
-	                                aria-label="Search" aria-describedby="basic-addon2" value="채팅방 이름">
+	                                aria-label="Search" aria-describedby="basic-addon2" value="채팅방 이름" id="exampleModalLabelchange">
 	                        </div>
 					<div class="modal-footer">
-	                    <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancel</button>
-	                    <a class="btn btn-primary" href="login.html">나가기</a>
+	                    <button class="btn btn-secondary" type="button" data-dismiss="modal">취소</button>
+	                    <a class="btn btn-primary" onclick="updateChatName();">수정</a>
 	                </div>
 	               
 	            </div>
