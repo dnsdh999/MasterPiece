@@ -61,6 +61,31 @@ public class ChattingServiceImpl implements ChattingService{
 		return cDAO.updateChatTitle(sqlSession, cl);
 	}
 
+	@Override
+	public int chatRoomOut(ChattingMessage cm) {
+		return cDAO.chatRoomOut(sqlSession, cm);
+	}
+
+	@Override
+	public int insertOutMeg(ChattingMessage cm) {
+		return cDAO.insertOutMeg(sqlSession, cm);
+	}
+
+	@Override
+	public int joinMemberCount(int chatNo) {
+		return cDAO.joinMemberCount(sqlSession, chatNo);
+	}
+
+	@Override
+	public int deleteRoom(int chatNo) {
+		return cDAO.deleteRoom(sqlSession, chatNo);
+	}
+
+	@Override
+	public int deleteChatJoinMem(int chatNo) {
+		return cDAO.deleteChatJoinMem(sqlSession, chatNo);
+	}
+
 	
 
 }

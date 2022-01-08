@@ -34,5 +34,9 @@
 			<attribute name="maven.pomderived" value="true"/>
 		</attributes>
 	</classpathentry>
+	<classpathentry kind="lib" path="C:/Elilly/dev/js-jar 파일/taglibs-standard-compat-1.2.5.jar"/>
+	<classpathentry kind="lib" path="C:/Elilly/dev/js-jar 파일/taglibs-standard-impl-1.2.5.jar"/>
+	<classpathentry kind="lib" path="C:/Elilly/dev/js-jar 파일/taglibs-standard-jstlel-1.2.5.jar"/>
+	<classpathentry kind="lib" path="C:/Elilly/dev/js-jar 파일/taglibs-standard-spec-1.2.5.jar"/>
 	<classpathentry kind="output" path="target/classes"/>
 </classpath>

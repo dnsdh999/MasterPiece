@@ -48,5 +48,26 @@ public class ChattingDAO {
 		return sqlSession.update("chattingMapper.updateChatTitle", cl);
 	}
 
+	public int chatRoomOut(SqlSessionTemplate sqlSession, ChattingMessage cm) {
+		// TODO Auto-generated method stub
+		return sqlSession.delete("chattingMapper.chatRoomOut", cm);
+	}
+
+	public int insertOutMeg(SqlSessionTemplate sqlSession, ChattingMessage cm) {
+		return sqlSession.insert("chattingMapper.insertOutMeg", cm);
+	}
+
+	public int joinMemberCount(SqlSessionTemplate sqlSession, int chatNo) {
+		return sqlSession.selectOne("chattingMapper.joinMemberCount", chatNo);
+	}
+
+	public int deleteRoom(SqlSessionTemplate sqlSession, int chatNo) {
+		return sqlSession.update("chattingMapper.deleteRoom", chatNo);
+	}
+
+	public int deleteChatJoinMem(SqlSessionTemplate sqlSession, int chatNo) {
+		return sqlSession.delete("chattingMapper.deleteChatJoinMem", chatNo);
+	}
+
 
 }

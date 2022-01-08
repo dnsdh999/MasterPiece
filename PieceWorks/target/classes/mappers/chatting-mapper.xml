@@ -80,4 +80,25 @@
 	<update id="updateChatTitle">
 		update chat_room set chat_title = #{chatTitle} where chat_no = #{chatNo}
 	</update>
+	
+	<delete id="chatRoomOut">
+		delete from chat_join where chat_no = #{chatNo} and chat_member = #{chatWriter}
+	</delete>
+	
+	<insert id="insertOutMeg">
+		insert into chat_message
+		values(SEQ_CMN.NEXTVAL, #{chatMessage}, sysdate, #{chatNo}, #{chatWriter})
+	</insert>
+	
+	<select id="joinMemberCount" resultType="_int">
+		select count(*) from chat_join where chat_no = #{chatNo}
+	</select>
+	
+	<update id="deleteRoom">
+		update chat_room set chat_status = 'N' where chat_no = #{chatNo}
+	</update>
+	
+	<delete id="deleteChatJoinMem">
+		delete from chat_join where chat_no = #{chatNo}
+	</delete>
 </mapper>

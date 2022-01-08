@@ -24,4 +24,14 @@ public interface ChattingService {
 	int insertFirstMeg(HashMap<String, String> map);
 
 	int updateChatTitle(ChattingList cl);
+
+	int chatRoomOut(ChattingMessage cm);
+
+	int insertOutMeg(ChattingMessage cm);
+
+	int joinMemberCount(int chatNo);
+
+	int deleteRoom(int chatNo);
+
+	int deleteChatJoinMem(int chatNo);
 }

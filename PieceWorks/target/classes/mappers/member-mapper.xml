@@ -27,13 +27,6 @@
   		from member
   		where email = #{email}
   	</select> -->
-  	
-  	<!-- <select id="findEmail">
-  		select email
-  		from member
-  		where phone = #{phone}
-  	</select> -->
-  	<!-- ↳ 다시 수정 할 것 -->
  
   	<update id="updateMember">
   		update member 
@@ -44,6 +37,24 @@
   	<update id="deleteMember">
   		update member
   		set m_status = 'N'
+  		where email = #{email}
+  	</update>
+
+  	<select id="searchEmail" resultMap="memberResultSet">
+  		select email
+  		from member
+  		where name = #{name} and phone = #{phone} and m_status = 'Y'
+  	</select>
+  	
+  	<select id="searchPwd" resultMap="memberResultSet">
+  		select *
+  		from member
+  		where name = #{name} and email = #{email} and m_status = 'Y'
+  	</select>
+  	
+  	<update id="updatePwd">
+  		update member
+  		set pwd = #{pwd}
   		where email = #{email}
   	</update>
 </mapper>

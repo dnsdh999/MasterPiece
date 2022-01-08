@@ -162,6 +162,10 @@ function getChattingList(){
                 				chatMemStr += data[i].joinMember[j].memberName + " ";
                 			}
                 		}
+                		
+                		if(data[i].joinMember.length == 1 && "${loginUser.email}" == data[i].joinMember[0].chatMember){
+                			chatMemStr = "대화 상대 없음";
+                		}
                 		$li.find(".chatTitle").text(chatMemStr);
                 	}else{
                 		$li.find(".chatTitle").text(data[i].chatTitle);
@@ -177,7 +181,7 @@ function getChattingList(){
                 		$li.find(".chat_dateDiv").text(data[i].sendDate);
                 	}
                 	
-                	$li.find(".outRoom").html('<a class="dropdown-item" id="chatExit" data-toggle="modal" data-target="#chatExitModal">나가기</a>');
+                	$li.find(".outRoom").html('<a class="dropdown-item" id="chatExit" data-toggle="modal" data-target="#chatExitModal" onclick="outRoom(' + data[i].chatNo + ', `${ loginUser.email }`, `${ loginUser.nickName }`);">나가기</a>');
                     
                     if(data[i].joinMember.length > 2 && "${ loginUser.email }" == data[i].chatCreator){
                     	$li.find('.modifyRoom').html('<a class="dropdown-item" id="chatNameChange" data-toggle="modal" data-target="#chatNameChangeModal"  onclick="modifyRoomName(' + data[i].chatNo + ', `' + data[i].chatTitle + '`)"' + '>이름수정</a>');
@@ -185,7 +189,7 @@ function getChattingList(){
                     
                     
                     if("${ loginUser.email }" == data[i].chatCreator){
-                    	$li.find('.deleteRoom').html('<a class="dropdown-item" id="chatDelete" data-toggle="modal" data-target="#chatDeleteModal">삭제</a>');
+                    	$li.find('.deleteRoom').html('<a class="dropdown-item" id="chatDelete" data-toggle="modal" data-target="#chatDeleteModal" onclick="deleteRoom(' + data[i].chatNo + ');">삭제</a>');
                     }
                     
                     $li.find(".chatmeg").text(data[i].chatMessage);
@@ -249,12 +253,37 @@ function updateChatName(){
 	}
 	
 }
+
+function outRoom(chatNo, userEmail, nickName){
+	document.getElementById("chatNumber").value=chatNo;
+	document.getElementById("userEmail").value=userEmail;
+	document.getElementById("userNick").value=nickName;
+}
+
+function outRoomClick(){
+	var chatNo = document.getElementById("chatNumber").value;
+	var email = document.getElementById("userEmail").value;
+	var nickName = document.getElementById("userNick").value;
+	
+	location.href="chatRoomOut.ch?chatNo="+chatNo +"&userEmail="+email + "&nickName=" + nickName;
+}
+
+function deleteRoom(chatNo){
+	document.getElementById("chatNumber").value=chatNo;
+}
+
+function deleteRoomClick(){
+	var chatNo = document.getElementById("chatNumber").value;
+	
+	location.href="deleteRoom.ch?chatNo="+chatNo;
+}
 </script>
 <body id="page-top">
 	<form action="chattingDetailForm.ch" method="post" name="frm">
 	<input type="hidden" id="chatNumber" name="chatNo">
 	</form>
-	
+	<input type="hidden" id="userEmail" name="userEmail">
+	<input type="hidden" id="userNick" name="userNick">
 	<div class="inbox_people">
 	  <div class="headind_srch">
 		<div class="recent_heading">
@@ -421,7 +450,7 @@ function updateChatName(){
 	                </div>
 					<div class="modal-footer">
 	                    <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancel</button>
-	                    <a class="btn btn-primary" href="login.html">나가기</a>
+	                    <a class="btn btn-primary" onclick="outRoomClick();">나가기</a>
 	                </div>
 	               
 	            </div>
@@ -465,7 +494,7 @@ function updateChatName(){
 	                </div>
 					<div class="modal-footer">
 	                    <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancel</button>
-	                    <a class="btn btn-primary" href="login.html">삭제하기</a>
+	                    <a class="btn btn-primary" onclick="deleteRoomClick();">삭제하기</a>
 	                </div>
 	               
 	            </div>

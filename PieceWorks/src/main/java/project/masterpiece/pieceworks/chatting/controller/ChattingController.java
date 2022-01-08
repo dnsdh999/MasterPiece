@@ -172,6 +172,58 @@ public class ChattingController {
 		return mv;
 	}
 	
+	@RequestMapping("chatRoomOut.ch")
+	public ModelAndView chatRoomOut(@RequestParam("chatNo") int chatNo,
+									@RequestParam("userEmail") String userEmail,
+									@RequestParam("nickName") String nickName,
+									ModelAndView mv) {
+		
+		ChattingMessage cm = new ChattingMessage();
+		cm.setChatNo(chatNo);
+		cm.setChatWriter(userEmail);
+		cm.setChatMessage(nickName + "님이 채팅방을 퇴장하였습니다.");
+		
+
+		int msgResult = cService.insertOutMeg(cm);
+		
+		if(msgResult > 0) {
+			int result = cService.chatRoomOut(cm);
+			if(result>0) {
+				mv.setViewName("redirect:chatList.ch");
+				int joinMemberCount = cService.joinMemberCount(chatNo);
+				if(joinMemberCount == 0) {
+					int dResult = cService.deleteRoom(chatNo);
+					if(dResult > 0) {
+						System.out.println("0인 남아 채팅방 삭제");
+					}
+				}
+			}else {
+				throw new ChattingException("실패하였습니다.");
+			}
+		}else {
+			throw new ChattingException("실패하였습니다.");
+		}
+		return mv;
+	}
+	
+	
+	@RequestMapping("deleteRoom.ch")
+	public ModelAndView deleteRoom(@RequestParam("chatNo") int chatNo, ModelAndView mv) {
+		int jmDeleteResult = cService.deleteChatJoinMem(chatNo);
+		
+		if(jmDeleteResult > 0) {
+			int result = cService.deleteRoom(chatNo);
+			if(result>0) {
+				mv.setViewName("redirect:chatList.ch");
+			}else {
+				throw new ChattingException("실패하였습니다.");
+			}
+		}else {
+			throw new ChattingException("실패하였습니다.");
+		}
+		return mv;
+	}
+	
 	@RequestMapping("chattingDetailForm.ch")
 	public ModelAndView chattingDetailForm(@ModelAttribute ChattingMessage c,ModelAndView mv) {
 	

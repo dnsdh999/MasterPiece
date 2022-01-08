@@ -11,11 +11,13 @@
 		<typeAlias type="project.masterpiece.pieceworks.chatting.model.vo.ChattingList" alias="ChattingList"/>
 		<typeAlias type="project.masterpiece.pieceworks.chatting.model.vo.JoinMember" alias="JoinMember"/>
 		<typeAlias type="project.masterpiece.pieceworks.calendar.model.vo.Calendar" alias="Calendar"/>
-
+		<typeAlias type="project.masterpiece.pieceworks.project.model.vo.Project" alias="Project"/>
+		
 	</typeAliases>
 	<mappers>
 		<mapper resource="mappers/member-mapper.xml"/>
 		<mapper resource="mappers/chatting-mapper.xml" />
 		<mapper resource="mappers/calendar-mapper.xml"/>
+		<mapper resource="mappers/project-mapper.xml" />
 	</mappers>
 </configuration>

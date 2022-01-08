@@ -1,6 +1,12 @@
 package project.masterpiece.pieceworks.member.controller;
 
+import javax.mail.MessagingException;
+import javax.mail.internet.MimeMessage;
+import javax.servlet.http.HttpServletRequest;
+
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.mail.javamail.JavaMailSender;
+import org.springframework.mail.javamail.MimeMessageHelper;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -10,6 +16,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.bind.support.SessionStatus;
+import org.springframework.web.servlet.ModelAndView;
 
 import project.masterpiece.pieceworks.member.model.exception.MemberException;
 import project.masterpiece.pieceworks.member.model.service.MemberService;
@@ -24,6 +31,9 @@ public class MemberController {
 	
 	@Autowired
 	private BCryptPasswordEncoder bcrypt; 
+	
+	@Autowired
+	private JavaMailSender mailSender;
 	
 	// 회원가입 페이지 이동
 	@RequestMapping("signUpView.me")
@@ -116,33 +126,110 @@ public class MemberController {
 	}
 	
 	// 이메일 찾기 페이지 이동
-	@RequestMapping("fEmailView.me")
+	@RequestMapping("sEmailView.me")
 	public String forgotEmailForm(){
-		return "forgotEmail";
+		return "searchEmail";
 	}
+
 	
 	// 이메일 찾기
-//	@RequestMapping(value="fEamil.me", method=RequestMethod.POST)
-//	public String findEmail(Member m, Model model) {
-//		
-//		Member findMember = mService.findEmail(m);
-//		
-//		
-//		return "findEmail";
-//	}
+	@RequestMapping("sEamil.me")
+	public String findEmail(Member m, Model model) {
+		
+		Member findeMember = mService.searchEmail(m);
+		
+		System.out.println(m);
+		System.out.println(findeMember);
+		
+		if(findeMember != null) {
+			model.addAttribute("email", findeMember.getEmail());
+		} else {
+			throw new MemberException("이메일 찾기에 실패하였습니다.");
+		}
+		return "resultEmail";
+	}
+	
 	
 	// 비밀번호 찾기 페이지 이동
-	@RequestMapping("fPwdView.me")
-	public String forgotPwdForm() {
-		return "forgotPwd";
+	@RequestMapping("sPwdView.me")
+	public String searchPwdForm() {
+		return "searchPwd";
 	}
 	
-	// 비밀번호 찾기(인증번호) 페이지 이동
-	@RequestMapping("fPwdCode.me")
-	public String findPwdCodeForm() {
-		return "findPwdCode";
+	// 메일 전송
+	public void sendEmail(String email, int random) {
+		
+		String subject = "[MasterPiece] 이메일 인증번호 입니다.";
+		String content = "<div style='text-align:center;'>"
+							+ "<h1>인증번호<h1><br><hr style='width: 50%;'>"
+							+ "<h3>안녕하십니까. MasterPiece입니다.<h3><br>"
+							+ "<div style='text-align:center;'>요청하신 인증번호는<b>"+ random +"</b>입니다.</div>"
+							+ "진행 중인 화면으로 돌아가 인증번호를 입력해주세요."
+							+ "<br><hr style='width: 50%;'><br>"
+							+ "MasterPiece를 이용해 주셔서 감사합니다.</div>";
+		String from = "wjddms0700@gmail.com";
+		String to = email;
+		
+		try {
+			MimeMessage mail = mailSender.createMimeMessage();
+			MimeMessageHelper mailHelper = new MimeMessageHelper(mail,true,"UTF-8");
+			
+			mailHelper.setFrom(from);
+			mailHelper.setTo(to);
+			mailHelper.setSubject(subject);
+			mailHelper.setText(content, true);
+			
+			mailSender.send(mail);
+			
+		} catch (MessagingException e) {
+			e.printStackTrace();
+		}
 	}
 	
+	// 비밀번호 인증번호 메일 보내기
+	@RequestMapping("sPwd.me")
+	public ModelAndView searchPwd(@ModelAttribute Member m , ModelAndView mv) {
+		
+		Member member = mService.searchPwd(m);
+			
+		if(member == null) {
+			throw new MemberException("일치하는 회원 정보가 없습니다.");
+		} 
+			int random =  (int)(Math.random() * 1000000) + 1;
+			sendEmail(member.getEmail(), random);
+			
+			mv.addObject("random", random);
+			mv.addObject("email", m.getEmail());
+			mv.setViewName("pwdCode");
+			
+			return mv;
+	}
+	
+	// 인증번호
+	@RequestMapping("pwdCode.me")
+	public ModelAndView pwdCode(@RequestParam("email") String email, ModelAndView mv) {
+		mv.addObject("email", email);
+		mv.setViewName("updatePwd");
+		
+		return mv;
+	}
+	
+	// 비밀번호 재설정
+	@RequestMapping("updatePwd.me")
+	public String updatePwd(@ModelAttribute Member m, HttpServletRequest reuqest) {
+		
+		m.setPwd(bcrypt.encode(m.getPwd()));
+		
+		int result = mService.updatePwd(m);
+		
+		System.out.println(m);
+
+		if(result > 0) {
+			return "redirect:loginView.me";
+		} else {
+			throw new MemberException("비밀번호 재설정에 실패하였습니다.");
+		}
+	}
 	
 
 	
