@@ -63,7 +63,11 @@
 					</div>
 					<div class="col-12">
 						<label for="projectWriter" class="form-label">생성자</label>
-						<input type="text" class="form-control text-gray-900" id="projectWriter" name="pCreater" value="${ sessionScope.loginUser.nickName }" readonly>
+						<input type="text" class="form-control text-gray-900" id="projectWriter" name="pCreater" value="${ sessionScope.loginUser.email }" readonly>
+					</div>
+					<div class="col-12">
+						<label for="wirterNickName" class="form-label">닉네임</label>
+						<input type="text" class="form-control text-gray-800" id="wirterNickName" name="pNickName" value="${ sessionScope.loginUser.nickName }" readonly>
 					</div>
 					<div class="col-12">
 						<label for="projectContent" class="form-label">프로젝트 내용</label>
