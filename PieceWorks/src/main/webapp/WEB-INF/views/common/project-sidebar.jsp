@@ -59,7 +59,7 @@
             <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
                 <div class="bg-white py-2 collapse-inner rounded">
                     <h6 class="collapse-header">MY INFOMATIONS</h6>
-                    <a class="collapse-item" href="buttons.html">프로필</a>
+                    <a class="collapse-item" href="myPageView.me">프로필</a>
                 </div>
             </div>
         </li>
