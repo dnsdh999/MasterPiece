@@ -1,4 +1,4 @@
-package project.masterpiece.pieceworks.stomp.config;
+package project.masterpiece.pieceworks.chatting.config;
 
 
 import org.springframework.context.annotation.Bean;
@@ -8,7 +8,7 @@ import org.springframework.web.socket.config.annotation.WebSocketConfigurer;
 import org.springframework.web.socket.config.annotation.WebSocketHandlerRegistry;
 
 
-import project.masterpiece.pieceworks.stomp.ws.ChatWebSocketHandler;
+import project.masterpiece.pieceworks.chatting.controller.ChatWebSocketHandler;
 
 
 @Configuration

@@ -68,16 +68,16 @@
                                         </div>
                                         <div class="user-btn">
                                 	        <input type="submit" class="btn btn-primary btn-user btn-block" value="로그인">
-                                            <input type="button" class="btn btn-cancle btn-user btn-block" value="취소" onclick="moveHome();">
+<!--                                             <input type="button" class="btn btn-cancle btn-user btn-block" value="취소" onclick="moveHome();"> -->
                                         </div>
                        	            </div>
                   	            </form>
                                 <hr>
                                 <div class="text-center">
-                                	<a class="small" href="searchEmail.jsp">이메일 찾기</a>
+                                	<a class="small" href="sEmailView.me">이메일 찾기</a>
                                 </div>
                                 <div class="text-center">
-                                	<a class="small" href="forgot-pwd.html">비밀번호 찾기</a>
+                                	<a class="small" href="sPwdView.me">비밀번호 찾기</a>
                                 </div>
                                 <div class=text-center>
                                 	<a class="small" href="signUpView.me">회원가입</a>
@@ -99,13 +99,6 @@
 
     <!-- Custom scripts for all pages-->
     <script src="js/sb-admin-2.min.js"></script>
-
-    <script>
-    	// 로그인 완료 시 홈 화면으로 이동
-        function moveHome(){ 
-            location.href = "index.jsp";
-        }                             
-    </script>
 
 </body>
 

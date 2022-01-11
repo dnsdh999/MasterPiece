@@ -3,34 +3,36 @@ package project.masterpiece.pieceworks.calendar.model.vo;
 public class Calendar {
 	private int calendarNo;
 	private String cCreator;
+	private String nickName;
 	private String cStartDate;
 	private String cEndDate;
-	private String cModifyDate;
-	private String cCategory;
-	private String cStatus;
-	private String cTitle;
-	private String cContent;
-	private String cBgColor;
-	private String cAllday;
-	private int projectNo;
+	private String modifyDate;
+	private String category;
+	private String calStatus;
+	private String calTitle;
+	private String calContent;
+	private String bgColor;
+	private String allDay;
+	private String projectNo;
 	
 	public Calendar() {}
 
-	public Calendar(int calendarNo, String cCreator, String cStartDate, String cEndDate, String cModifyDate,
-			String cCategory, String cStatus, String cTitle, String cContent, String cBgColor, String cAllday,
-			int projectNo) {
+	public Calendar(int calendarNo, String cCreator, String nickName, String cStartDate, String cEndDate,
+			String modifyDate, String category, String calStatus, String calTitle, String calContent, String bgColor,
+			String allDay, String projectNo) {
 		super();
 		this.calendarNo = calendarNo;
 		this.cCreator = cCreator;
+		this.nickName = nickName;
 		this.cStartDate = cStartDate;
 		this.cEndDate = cEndDate;
-		this.cModifyDate = cModifyDate;
-		this.cCategory = cCategory;
-		this.cStatus = cStatus;
-		this.cTitle = cTitle;
-		this.cContent = cContent;
-		this.cBgColor = cBgColor;
-		this.cAllday = cAllday;
+		this.modifyDate = modifyDate;
+		this.category = category;
+		this.calStatus = calStatus;
+		this.calTitle = calTitle;
+		this.calContent = calContent;
+		this.bgColor = bgColor;
+		this.allDay = allDay;
 		this.projectNo = projectNo;
 	}
 
@@ -50,6 +52,14 @@ public class Calendar {
 		this.cCreator = cCreator;
 	}
 
+	public String getNickName() {
+		return nickName;
+	}
+
+	public void setNickName(String nickName) {
+		this.nickName = nickName;
+	}
+
 	public String getcStartDate() {
 		return cStartDate;
 	}
@@ -66,77 +76,76 @@ public class Calendar {
 		this.cEndDate = cEndDate;
 	}
 
-	public String getcModifyDate() {
-		return cModifyDate;
+	public String getModifyDate() {
+		return modifyDate;
 	}
 
-	public void setcModifyDate(String cModifyDate) {
-		this.cModifyDate = cModifyDate;
+	public void setModifyDate(String modifyDate) {
+		this.modifyDate = modifyDate;
 	}
 
-	public String getcCategory() {
-		return cCategory;
+	public String getCategory() {
+		return category;
 	}
 
-	public void setcCategory(String cCategory) {
-		this.cCategory = cCategory;
+	public void setCategory(String category) {
+		this.category = category;
 	}
 
-	public String getcStatus() {
-		return cStatus;
+	public String getCalStatus() {
+		return calStatus;
 	}
 
-	public void setcStatus(String cStatus) {
-		this.cStatus = cStatus;
+	public void setCalStatus(String calStatus) {
+		this.calStatus = calStatus;
 	}
 
-	public String getcTitle() {
-		return cTitle;
+	public String getCalTitle() {
+		return calTitle;
 	}
 
-	public void setcTitle(String cTitle) {
-		this.cTitle = cTitle;
+	public void setCalTitle(String calTitle) {
+		this.calTitle = calTitle;
 	}
 
-	public String getcContent() {
-		return cContent;
+	public String getCalContent() {
+		return calContent;
 	}
 
-	public void setcContent(String cContent) {
-		this.cContent = cContent;
+	public void setCalContent(String calContent) {
+		this.calContent = calContent;
 	}
 
-	public String getcBgColor() {
-		return cBgColor;
+	public String getBgColor() {
+		return bgColor;
 	}
 
-	public void setcBgColor(String cBgColor) {
-		this.cBgColor = cBgColor;
+	public void setBgColor(String bgColor) {
+		this.bgColor = bgColor;
 	}
 
-	public String getcAllday() {
-		return cAllday;
+	public String getAllDay() {
+		return allDay;
 	}
 
-	public void setcAllday(String cAllday) {
-		this.cAllday = cAllday;
+	public void setAllDay(String allDay) {
+		this.allDay = allDay;
 	}
 
-	public int getProjectNo() {
+	public String getProjectNo() {
 		return projectNo;
 	}
 
-	public void setProjectNo(int projectNo) {
+	public void setProjectNo(String projectNo) {
 		this.projectNo = projectNo;
 	}
 
 	@Override
 	public String toString() {
-		return "Calendar [calendarNo=" + calendarNo + ", cCreator=" + cCreator + ", cStartDate=" + cStartDate
-				+ ", cEndDate=" + cEndDate + ", cModifyDate=" + cModifyDate + ", cCategory=" + cCategory + ", cStatus="
-				+ cStatus + ", cTitle=" + cTitle + ", cContent=" + cContent + ", cBgColor=" + cBgColor + ", cAllday="
-				+ cAllday + ", projectNo=" + projectNo + "]";
+		return "Calendar [calendarNo=" + calendarNo + ", cCreator=" + cCreator + ", nickName=" + nickName
+				+ ", cStartDate=" + cStartDate + ", cEndDate=" + cEndDate + ", modifyDate=" + modifyDate + ", category="
+				+ category + ", calStatus=" + calStatus + ", calTitle=" + calTitle + ", calContent=" + calContent
+				+ ", bgColor=" + bgColor + ", allDay=" + allDay + ", projectNo=" + projectNo + "]";
 	}
 
-	
 }

@@ -5,7 +5,7 @@
 		insert into member
 		values(#{email}, #{pwd}, #{name}, null, #{phone}, sysdate, default)
 	</insert>
-  
+	
   	<select id="memberLogin" resultMap="memberResultSet">
   		select * 
   		from member
@@ -21,5 +21,40 @@
   		<result column="M_STATUS" property="m_status"/>
   	</resultMap>
   
-  
+  <!-- 이메일 확인 -->
+  <!-- 	<select id="duplicateEmail" resultType="_int" >
+  		select count(*)
+  		from member
+  		where email = #{email}
+  	</select> -->
+ 
+  	<update id="updateMember">
+  		update member 
+  		set name = #{name}, nickName = #{nickName}, phone = #{phone}
+  		where email = #{email}
+  	</update>
+  	
+  	<update id="deleteMember">
+  		update member
+  		set m_status = 'N'
+  		where email = #{email}
+  	</update>
+
+  	<select id="searchEmail" resultMap="memberResultSet">
+  		select email
+  		from member
+  		where name = #{name} and phone = #{phone} and m_status = 'Y'
+  	</select>
+  	
+  	<select id="searchPwd" resultMap="memberResultSet">
+  		select *
+  		from member
+  		where name = #{name} and email = #{email} and m_status = 'Y'
+  	</select>
+  	
+  	<update id="updatePwd">
+  		update member
+  		set pwd = #{pwd}
+  		where email = #{email}
+  	</update>
 </mapper>

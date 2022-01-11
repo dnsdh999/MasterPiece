@@ -8,4 +8,21 @@ public interface MemberService {
 
 	Member memberLogin(Member m);
 
+	/*
+	 * int duplicateEmail(String email);
+	 */ 
+	int updateMember(Member m);
+
+	int deleteMember(String email);
+	
+	Member searchEmail(Member m);
+
+	Member searchPwd(Member m);
+
+	int updatePwd(Member m);
+
+
+
+
+
 }

@@ -203,13 +203,13 @@
 		<dependency>
 			<groupId>org.springframework</groupId>
 			<artifactId>spring-websocket</artifactId>
-			<version>5.3.13</version>
+			<version>4.0.9.RELEASE</version>
 		</dependency>
-
+		
 		<dependency>
-		<groupId>javax.websocket</groupId>	      
-		<artifactId>javax.websocket-api</artifactId>
-		<version>1.1</version>
+			<groupId>javax.websocket</groupId>
+			<artifactId>javax.websocket-api</artifactId>
+			<version>1.1</version>
 		</dependency>
 	
 		<!-- stmp 메일 전송 관련-->
@@ -241,6 +241,17 @@
 		</dependency>
 		
 		
+		<dependency>
+			<groupId>com.google.code.gson</groupId>
+			<artifactId>gson</artifactId>
+			<version>2.8.5</version>
+		</dependency>
+
+		<dependency>
+			<groupId>org.apache.commons</groupId>
+			<artifactId>commons-lang3</artifactId>
+			<version>3.3.2</version>
+		</dependency>
 	</dependencies>
     <build>
         <plugins>

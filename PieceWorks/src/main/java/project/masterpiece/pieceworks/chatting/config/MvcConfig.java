@@ -1,4 +1,4 @@
-package project.masterpiece.pieceworks.stomp.config;
+package project.masterpiece.pieceworks.chatting.config;
 
 import org.springframework.context.annotation.Configuration;
 import org.springframework.web.servlet.config.annotation.DefaultServletHandlerConfigurer;

@@ -34,5 +34,29 @@ public class CalendarServiceImpl implements CalendarService{
 	public List<Map<String, Object>> getEvents() {
 		return calDAO.getEvents(sqlSession);
 	}
+@Service("caService")
+public class CalendarServiceImpl implements CalendarService {
+	
+	@Autowired
+	private CalendarDAO cDAO;
+
+	@Override
+	public int addEvent(Calendar c) {
+		
+		return cDAO.addEvent(c);
+	}
+
+	@Override
+	public ArrayList<Calendar> getEventList(Calendar c) {
+		
+		return cDAO.getEventList(c);
+	}
+
+	@Override
+	public int editEvent(int cNo) {
+		
+		return cDAO.editEvent(cNo);
+	}
+	
 
 }
