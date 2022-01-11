@@ -3,7 +3,7 @@
  * ************** */
 var editEvent = function (event, element, view) {
 
-    $('#deleteEvent').data('id', event._id); //클릭한 이벤트 ID
+    $('#deleteEvent').data('id', event.eventId); //클릭한 이벤트 ID
 
     $('.popover.fade.top').remove();
     $(element).popover("hide");
@@ -77,16 +77,29 @@ var editEvent = function (event, element, view) {
         event.description = editDesc.val();
 
         $("#calendar").fullCalendar('updateEvent', event);
+        
+        var updateData = {
+        	
+        	allDay: event.allDay,
+    		title: event.title,
+    		start: event.start,
+    		end: event.end,
+    		type: event.type,
+    		description: event.description,
+            backgroundColor: event.backgroundColor,
+            textColor: '#ffffff'
+            
+        }
 
         //일정 업데이트
         $.ajax({
-            type: "get",
-            url: "",
-            data: {
-                //...
-            },
+            url: "editEvent.ca",
+            data: JSON.stringify(updateData),
             success: function (response) {
-                alert('수정되었습니다.')
+                alert('수정되었습니다.');
+            },
+            error: function(response){
+            	console.log('fail to update Calendar');
             }
         });
 

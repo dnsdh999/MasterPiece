@@ -21,15 +21,15 @@ public class CalendarServiceImpl implements CalendarService {
 	}
 
 	@Override
-	public int addEventHour(Calendar c) {
-
-		return cDAO.addEventHour(c);
-	}
-
-	@Override
 	public ArrayList<Calendar> getEventList(Calendar c) {
 		
 		return cDAO.getEventList(c);
+	}
+
+	@Override
+	public int editEvent(int cNo) {
+		
+		return cDAO.editEvent(cNo);
 	}
 	
 

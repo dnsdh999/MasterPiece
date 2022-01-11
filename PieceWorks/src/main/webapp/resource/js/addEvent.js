@@ -48,7 +48,7 @@ var newEvent = function (start, end, eventType) {
             type: editType.val(),
             backgroundColor: editColor.val(),
             textColor: '#ffffff',
-            allDay: false
+//            allDay: false
         };
 
         if (eventData.start > eventData.end) {

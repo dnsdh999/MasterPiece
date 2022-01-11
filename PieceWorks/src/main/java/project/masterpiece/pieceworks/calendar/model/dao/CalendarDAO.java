@@ -19,14 +19,14 @@ public class CalendarDAO {
 		return sqlSession.insert("calendarMapper.addEvent", c);
 	}
 
-	public int addEventHour(Calendar c) {
-		
-		return sqlSession.insert("calendarMapper.addEventHour", c);
-	}
-
 	public ArrayList<Calendar> getEventList(Calendar c) {
 		
 		return (ArrayList)sqlSession.selectList("calendarMapper.getEventList", c);
+	}
+
+	public int editEvent(int cNo) {
+		
+		return sqlSession.update("calendarMapper.editEvent", cNo);
 	}
 
 }
