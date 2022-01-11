@@ -1,5 +1,9 @@
 package project.masterpiece.pieceworks.calendar.model.service;
 
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Map;
+
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -19,6 +23,16 @@ public class CalendarServiceImpl implements CalendarService{
 	@Override
 	public int insertEvent(Calendar c) {
 		return calDAO.insertEvent(sqlSession, c);
+	}
+
+	@Override
+	public List<Calendar> getEventList() {
+		return calDAO.getEventList(sqlSession);
+	}
+
+	@Override
+	public List<Map<String, Object>> getEvents() {
+		return calDAO.getEvents(sqlSession);
 	}
 
 }

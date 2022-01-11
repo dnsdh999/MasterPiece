@@ -1,18 +1,24 @@
 package project.masterpiece.pieceworks.calendar.controller;
 
-import java.sql.Date;
-import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 
+import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.ModelMap;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.servlet.ModelAndView;
 
 import project.masterpiece.pieceworks.calendar.model.exception.CalendarException;
 import project.masterpiece.pieceworks.calendar.model.service.CalendarService;
@@ -96,10 +102,52 @@ public class CalendarController {
 		int result = calService.insertEvent(c);
 
 		if(result > 0) {
-			return "redirect:calendarTest2.ca";
+			return "redirect:calendarTest3.ca";
 		} else {
 			throw new CalendarException("일정 추가에 실패했습니다.");
 		}
-
 	}
+	
+//	@RequestMapping(value="showEvent.ca", method = {RequestMethod.GET, RequestMethod.POST}, produces="application/json; charset=UTF-8")
+//	public String getEventList() {
+//		
+//		ArrayList<Calendar> eventList = (ArrayList<Calendar>) calService.getEventList();
+//		System.out.println(eventList);
+//		
+//		if(eventList == null) {
+//			throw new CalendarException("일정 불러오기에 실패했습니다.");
+//		}
+//		
+//		return "testCal3";
+//
+//	}
+	
+	@SuppressWarnings("unchecked")
+	@RequestMapping(value="getEvent.ca", method = RequestMethod.POST)
+	public List<Map<String, Object>> getEvents() {
+		
+		List<Map<String, Object>> list = calService.getEvents();
+		System.out.println(list);
+		
+		JSONObject jObj = new JSONObject();
+		JSONArray jArr = new JSONArray();
+		HashMap<String, Object> hashmap = new HashMap<String, Object>();
+		
+		for(int i = 0; i < list.size(); i++) {
+			hashmap.put("title", list.get(i).get("cTitle"));
+			hashmap.put("start", list.get(i).get("cStartDate"));
+			hashmap.put("end", list.get(i).get("cEndDate"));
+			hashmap.put("type", list.get(i).get("cContent"));
+			hashmap.put("backgroundColor", list.get(i).get("cBgColor"));
+			
+			jObj = new JSONObject(hashmap);
+			jArr.add(jObj);
+		}
+		
+		System.out.println("jsonArrCheck :" + jArr);
+
+		return jArr;
+	}
+	
 }
+	

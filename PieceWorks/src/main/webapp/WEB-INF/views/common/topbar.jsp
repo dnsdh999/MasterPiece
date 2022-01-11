@@ -1,23 +1,23 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" 
-	pageEncoding="UTF-8" import="project.masterpiece.pieceworks.member.model.vo.Member" %>
+pageEncoding="UTF-8" import="project.masterpiece.pieceworks.member.model.vo.Member" %>
 <%
 	 Member loginUser = (Member)session.getAttribute("loginUser");
 %>
 	<!-- Topbar -->
 	<nav class="navbar navbar-expand navbar-light bg-white topbar mb-4 static-top shadow">
 
-	<!-- Topbar Search -->
-	<form class="d-none d-sm-inline-block form-inline mr-auto ml-md-3 my-2 my-md-0 mw-100 navbar-search">
-		<div class="input-group">
-			<input type="text" class="form-control bg-light border-0 small" placeholder="Search for..."
-	                aria-label="Search" aria-describedby="basic-addon2">
-			<div class="input-group-append">
-				<button class="btn btn-primary" type="button">
-					<i class="fas fa-search fa-sm"></i>
-				</button>
-			</div>
-		</div>
-	</form>
+	<!-- Topbar Search 검색창 삭제-->
+<!-- 	<form class="d-none d-sm-inline-block form-inline mr-auto ml-md-3 my-2 my-md-0 mw-100 navbar-search"> -->
+<!-- 		<div class="input-group"> -->
+<!-- 			<input type="text" class="form-control bg-light border-0 small" placeholder="Search for..." -->
+<!-- 	                aria-label="Search" aria-describedby="basic-addon2"> -->
+<!-- 			<div class="input-group-append"> -->
+<!-- 				<button class="btn btn-primary" type="button"> -->
+<!-- 					<i class="fas fa-search fa-sm"></i> -->
+<!-- 				</button> -->
+<!-- 			</div> -->
+<!-- 		</div> -->
+<!-- 	</form> -->
 
 	<!-- Topbar Navbar -->
 	<ul class="navbar-nav ml-auto">
@@ -96,7 +96,7 @@
 			</div>
 		</li>
 	
-		<div class="topbar-divider d-none d-sm-block"></div>
+		
 	
 		<!-- Nav Item - User Information -->
 		<li class="nav-item dropdown no-arrow">
@@ -105,13 +105,19 @@
 				<span class="mr-2 d-none d-lg-inline text-gray-600 small"><%= loginUser.getNickName() %></span>
 				<img class="img-profile rounded-circle" src="resource/img/undraw_profile.svg">
 			 </a>
+			
+		</li>
+		
+		<div class="topbar-divider d-none d-sm-block"></div>
+		
+		<li>
 			<!-- Dropdown - User Information -->
-			<div class="dropdown-menu dropdown-menu-right shadow animated--grow-in" aria-labelledby="userDropdown">
+<!-- 			<div class="dropdown-menu dropdown-menu-right shadow animated--grow-in" aria-labelledby="userDropdown"> -->
 				<a class="dropdown-item" href="#" data-toggle="modal" data-target="#logoutModal">
 					<i class="fas fa-sign-out-alt fa-sm fa-fw mr-2 text-gray-400"></i>
 						Logout
 				</a>
-			</div>
+<!-- 			</div> -->
 		</li>
 	</ul>
 	</nav>

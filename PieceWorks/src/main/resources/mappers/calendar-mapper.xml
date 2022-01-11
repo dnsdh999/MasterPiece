@@ -7,5 +7,34 @@
 		values(seq_calendar.nextval, #{cCreator}, to_date(#{cStartDate}, 'YYYY-MM-DD HH24:MI:SS'), to_date(#{cEndDate}, 'YYYY-MM-DD HH24:MI:SS'), 
 				null, #{cCategory}, default, #{cTitle}, #{cContent}, #{cBgColor}, #{cAllday}, 1)
 	</insert>
+	
+	<select id="getEventList" resultMap="calendarResultSet">
+		select *
+		from calendar
+		where c_status='Y'
+	</select>
+	
+	<resultMap type="Calendar" id="calendarResultSet">
+		<id column="CALENDAR_NO" property="calendarNo"/>
+  		<result column="C_CREATOR" property="cCreator"/>
+  		<result column="C_START_DATE" property="cStartDate"/>
+  		<result column="C_END_DATE" property="cEndDate"/>
+  		<result column="C_MODIFY_DATE" property="cModifyDate"/>
+  		<result column="C_CATEGORY" property="cCategory"/>
+  		<result column="C_STATUS" property="cStatus"/>
+  		<result column="C_TITLE" property="cTitle"/>
+  		<result column="C_CONTENT" property="cContent"/>
+  		<result column="C_BGCOLOR" property="cBgColor"/>
+  		<result column="C_ALLDAY" property="cAllday"/>
+  		<result column="PROJECT_NO" property="projectNo"/>
+	</resultMap>
+	
+	<select id="selectCalList2" resultMap="calendarResultSet">
+		<![CDATA[
+			select cStartDate, cEndDate, cTitle
+			from calendar
+			where c_status='Y' and c_start_date <= #{data.endDate} and c_end_date >= #{data.startDate}
+		]]>
+	</select>
   
 </mapper>
