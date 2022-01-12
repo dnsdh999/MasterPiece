@@ -2,7 +2,9 @@
  *  일정 편집
  * ************** */
 var editEvent = function (event, element, view) {
-
+	
+	$('#eventId').data('id', event.eventId);
+	
     $('#deleteEvent').data('id', event.eventId); //클릭한 이벤트 ID
 
     $('.popover.fade.top').remove();
@@ -80,14 +82,15 @@ var editEvent = function (event, element, view) {
         
         var updateData = {
         	
-        	allDay: event.allDay,
+        	id: event.eventId,	
     		title: event.title,
     		start: event.start,
     		end: event.end,
     		type: event.type,
     		description: event.description,
             backgroundColor: event.backgroundColor,
-            textColor: '#ffffff'
+            textColor: '#ffffff',
+            allDay: event.allDay
             
         }
 
@@ -101,6 +104,8 @@ var editEvent = function (event, element, view) {
             },
             error: function(response){
             	console.log('fail to update Calendar');
+            	alert('수정되었습니다.');
+//            	location.reload();
             }
         });
 
@@ -109,21 +114,68 @@ var editEvent = function (event, element, view) {
 
 // 삭제버튼
 $('#deleteEvent').on('click', function () {
+	
+//	$('#eventId').data('id', event.eventId);
     
     $('#deleteEvent').unbind();
     $("#calendar").fullCalendar('removeEvents', $(this).data('id'));
     eventModal.modal('hide');
+    
+    var statusAllDay;
+    var startDate;
+    var endDate;
+    var displayDate;
+
+    if (editAllDay.is(':checked')) {
+        statusAllDay = true;
+        startDate = moment(editStart.val()).format('YYYY-MM-DD');
+        endDate = moment(editEnd.val()).format('YYYY-MM-DD');
+        displayDate = moment(editEnd.val())./*add(1, 'days').*/format('YYYY-MM-DD');
+    } else {
+        statusAllDay = false;
+        startDate = editStart.val();
+        endDate = editEnd.val();
+        displayDate = endDate;
+    }
+
+    eventModal.modal('hide');
+
+    event.allDay = statusAllDay;
+    event.title = editTitle.val();
+    event.start = startDate;
+    event.end = displayDate;
+    event.type = editType.val();
+    event.backgroundColor = editColor.val();
+    event.description = editDesc.val();
+    
+    var removeData = {
+        	
+        	id: $(this).data('id'),	
+    		title: event.title,
+    		start: event.start,
+    		end: event.end,
+    		type: event.type,
+    		description: event.description,
+            backgroundColor: event.backgroundColor,
+            textColor: '#ffffff',
+            allDay: event.allDay
+            
+        }
 
     //삭제시
     $.ajax({
+    	url: "deleteEvent.ca",
         type: "get",
-        url: "",
         data: {
-            //...
+        	removeData : JSON.stringify(removeData)
         },
         success: function (response) {
+        	location.reload();
             alert('삭제되었습니다.');
-        }
+        },
+//        error : function(response){
+//        	alert('삭제되었습니다.');
+//        }
     });
 
 });
