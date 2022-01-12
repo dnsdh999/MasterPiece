@@ -27,10 +27,13 @@ public class CalendarServiceImpl implements CalendarService {
 	}
 
 	@Override
-	public int editEvent(int cNo) {
-		
-		return cDAO.editEvent(cNo);
+	public int editEvent(Calendar c) {
+		return cDAO.editEvent(c);
 	}
 	
+	@Override
+	public int deleteEvent(Calendar c) {
+		return cDAO.deleteEvent(c);
+	}
 
 }

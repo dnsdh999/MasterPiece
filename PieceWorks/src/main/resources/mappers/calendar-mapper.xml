@@ -1,29 +1,29 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="calendarMapper">
+	
 	<insert id="addEvent">
 		insert into calendar
 		values(seq_cal.nextval, #{cCreator}, to_date(#{cStartDate}, 'YYYY-MM-DD HH24:MI'), to_date(#{cEndDate}, 'YYYY-MM-DD HH24:MI'), sysdate, #{category}, default, #{calTitle}, #{calContent}, #{bgColor}, #{allDay}, 1)
 	</insert>
 	
 	<select id="getEventList" resultMap="EventResultSet">
-<!-- 		select * -->
-<!-- 		from (select * -->
-<!-- 			  from calendar -->
-<!-- 			  	   join member on(c_creator = email) -->
-<!-- 			  where c_start_date between to_date(#{cStartDate}, 'YYYY-MM-DD HH24:MI') -->
-<!-- 			  					 and to_date(#{cEndDate}, 'YYYY-MM-DD HH24:MI') -->
-<!-- 			  		or c_end_date between to_date(#{cStartDate}, 'YYYY-MM-DD HH24:MI') -->
-<!-- 			  					  and to_date(#{cEndDate}, 'YYYY-MM-DD HH24:MI')) -->
 		select *
-		from calendar
-			 join member on(c_creator = email)
-		where (c_start_date between to_date(#{cStartDate}, 'YYYY-MM-DD HH24:MI')
-			  			   and to_date(#{cEndDate}, 'YYYY-MM-DD HH24:MI')
-			  or c_end_date between to_date(#{cStartDate}, 'YYYY-MM-DD HH24:MI')
-			  				and to_date(#{cEndDate}, 'YYYY-MM-DD HH24:MI'))
-			  and c_status = 'Y'
-			  				
+		from (select *
+			  from calendar
+			  	   join member on(c_creator = email)
+			  where c_start_date between to_date(#{cStartDate}, 'YYYY-MM-DD HH24:MI')
+			  					 and to_date(#{cEndDate}, 'YYYY-MM-DD HH24:MI')
+			  		or c_end_date between to_date(#{cStartDate}, 'YYYY-MM-DD HH24:MI')
+			  					  and to_date(#{cEndDate}, 'YYYY-MM-DD HH24:MI'))
+		where c_status = 'Y'
+<!-- 		select * -->
+<!-- 		from calendar -->
+<!-- 			 join member on(c_creator = email) -->
+<!-- 		where c_start_date between to_date(#{cStartDate}, 'YYYY-MM-DD HH24:MI') -->
+<!-- 			  			   and to_date(#{cEndDate}, 'YYYY-MM-DD HH24:MI') -->
+<!-- 			  or c_end_date between to_date(#{cStartDate}, 'YYYY-MM-DD HH24:MI') -->
+<!-- 			  				and to_date(#{cEndDate}, 'YYYY-MM-DD HH24:MI') -->
 	</select>
 	<resultMap type="Calendar" id="EventResultSet">
 		<id column="CALENDAR_NO" property="calendarNo"/>
@@ -42,11 +42,38 @@
 	</resultMap>
 	
 	<update id="editEvent">
+      update calendar
+      set c_creator = #{cCreator},
+         <if test= "calTitle != null">
+         c_title = #{calTitle}, 
+         </if>
+         <if test= "cStartDate != null">
+         c_start_date = to_date(#{cStartDate}, 'YYYY-MM-DD HH24:MI'),
+         </if>
+         <if test= "cEndDate != null">
+         c_end_date = to_date(#{cEndDate}, 'YYYY-MM-DD HH24:MI'), 
+         </if>
+         modify_date = sysdate,
+         <if test= "category != null">
+         c_category = #{category}, 
+         </if>
+         <if test= "calContent != null">
+         c_content = #{calContent},
+         </if>
+         <if test= "bgColor != null">
+         c_bgcolor = #{bgColor},
+         </if>
+         <if test= "allDay != null">
+         allday = #{allDay}
+         </if>
+      where calendar_no = #{calendarNo}
+   </update>
+	
+	<update id="deleteEvent">
 		update calendar
-		set c_creator = #{cCreator}, c_title = #{calTitle}, c_start_date = #{cStartDate},
-			c_end_date = #{cEndDate}, c_category = #{category}, c_content = #{calContent},
-			c_bgcolor = #{bgColor}
-		where calendar_no = #{cNo}
+		set c_status = 'N'
+		where calendar_no = #{calendarNo}
 	</update>
+	
 
 </mapper>

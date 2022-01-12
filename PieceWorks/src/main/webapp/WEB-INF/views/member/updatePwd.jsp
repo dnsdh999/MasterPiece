@@ -61,6 +61,7 @@
                                             </div>
                                             <input type="submit" class="btn btn-primary btn-user btn-block" onclick="moveLogin();" value="확인">
                                             <input type="button" class="btn btn-cancle btn-user btn-block" onclick="cancle();" value="취소">
+                                        	<input type="hidden" name="email" value="${ email }">
                                         </div>
                                     </form>
                                     <hr>
@@ -93,7 +94,17 @@
     <script src="js/sb-admin-2.min.js"></script>
 
     <script>
-   
+    
+    	userPwd = false;
+    	checkPwd = false;
+    	
+    	function newPwdCheck(){
+    		var regExp = /^(?=.*[A-Za-z])(?=.*\d)(?=.*[$@$!%*#?&])[A-Za-z\d$@$!%*#?&]{5,}$/;
+    		var newPwd = document.getElementById("newPwd");
+    		var newCheckPwd = documnet.getElementById("newCheckPwd");
+    		var message = document.getElementById("newPwdMsg");
+    	}
+    	
         function moveLogin(){
             var login = confirm('비밀번호 재설정이 완료되었습니다.');
             if(login){

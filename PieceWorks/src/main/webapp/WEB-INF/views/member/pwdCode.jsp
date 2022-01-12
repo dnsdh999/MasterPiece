@@ -55,7 +55,7 @@
                                     <div class="text-center">
                                         <h1 class="h1 text-gray-900 mb-4">PIECE WORKS</h1>
                                         <h1 class="h4 text-gray-900 mb-2">인증번호</h1>
-                                        <span id="displayTimer">3분 00초</span>
+                                        <span id="timer"></span>
                                     </div>
                                     <form class="user" action="pwdCode.me" method="post">
                                         <div class="user-input">
@@ -113,6 +113,7 @@
             , timer : ""
             , domId : ""
             , fnTimer : function(){
+            	debugger;
                 var m = Math.floor(this.comSecond / 60) + "분 " + (this.comSecond % 60) + "초";	// 남은 시간 계산
                 this.comSecond--;					// 1초씩 감소
                 console.log(m);
@@ -126,7 +127,15 @@
             ,fnStop : function(){
                 clearInterval(this.timer);
             }
-            
+        }
+
+        $(document).ready(function(){
+          var AuthTimer = new $ComTimer()
+          AuthTimer.comSecond = 180;
+          AuthTimer.fnCallback = function(){alert("다시인증을 시도해주세요.")}
+          AuthTimer.timer =  setInterval(function(){AuthTimer.fnTimer()},1000);
+          AuthTimer.domId = document.getElementById("timer");
+        });
             var AuthTimer = new $ComTimer();
         	
         	AuthTimer.comSecond = 180;
@@ -135,7 +144,7 @@
         			location.href="findPwdForm.me";
         	};
         	AuthTimer.timer =  setInterval(function(){AuthTimer.fnTimer()},1000);
-        	AuthTimer.domId = document.getElementById("displayTimer");
+        	AuthTimer.domId = document.getElementById("timer");
         	count = 1;
         	
         	function randomNumCheck(){

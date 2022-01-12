@@ -38,7 +38,12 @@
         <li class="nav-item active">
             <a class="nav-link" href="index.jsp">
                 <i class="fas fa-fw fa-tachometer-alt"></i>
-                <span>Dashboard</span></a>
+                <span>Dashboard(Index.jsp)</span></a>
+        </li>
+        <li class="nav-item active">
+            <a class="nav-link" href="main.com">
+                <i class="fas fa-fw fa-tachometer-alt"></i>
+                <span>MAIN(임시)</span></a>
         </li>
 
         <!-- Divider -->
@@ -59,7 +64,7 @@
             <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
                 <div class="bg-white py-2 collapse-inner rounded">
                     <h6 class="collapse-header">MY INFOMATIONS</h6>
-                    <a class="collapse-item" href="buttons.html">프로필</a>
+                    <a class="collapse-item" href="myPageView.me">프로필</a>
                 </div>
             </div>
         </li>
