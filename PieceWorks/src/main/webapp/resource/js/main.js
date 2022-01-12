@@ -116,7 +116,7 @@ var calendar = $('#calendar').fullCalendar({
 		        	for(var i in data){
 		        		var obj = new Object();
 		        		obj.eventId = data[i].calendarNo;
-		        		$('#eventId').attr('value', obj.eventId);
+//		        		$('#eventId').attr('value', obj.eventId);
 		        		obj.username = data[i].nickName;
 		        		obj.title = data[i].calTitle;
 		        		obj.type = data[i].category;
@@ -129,10 +129,10 @@ var calendar = $('#calendar').fullCalendar({
 		        		}
 		        		if(obj.allDay){
 		        			obj.start = moment(data[i].cStartDate).format('YYYY-MM-DD');
-		        			obj.end = moment(data[i].cEndDate).add(1, 'days').format('YYYY-MM-DD');
+		        			obj.end = moment(data[i].cEndDate)/*.add(1, 'days')*/.format('YYYY-MM-DD');
 		        		} else {
 		        			obj.start = moment(data[i].cStartDate).format('YYYY-MM-DD HH:mm');
-		        			obj.end = moment(data[i].cEndDate).add(1, 'days').format('YYYY-MM-DD HH:mm');
+		        			obj.end = moment(data[i].cEndDate).format('YYYY-MM-DD HH:mm');
 		        		}
 		        		obj.description = data[i].calContent;
 		        		JSONArray.push(obj);

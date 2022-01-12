@@ -16,7 +16,7 @@
     <!-- Custom styles for this template-->
     <link href="resource/css/sb-admin-2.min.css" rel="stylesheet">
     
-    <link rel=" shortcut icon" href="resource/img/favicon.ico">
+<!--     <link rel=" shortcut icon" href="resource/img/favicon.ico"> -->
 
     <link rel="stylesheet" href="resource/vendor/css/fullcalendar.min.css" />
     <link rel="stylesheet" href="resource/vendor/css/calbootstrap.min.css">
@@ -49,7 +49,7 @@
 					<!-- Begin Page Content -->
 					<div class="container-fluid">
                 	    <div class="d-sm-flex align-items-center justify-content-between mb-4">
-                    	    <h1 class="h3 mb-0 text-gray-800">메인 내용 제목</h1>
+                    	    <h1 class="h3 mb-0 text-gray-800">프로젝트 1 일정</h1>
                     	</div>
 
 						<div class="row">

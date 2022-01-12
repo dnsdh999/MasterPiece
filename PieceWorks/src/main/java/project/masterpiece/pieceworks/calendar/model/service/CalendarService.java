@@ -11,6 +11,10 @@ public interface CalendarService {
 
 	ArrayList<Calendar> getEventList(Calendar c);
 
-	int editEvent(int cNo);
+	int editEvent(Calendar c);
+	
+	int deleteEvent(Calendar c);
+
+	
 
 }

@@ -24,9 +24,11 @@ public class CalendarDAO {
 		return (ArrayList)sqlSession.selectList("calendarMapper.getEventList", c);
 	}
 
-	public int editEvent(int cNo) {
-		
-		return sqlSession.update("calendarMapper.editEvent", cNo);
+	public int editEvent(Calendar c) {
+		return sqlSession.update("calendarMapper.editEvent", c);
 	}
-
+	
+	public int deleteEvent(Calendar c) {
+		return sqlSession.update("calendarMapper.deleteEvent", c);
+	}
 }
