@@ -11,13 +11,13 @@
 
     <title>PIECE WORKS</title>
 
-<!--     Custom fonts for this template -->
+    <!-- Custom fonts for this template-->
     <link href="resource/vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
     <link
         href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i"
         rel="stylesheet">
 
-<!--     Custom styles for this template -->
+    <!-- Custom styles for this template-->
     <link href="resource/css/sb-admin-2.min.css" rel="stylesheet">
 </head>
 
@@ -38,7 +38,12 @@
         <li class="nav-item active">
             <a class="nav-link" href="index.jsp">
                 <i class="fas fa-fw fa-tachometer-alt"></i>
-                <span>Dashboard</span></a>
+                <span>Dashboard(Index.jsp)</span></a>
+        </li>
+        <li class="nav-item active">
+            <a class="nav-link" href="main.com">
+                <i class="fas fa-fw fa-tachometer-alt"></i>
+                <span>MAIN(임시)</span></a>
         </li>
 
         <!-- Divider -->
@@ -97,10 +102,10 @@
     <script src="resource/vendor/jquery/jquery.min.js"></script>
     <script src="resource/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
 
-<!--     Core plugin JavaScript -->
+    <!-- Core plugin JavaScript-->
     <script src="resource/vendor/jquery-easing/jquery.easing.min.js"></script>
 
-<!--     Custom scripts for all pages -->
+    <!-- Custom scripts for all pages-->
     <script src="resource/js/sb-admin-2.min.js"></script>
 
 <!-- </html> -->

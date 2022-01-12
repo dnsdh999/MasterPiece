@@ -48,7 +48,7 @@ var newEvent = function (start, end, eventType) {
             type: editType.val(),
             backgroundColor: editColor.val(),
             textColor: '#ffffff',
-//            allDay: false
+            allDay: false
         };
 
         if (eventData.start > eventData.end) {
@@ -71,7 +71,8 @@ var newEvent = function (start, end, eventType) {
             realEndDay = moment(eventData.end).format('YYYY-MM-DD');
 
             eventData.allDay = true;
-        }
+            
+        } 
 
         $("#calendar").fullCalendar('renderEvent', eventData, true);
         eventModal.find('input, textarea').val('');
@@ -84,6 +85,7 @@ var newEvent = function (start, end, eventType) {
             dataType: 'json',
             data: {eventData: JSON.stringify(eventData)},
             success: function (response) {
+            	console.log(eventData);
                 //DB연동시 중복이벤트 방지를 위한
                 $('#calendar').fullCalendar('removeEvents');
                 $('#calendar').fullCalendar('refetchEvents');

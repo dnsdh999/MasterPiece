@@ -132,7 +132,7 @@ var calendar = $('#calendar').fullCalendar({
 		        			obj.end = moment(data[i].cEndDate).add(1, 'days').format('YYYY-MM-DD');
 		        		} else {
 		        			obj.start = moment(data[i].cStartDate).format('YYYY-MM-DD HH:mm');
-		        			obj.end = moment(data[i].cEndDate).add(1, 'days').format('YYYY-MM-DD HH:mm');
+		        			obj.end = moment(data[i].cEndDate).format('YYYY-MM-DD HH:mm');
 		        		}
 		        		obj.description = data[i].calContent;
 		        		JSONArray.push(obj);

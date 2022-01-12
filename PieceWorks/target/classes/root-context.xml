@@ -16,20 +16,16 @@
 		<property name="configLocation" value="classpath:mybatis-config.xml"/>
 		<property name="dataSource" ref="dataSource"/>
 	</bean>
-
 	<bean id="sqlSessionTemplate" class="org.mybatis.spring.SqlSessionTemplate">
 		<constructor-arg ref="sqlSession"/>
 	</bean>
-
-	<bean id="transactionManager" class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
-		<property name="dataSource" ref="dataSource"/>
 	
 	<!-- email 관련 -->
 	<bean id="mailSender" class="org.springframework.mail.javamail.JavaMailSenderImpl">
 		<property name="host" value="smtp.gmail.com" />
 		<property name="port" value="587" />
-		<property name="username" value="wjddms0700@gmail.com" /> <!-- 본인 이메일 작성 -->
-		<property name="password" value="비번" /> <!-- 본인 비밀번호 작성 -->
+		<property name="username" value="younghwajin.90@gmail.com" /> <!-- 본인 이메일 작성 -->
+		<property name="password" value="MovieJin521!" /> <!-- 본인 비밀번호 작성 -->
 		<property name="javaMailProperties">
 			<props>
 				<prop key="mail.transport.protocol">smtp</prop>

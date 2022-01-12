@@ -19,7 +19,7 @@ var editEvent = function (event, element, view) {
     }
 
     if (event.allDay === true && event.end !== event.start) {
-        editEnd.val(moment(event.end).subtract(1, 'days').format('YYYY-MM-DD HH:mm'))
+        editEnd.val(moment(event.end)/*.subtract(1, 'days')*/.format('YYYY-MM-DD HH:mm'))
     } else {
         editEnd.val(event.end.format('YYYY-MM-DD HH:mm'));
     }
@@ -58,7 +58,7 @@ var editEvent = function (event, element, view) {
             statusAllDay = true;
             startDate = moment(editStart.val()).format('YYYY-MM-DD');
             endDate = moment(editEnd.val()).format('YYYY-MM-DD');
-            displayDate = moment(editEnd.val()).add(1, 'days').format('YYYY-MM-DD');
+            displayDate = moment(editEnd.val())./*add(1, 'days').*/format('YYYY-MM-DD');
         } else {
             statusAllDay = false;
             startDate = editStart.val();
@@ -94,7 +94,8 @@ var editEvent = function (event, element, view) {
         //일정 업데이트
         $.ajax({
             url: "editEvent.ca",
-            data: JSON.stringify(updateData),
+            data: {updateData : JSON.stringify(updateData)},
+            dataType: "json",
             success: function (response) {
                 alert('수정되었습니다.');
             },

@@ -2,64 +2,27 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="calendarMapper">
 	
-   	<insert id="insertEvent">
-		insert into calendar
-		values(seq_calendar.nextval, #{cCreator}, to_date(#{cStartDate}, 'YYYY-MM-DD HH24:MI:SS'), to_date(#{cEndDate}, 'YYYY-MM-DD HH24:MI:SS'), 
-				null, #{cCategory}, default, #{cTitle}, #{cContent}, #{cBgColor}, #{cAllday}, 1)
-	</insert>
-	
-	<select id="getEventList" resultMap="calendarResultSet">
-		select *
-		from calendar
-		where c_status='Y'
-	</select>
-	
-	<resultMap type="Calendar" id="calendarResultSet">
-		<id column="CALENDAR_NO" property="calendarNo"/>
-  		<result column="C_CREATOR" property="cCreator"/>
-  		<result column="C_START_DATE" property="cStartDate"/>
-  		<result column="C_END_DATE" property="cEndDate"/>
-  		<result column="C_MODIFY_DATE" property="cModifyDate"/>
-  		<result column="C_CATEGORY" property="cCategory"/>
-  		<result column="C_STATUS" property="cStatus"/>
-  		<result column="C_TITLE" property="cTitle"/>
-  		<result column="C_CONTENT" property="cContent"/>
-  		<result column="C_BGCOLOR" property="cBgColor"/>
-  		<result column="C_ALLDAY" property="cAllday"/>
-  		<result column="PROJECT_NO" property="projectNo"/>
-	</resultMap>
-	
-	<select id="selectCalList2" resultMap="calendarResultSet">
-		<![CDATA[
-			select cStartDate, cEndDate, cTitle
-			from calendar
-			where c_status='Y' and c_start_date <= #{data.endDate} and c_end_date >= #{data.startDate}
-		]]>
-	</select>
-  
 	<insert id="addEvent">
 		insert into calendar
 		values(seq_cal.nextval, #{cCreator}, to_date(#{cStartDate}, 'YYYY-MM-DD HH24:MI'), to_date(#{cEndDate}, 'YYYY-MM-DD HH24:MI'), sysdate, #{category}, default, #{calTitle}, #{calContent}, #{bgColor}, #{allDay}, 1)
 	</insert>
 	
 	<select id="getEventList" resultMap="EventResultSet">
-<!-- 		select * -->
-<!-- 		from (select * -->
-<!-- 			  from calendar -->
-<!-- 			  	   join member on(c_creator = email) -->
-<!-- 			  where c_start_date between to_date(#{cStartDate}, 'YYYY-MM-DD HH24:MI') -->
-<!-- 			  					 and to_date(#{cEndDate}, 'YYYY-MM-DD HH24:MI') -->
-<!-- 			  		or c_end_date between to_date(#{cStartDate}, 'YYYY-MM-DD HH24:MI') -->
-<!-- 			  					  and to_date(#{cEndDate}, 'YYYY-MM-DD HH24:MI')) -->
 		select *
-		from calendar
-			 join member on(c_creator = email)
-		where (c_start_date between to_date(#{cStartDate}, 'YYYY-MM-DD HH24:MI')
-			  			   and to_date(#{cEndDate}, 'YYYY-MM-DD HH24:MI')
-			  or c_end_date between to_date(#{cStartDate}, 'YYYY-MM-DD HH24:MI')
-			  				and to_date(#{cEndDate}, 'YYYY-MM-DD HH24:MI'))
-			  and c_status = 'Y'
-			  				
+		from (select *
+			  from calendar
+			  	   join member on(c_creator = email)
+			  where c_start_date between to_date(#{cStartDate}, 'YYYY-MM-DD HH24:MI')
+			  					 and to_date(#{cEndDate}, 'YYYY-MM-DD HH24:MI')
+			  		or c_end_date between to_date(#{cStartDate}, 'YYYY-MM-DD HH24:MI')
+			  					  and to_date(#{cEndDate}, 'YYYY-MM-DD HH24:MI'))
+<!-- 		select * -->
+<!-- 		from calendar -->
+<!-- 			 join member on(c_creator = email) -->
+<!-- 		where c_start_date between to_date(#{cStartDate}, 'YYYY-MM-DD HH24:MI') -->
+<!-- 			  			   and to_date(#{cEndDate}, 'YYYY-MM-DD HH24:MI') -->
+<!-- 			  or c_end_date between to_date(#{cStartDate}, 'YYYY-MM-DD HH24:MI') -->
+<!-- 			  				and to_date(#{cEndDate}, 'YYYY-MM-DD HH24:MI') -->
 	</select>
 	<resultMap type="Calendar" id="EventResultSet">
 		<id column="CALENDAR_NO" property="calendarNo"/>
@@ -77,12 +40,6 @@
 		<result column="PROJECT_NO" property="projectNo"/>
 	</resultMap>
 	
-	<update id="editEvent">
-		update calendar
-		set c_creator = #{cCreator}, c_title = #{calTitle}, c_start_date = #{cStartDate},
-			c_end_date = #{cEndDate}, c_category = #{category}, c_content = #{calContent},
-			c_bgcolor = #{bgColor}
-		where calendar_no = #{cNo}
-	</update>
+	
 
 </mapper>

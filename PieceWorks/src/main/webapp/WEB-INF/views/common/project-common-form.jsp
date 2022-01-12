@@ -9,8 +9,8 @@
 	<!-- Page Wrapper -->
 	<div id="wrapper">
 	
-		<!-- SIDEBAR : 필요에 따라 common-sidebar.jsp 혹은 project-sidebar.jsp 중 선택해서 include -->
-		<%@include file="../common/main-sidebar.jsp" %>       
+		<!-- SIDEBAR -->
+		<%@include file="../common/project-sidebar.jsp" %>       
 	
 		<!-- Content Wrapper -->
         <div id="content-wrapper" class="d-flex flex-column">
