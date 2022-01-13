@@ -10,8 +10,11 @@ import javax.servlet.http.HttpSession;
 
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
+import org.json.simple.parser.ParseException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -69,13 +72,13 @@ public class CalendarController {
 		
 		if(allDayCheck == true) {
 			allDay = "Y";
-		} else {
+		} else if(allDayCheck == null || allDayCheck == false){
 			allDay = "N";
 		}
 		
 		c.setAllDay(allDay);
 		
-		System.out.println(c);
+//		System.out.println(c);
 		
 		return caService.addEvent(c);
 	}
@@ -83,6 +86,7 @@ public class CalendarController {
 	@RequestMapping("eventList.ca")
 	public void getEventList(@RequestParam("startDate") String startDate,
 							   @RequestParam("endDate") String endDate,
+							   Model model,
 							   HttpServletResponse response) {
 		
 		Calendar c = new Calendar();
@@ -90,10 +94,10 @@ public class CalendarController {
 		c.setcStartDate(startDate);
 		c.setcEndDate(endDate);
 		
-		System.out.println(startDate);
-		System.out.println(endDate);
-		
 		ArrayList<Calendar> list = caService.getEventList(c);
+		
+		model.addAttribute("list", list);
+//		System.out.println(list);
 		
 		response.setContentType("application/json; charset=UTF-8");
 		
@@ -108,5 +112,103 @@ public class CalendarController {
 		
 	}
 	
+	 @RequestMapping(value="editEvent.ca", produces="application/json; charset=UTF-8")
+	 @ResponseBody
+	 public void editEvent(@RequestParam("updateData") String updateData, Model model, HttpServletRequest request) throws Exception {
+	      
+	      HttpSession session = request.getSession();
+	      Member loginUser = (Member)session.getAttribute("loginUser");
+	      
+	      JSONParser parser = new JSONParser();
+	      JSONObject jObj = (JSONObject)parser.parse(updateData);
+	      int id = Integer.parseInt(String.valueOf(jObj.get("id")));
+	      String title = (String)jObj.get("title");
+	      String start = (String)jObj.get("start");
+	      String end = (String)jObj.get("end");
+	      String description = (String)jObj.get("description");
+	      String type = (String)jObj.get("type");
+	      String bgColor = (String)jObj.get("backgroundColor");
+	      Boolean allDayCheck = (Boolean)jObj.get("allDay");
+	      String allDay = "";
+	      if(allDayCheck == true) {
+	         allDay = "Y";
+	      } else {
+	         allDay = "N";
+	      }
+	      
+	      Calendar c = new Calendar();
+	      
+	      c.setCalendarNo(id);
+	      c.setcCreator(loginUser.getEmail());
+	      c.setCalTitle(title);
+	      c.setcStartDate(start);
+	      c.setcEndDate(end);
+	      c.setCategory(type);
+	      c.setCalContent(description);
+	      c.setBgColor(bgColor);
+	      c.setAllDay(allDay);
+	      
+	      int result = caService.editEvent(c);
+	      
+	      model.addAttribute("Calendar", c);
+	      
+	      System.out.println(c);
+	      
+//	      if(result > 0) {
+//	         return "success";
+//	      } else {
+//	         return "fail";
+//	      }
+	 }
+	   
+	
+	@RequestMapping(value="deleteEvent.ca", produces="application/json; charset=UTF-8")
+	@ResponseBody
+	public void deleteEvent(@RequestParam("removeData") String removeData, HttpServletRequest request, Model model) throws ParseException {
+		
+		HttpSession session = request.getSession();
+		Member loginUser = (Member)session.getAttribute("loginUser");
+		
+		JSONParser parser = new JSONParser();
+		JSONObject jObj = (JSONObject)parser.parse(removeData);
+		int id = Integer.parseInt(String.valueOf(jObj.get("id")));
+		String title = (String)jObj.get("title");
+	    String start = (String)jObj.get("start");
+	    String end = (String)jObj.get("end");
+	    String description = (String)jObj.get("description");
+	    String type = (String)jObj.get("type");
+	    String bgColor = (String)jObj.get("backgroundColor");
+	    Boolean allDayCheck = (Boolean)jObj.get("allDay");
+	    String allDay = "";
+	    if(allDayCheck == true) {
+	    	allDay = "Y";
+		} else {
+			allDay = "N";
+		}
+	    
+	    Calendar c = new Calendar();
+	    
+	    c.setCalendarNo(id);
+	    c.setcCreator(loginUser.getEmail());
+	    c.setCalTitle(title);
+	    c.setcStartDate(start);
+	    c.setcEndDate(end);
+	    c.setCategory(type);
+	    c.setCalContent(description);
+	    c.setBgColor(bgColor);
+	    c.setAllDay(allDay);
+	    
+	    int result = caService.deleteEvent(c);
+	      
+	    model.addAttribute("Calendar", c);
+	     
+	    System.out.println(c);
+		
+//	    if(result > 0) {
+//	         return "success";
+//	    } else {
+//	    	return "fail";
+//	    }
+	}
 	
 }

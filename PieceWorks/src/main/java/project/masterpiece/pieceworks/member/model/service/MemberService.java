@@ -1,7 +1,5 @@
 package project.masterpiece.pieceworks.member.model.service;
 
-import java.util.HashMap;
-
 import project.masterpiece.pieceworks.member.model.vo.Member;
 
 public interface MemberService {
@@ -12,12 +10,19 @@ public interface MemberService {
 
 	/*
 	 * int duplicateEmail(String email);
-	 * 
-	 * Member findEmail(Member m);
-	 */
+	 */ 
 	int updateMember(Member m);
 
 	int deleteMember(String email);
+	
+	Member searchEmail(Member m);
+
+	Member searchPwd(Member m);
+
+	int updatePwd(Member m);
+
+
+
 
 
 }

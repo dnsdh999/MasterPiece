@@ -29,9 +29,6 @@ public class MemberServiceImpl implements MemberService{
 	/*
 	 * @Override public int duplicateEmail(String email) { return
 	 * mDAO.duplicateEmail(sqlSession, email); }
-	 * 
-	 * @Override public Member findEmail(Member m) { return
-	 * mDAO.findEmail(sqlSession, m); }
 	 */
 
 	@Override
@@ -43,6 +40,23 @@ public class MemberServiceImpl implements MemberService{
 	public int deleteMember(String email) {
 		return mDAO.deleteMember(sqlSession, email);
 	}
+
+	@Override 
+	public Member searchEmail(Member m) { 
+		return mDAO.searchEmail(sqlSession, m); 
+	}
+
+	@Override
+	public Member searchPwd(Member m) {
+		return mDAO.searchPwd(sqlSession, m);
+	}
+
+	@Override
+	public int updatePwd(Member m) {
+		return mDAO.updatePwd(sqlSession, m);
+	}
+
+
 
 	
 }

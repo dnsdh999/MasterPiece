@@ -74,10 +74,10 @@
                   	            </form>
                                 <hr>
                                 <div class="text-center">
-                                	<a class="small" href="fEmailView.me">이메일 찾기</a>
+                                	<a class="small" href="sEmailView.me">이메일 찾기</a>
                                 </div>
                                 <div class="text-center">
-                                	<a class="small" href="fPwdView.me">비밀번호 찾기</a>
+                                	<a class="small" href="sPwdView.me">비밀번호 찾기</a>
                                 </div>
                                 <div class=text-center>
                                 	<a class="small" href="signUpView.me">회원가입</a>

@@ -9,8 +9,12 @@ public interface CalendarService {
 
 	int addEvent(Calendar c);
 
-	int addEventHour(Calendar c);
-
 	ArrayList<Calendar> getEventList(Calendar c);
+
+	int editEvent(Calendar c);
+	
+	int deleteEvent(Calendar c);
+
+	
 
 }

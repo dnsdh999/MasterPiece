@@ -17,6 +17,8 @@
 <p><button onclick="location.href='project.com'">Project Sidebar</button></p>
 <p><button id="chattingDetailForm">chattingDetailForm</button></p>
 <p><button onclick="location.href='loginView.me'">Login</button></p>
+<p><button onclick="location.href='pDetailView.pr'">Project Detail</button></p>
+<p><button onclick="location.href='pUpdateView.pr'">Project Update</button></p>
 
 </body>
 <script>

@@ -19,10 +19,8 @@ public class MemberDAO {
 	/*
 	 * public int duplicateEmail(SqlSessionTemplate sqlSession, String email) {
 	 * return sqlSession.selectOne("memberMapper.duplicateEmail", email); }
-	 * 
-	 * public Member findEmail(SqlSessionTemplate sqlSession, Member m) { return
-	 * sqlSession.selectOne("memberMapper.findEmail", m); }
-	 */
+	 */ 
+	 
 
 	public int updateMember(SqlSessionTemplate sqlSession, Member m) {
 		return sqlSession.update("memberMapper.updateMember", m);
@@ -31,5 +29,18 @@ public class MemberDAO {
 	public int deleteMember(SqlSessionTemplate sqlSession, String email) {
 		return sqlSession.update("memberMapper.deleteMember", email);
 	}
+
+	public Member searchEmail(SqlSessionTemplate sqlSession, Member m) { 
+		return sqlSession.selectOne("memberMapper.searchEmail", m); 
+	}
+
+	public Member searchPwd(SqlSessionTemplate sqlSession, Member m) {
+		return sqlSession.selectOne("memberMapper.searchPwd", m);
+	}
+
+	public int updatePwd(SqlSessionTemplate sqlSession, Member m) {
+		return sqlSession.update("memberMapper.updatePwd", m);
+	}
+
 
 }

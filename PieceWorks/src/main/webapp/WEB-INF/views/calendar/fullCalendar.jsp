@@ -6,14 +6,27 @@
     <meta charset="utf-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <title>FullCalendar</title>
-    <link rel=" shortcut icon" href="resource/img/favicon.ico">
+    
+    <!-- Custom fonts for this template-->
+    <link href="resource/vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
+    <link
+        href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i"
+        rel="stylesheet">
+
+    <!-- Custom styles for this template-->
+    <link href="resource/css/sb-admin-2.min.css" rel="stylesheet">
+    
+<!--     <link rel=" shortcut icon" href="resource/img/favicon.ico"> -->
 
     <link rel="stylesheet" href="resource/vendor/css/fullcalendar.min.css" />
-    <link rel="stylesheet" href="resource/vendor/css/bootstrap.min.css">
+    <link rel="stylesheet" href="resource/vendor/css/calbootstrap.min.css">
     <link rel="stylesheet" href='resource/vendor/css/select2.min.css' />
     <link rel="stylesheet" href='resource/vendor/css/bootstrap-datetimepicker.min.css' />
 
     <link rel="stylesheet" href="resource/css/main.css">
+    
+    <!-- 얘를 수정해야 modal창 안뜨는거 + 크기 줄어드는거 해결 가능 -->
+    <link rel="stylesheet" href="resource/vendor/css/calbootstrap.min.css"> 
 </head>
 <body id="page-top">
 
@@ -30,13 +43,13 @@
             <div id="content">
             
 				<!-- TOPBAR -->
-				<%@include file="../common/topbar.jsp" %>
+				<%@include file="../common/project_topbar.jsp" %>
 	
 <!-- 기능 작성 시작 부분 -->
 					<!-- Begin Page Content -->
 					<div class="container-fluid">
                 	    <div class="d-sm-flex align-items-center justify-content-between mb-4">
-                    	    <h1 class="h3 mb-0 text-gray-800">메인 내용 제목</h1>
+                    	    <h1 class="h3 mb-0 text-gray-800">프로젝트 1 일정</h1>
                     	</div>
 
 						<div class="row">
@@ -70,7 +83,7 @@
 						                        <h4 class="modal-title"></h4>
 						                    </div>
 						                    <div class="modal-body">
-						
+												<input type="hidden" id="eventId">
 						                        <div class="row">
 						                            <div class="col-xs-12">
 						                                <label class="col-xs-4" for="edit-allDay">하루종일</label>
@@ -118,14 +131,12 @@
 						                            <div class="col-xs-12">
 						                                <label class="col-xs-4" for="edit-color">색상</label>
 						                                <select class="inputModal" name="color" id="edit-color">
-						                                    <option value="#D25565" style="color:#D25565;">빨간색</option>
-						                                    <option value="#9775fa" style="color:#9775fa;">보라색</option>
-						                                    <option value="#ffa94d" style="color:#ffa94d;">주황색</option>
-						                                    <option value="#74c0fc" style="color:#74c0fc;">파란색</option>
-						                                    <option value="#f06595" style="color:#f06595;">핑크색</option>
-						                                    <option value="#63e6be" style="color:#63e6be;">연두색</option>
-						                                    <option value="#a9e34b" style="color:#a9e34b;">초록색</option>
-						                                    <option value="#4d638c" style="color:#4d638c;">남색</option>
+						                                    <option value="#e74a3b" style="color:#e74a3b;">빨간색</option>
+						                                    <option value="#4e73df" style="color:#4e73df;">파란색</option>
+						                                    <option value="#858796" style="color:#858796;">회색</option>
+						                                    <option value="#1cc88a" style="color:#1cc88a;">초록색</option>
+						                                    <option value="#36b9cc" style="color:#36b9cc;">민트색</option>
+						                                    <option value="#f6c23e" style="color:#f6c23e;">노란색</option>
 						                                    <option value="#495057" style="color:#495057;">검정색</option>
 						                                </select>
 						                            </div>
@@ -170,30 +181,41 @@
 						                    </div>
 						                </div>
 						
-<!-- 						                <div class="col-lg-6"> -->
-<!-- 						                    <label for="calendar_view">등록자별</label> -->
-<!-- 						                    <div class="input-group"> -->
-<!-- 						                        <label class="checkbox-inline"><input class='filter' type="checkbox" value="주희" -->
-<!-- 						                                checked>주희</label> -->
-<!-- 						                        <label class="checkbox-inline"><input class='filter' type="checkbox" value="영화" -->
-<!-- 						                                checked>영화</label> -->
-<!-- 						                        <label class="checkbox-inline"><input class='filter' type="checkbox" value="지선" -->
-<!-- 						                                checked>지선</label> -->
-<!-- 						                        <label class="checkbox-inline"><input class='filter' type="checkbox" value="윤오" -->
-<!-- 						                                checked>윤오</label> -->
-<!-- 						                        <label class="checkbox-inline"><input class='filter' type="checkbox" value="현우" -->
-<!-- 						                                checked>현우</label> -->
-<!-- 						                        <label class="checkbox-inline"><input class='filter' type="checkbox" value="정은" -->
-<!-- 						                                checked>정은</label> -->
-<!-- 						                    </div> -->
-<!-- 						                </div> -->
+						                <div class="col-lg-6">
+						                    <label for="calendar_view">등록자별</label>
+						                    <div class="input-group">
+<%-- 						                    <c:forEach var="c" items="${ JSONArray }"> --%>
+<!-- 						                    <label class="checkbox-inline"> -->
+<%-- 						                    	<input class='filter' type="checkbox" value="${ c.nickName }" checked> --%>
+<!-- 						                    </label> -->
+						                    
+<%-- 						                    </c:forEach> --%>
+<%-- 						                    <c:out value="${ JSONArray }" /> --%>
+						                        <label class="checkbox-inline"><input class='filter' type="checkbox" value="${ loginUser.nickName }"
+						                                checked>${ loginUser.nickName }</label>
+ 						                        
+						                    </div>
+						                </div>
 						
 						            </div>
 						        </div>
 						        <!-- /.filter panel -->
 						    </div>
 						    <!-- /.container -->
+						    
+						    <!-- 먼저 전체 화면에 대한 js불러온 후 -->
+						    <!-- Bootstrap core JavaScript -->
+						    <script src="resource/vendor/jquery/jquery.min.js"></script>
+							<script src="resource/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+							
+							<!-- Core plugin JavaScript -->
+						    <script src="resource/vendor/jquery-easing/jquery.easing.min.js"></script>
 						
+							<!-- Custom scripts for all pages -->
+						    <script src="resource/js/sb-admin-2.min.js"></script>
+							
+							
+							<!-- 캘린더 관련 js 불러와야 정상적으로 실행됨 -->
 						    <script src="resource/vendor/js/jquery.min.js"></script>
 						    <script src="resource/vendor/js/bootstrap.min.js"></script>
 						    <script src="resource/vendor/js/moment.min.js"></script>

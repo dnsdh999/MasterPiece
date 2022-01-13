@@ -102,15 +102,48 @@ var calendar = $('#calendar').fullCalendar({
         startDate : moment(start).format('YYYY-MM-DD'),
         endDate   : moment(end).format('YYYY-MM-DD')
       },
-      success: function (response) {
-        var fixedDate = response.map(function (array) {
-          if (array.allDay && array.start !== array.end) {
-            array.end = moment(array.end).add(1, 'days'); // 이틀 이상 AllDay 일정인 경우 달력에 표기시 하루를 더해야 정상출력
-          }
-          return array;
-        });
-        callback(fixedDate);
-      }
+      success: function (data) {
+//		        var fixedDate = data.map(function (array) {
+//		          if (array.allDay && array.start !== array.end) {
+//		            array.end = moment(array.end).add(1, 'days'); // 이틀 이상 AllDay 일정인 경우 달력에 표기시 하루를 더해야 정상출력
+//		          }
+//		          return array;
+//		        });
+//		        callback(fixedDate);
+		        
+    	  		var JSONArray = new Array();
+		        if(data.length > 0){
+		        	for(var i in data){
+		        		var obj = new Object();
+		        		obj.eventId = data[i].calendarNo;
+//		        		$('#eventId').attr('value', obj.eventId);
+		        		obj.username = data[i].nickName;
+		        		obj.title = data[i].calTitle;
+		        		obj.type = data[i].category;
+		        		obj.backgroundColor = data[i].bgColor;
+		        		obj.textColor = '#ffffff';
+		        		if(data[i].allDay == 'Y'){
+		        			obj.allDay = true;
+		        		} else {
+		        			obj.allDay = false;
+		        		}
+		        		if(obj.allDay){
+		        			obj.start = moment(data[i].cStartDate).format('YYYY-MM-DD');
+		        			obj.end = moment(data[i].cEndDate)/*.add(1, 'days')*/.format('YYYY-MM-DD');
+		        		} else {
+		        			obj.start = moment(data[i].cStartDate).format('YYYY-MM-DD HH:mm');
+		        			obj.end = moment(data[i].cEndDate).format('YYYY-MM-DD HH:mm');
+		        		}
+		        		obj.description = data[i].calContent;
+		        		JSONArray.push(obj);
+		        	}
+		        	callback(JSONArray);
+		        }
+		      },
+	  error: function(data){
+		  console.log("fail to get Calendar")
+	  }
+		      
     });
   },
 
