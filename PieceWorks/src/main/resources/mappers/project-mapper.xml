@@ -7,4 +7,28 @@
 		values(seq_pno.nextval, #{pTitle}, #{pCreater}, #{pContent}, default, 
 			   to_date(#{pStartDate}, 'YYYY-MM-DD'), to_date(#{pEndDate}, 'YYYY-MM-DD'), sysdate, #{pNickName})
 	</insert>
+	
+	<select id="getListCount" resultType="_int">
+		select count(*)
+		from project
+	</select>
+	
+	<select id="selectList" resultMap="ProjectResultSet">
+		select project_title, m.nickname, p_status, p_start_date
+		from project p
+			join member m on (project_creater = email)
+		order by project_no desc
+	</select>
+	<resultMap type="Project" id="ProjectResultSet">
+		<id column="PROJECT_NO" property="projectNo"/>
+		<result column="PROJECT_TITLE" property="pTitle"/>
+		<result column="PROJECT_CREATER" property="pCreater"/>
+		<result column="PROJECT_CONTENT" property="pContent"/>
+		<result column="P_STATUS" property="pStatus"/>
+		<result column="P_START_DATE" property="pStartDate"/>
+		<result column="P_END_DATE" property="pEndDate"/>
+		<result column="CREATE_DATE" property="createDate"/>
+		<result column="PROJECT_NICKNAME" property="pNickName"/>
+	</resultMap>
+	
 </mapper>
