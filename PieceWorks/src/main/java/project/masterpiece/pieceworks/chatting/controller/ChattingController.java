@@ -35,7 +35,8 @@ import project.masterpiece.pieceworks.member.model.vo.Member;
 @SessionAttributes("today")
 @Controller
 public class ChattingController {
-
+	private boolean isCreate = false;
+	private int chatRoomNum = 0;
 	@Autowired
 	private ChattingService cService;
 	
@@ -63,9 +64,15 @@ public class ChattingController {
          int day = Integer.parseInt(dateArr[2]);
          
          sqlDate = new java.sql.Date(new GregorianCalendar(year,month,day).getTimeInMillis());
-	      
+         int projectNum = 1000;
+         ArrayList<Member> mArr = new ArrayList<Member>();
          
-         
+         mArr = cService.selectProjectMemList(projectNum);
+        
+         model.addAttribute("isCreate", isCreate);
+         model.addAttribute("chatRoomNum", chatRoomNum);
+         model.addAttribute("mArr", mArr);
+         isCreate = false;	chatRoomNum = 0;
          model.addAttribute("today", sqlDate);
          
          
@@ -98,11 +105,11 @@ public class ChattingController {
 	}
 	
 	@RequestMapping("chattingInvite.ch")
-	public ModelAndView chattingInvite(HttpServletRequest request,
+	public String chattingInvite(HttpServletRequest request,
 										@RequestParam("emails") String emails,
 										@RequestParam("roomName") String roomName,
 										@RequestParam("memberNames") String memberNames,
-										ModelAndView mv) {
+										Model model) {
 		
 		String userEmail = ((Member)request.getSession().getAttribute("loginUser")).getEmail();
 		
@@ -140,7 +147,9 @@ public class ChattingController {
 				int megResult = cService.insertFirstMeg(map);
 				
 				if(megResult > 0) {
-					mv.setViewName("redirect:chatList.ch");
+					isCreate = true;
+					chatRoomNum = cService.getRoomNum();
+					return "redirect:chatList.ch";
 				}else {
 					throw new ChattingException("실패하였습니다.");
 				}
@@ -151,7 +160,7 @@ public class ChattingController {
 			throw new ChattingException("실패하였습니다.");
 		}
 		
-		return mv;
+
 	}
 	
 	@RequestMapping("updateChatTitle.ch")

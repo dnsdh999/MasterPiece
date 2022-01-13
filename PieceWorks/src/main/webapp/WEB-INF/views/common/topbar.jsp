@@ -1,9 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"
-	pageEncoding="UTF-8" import="project.masterpiece.pieceworks.member.model.vo.Member" %>
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<%
-	 Member loginUser = (Member)session.getAttribute("loginUser");
 %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+
 	<!-- Topbar -->
 	<nav class="navbar navbar-expand navbar-light bg-white topbar mb-4 static-top shadow">
 
@@ -45,22 +43,9 @@
 				</form>
 			</div>
 		</li>
-	
-		<!-- Nav Item - Alerts -->
-		<li class="nav-item dropdown no-arrow mx-1">
-			<a class="nav-link dropdown-toggle" href="#" id="alertsDropdown" role="button"
-				data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-				<i class="fas fa-bell fa-fw"></i>
-				<!-- Counter - Alerts -->
-				<span class="badge badge-danger badge-counter">3+</span>
-			</a>
-			<!-- Dropdown - Alerts -->
-			<div class="dropdown-list dropdown-menu dropdown-menu-right shadow animated--grow-in"
-					aria-labelledby="alertsDropdown">
-				<h6 class="dropdown-header">
-					Alerts Center
-				</h6>
-				<a class="dropdown-item d-flex align-items-center" href="#">
+		
+		<!-- 
+		<a class="dropdown-item d-flex align-items-center">
 					<div class="mr-3">
 						<div class="icon-circle bg-primary">
 							<i class="fas fa-file-alt text-white"></i>
@@ -68,32 +53,123 @@
 					</div>
 					<div>
 					<div class="small text-gray-500">2021-12-29</div>
-						<span class="font-weight-bold">알림 내용 1(읽지 않은 경우 bold)</span>
+						<span class="font-weight-bold">남나눔님이 캘린더에 '프로젝트 시작일' 일정을 등록하였습니다.</span>
 					</div>
 				</a>
-				<a class="dropdown-item d-flex align-items-center" href="#">
-	 				<div class="mr-3">
-						<div class="icon-circle bg-success">
-							<i class="fas fa-donate text-white"></i>
-						</div>
-					</div>
-					<div>
-						<div class="small text-gray-500">2021-12-28</div>
-							알림 내용 2
-					</div>
-				</a>
-				<a class="dropdown-item d-flex align-items-center" href="#">
+		 -->
+	<script>
+		function clicktoggle(){
+			$.ajax({
+				url:'getAlarmList.al',
+				dataType:'json',
+				success:function(data){
+					console.log(data);
+					
+					$alarmList = $("#alaramListDiv");
+				    $alarmList.html("");
+				    
+					if(data.length>0){
+						for(var i in data){
+							$li = $([
+								'<a class="dropdown-item d-flex align-items-center">'
+		                        ,'<div class="mr-3">'
+		                        ,'    <div class="icon-circle bg-primary">'
+		                        ,'        <i class="fas fa-file-alt text-white"></i>'
+		                        ,'            </div>'
+		                        ,'			</div><div>'
+		                        ,'				<div class="small text-gray-500">' + data[i].alarmDate +'</div>'
+		                        ,'				<span class="font-weight-bold">'+ data[i].alarmContent +'</span>'				
+		                        ,'            		</div>'
+		                        ,'					</a>'
+		                    ].join(''));   
+		                  
+		                    
+		                    $alarmList.append($li);
+						}
+
+						
+					}
+				},
+				error:function(data){
+					console.log(data);
+				}
+			});
+			
+		}
+		
+		function getAlarmCount(){
+			$.ajax({
+				url:'getAlarmCount.al',
+				data:{projectNo:'${project.projectNo}'},
+				success:function(data){
+					console.log(data);
+					if(data.trim() > 0){
+						document.getElementById('alertCount').innerHTML = data;
+					}else{
+						document.getElementById('alarmCounterControl').innerHTML = '';
+						
+					}
+				},
+				error:function(data){
+					console.log(data);
+				}
+			});
+		}
+		
+		function showAllAlarm(){
+			var newWindow = window.open('allAlarmList.al', '알림' , 'width=380, height=500, resizable=yes, scrollbars=yes, left=200, top=100');
+			 newWindow.focus();
+		}
+		
+		$(function(){
+			getAlarmCount();
+			
+			setInterval(function(){
+				getAlarmCount();
+			}, 5000);
+		});
+	</script>
+		<!-- Nav Item - Alerts -->
+		<li class="nav-item dropdown no-arrow mx-1">
+			<a class="nav-link dropdown-toggle" onclick="clicktoggle();" id="alertsDropdown" role="button"
+				data-toggle="dropdown" aria-haspopup="false" aria-expanded="true">
+				<i class="fas fa-bell fa-fw"></i>
+				<!-- Counter - Alerts -->
+				<span id="alarmCounterControl">
+				<span class="badge badge-danger badge-counter" id="alertCount"></span>
+				</span>
+			</a>
+			<!-- Dropdown - Alerts -->
+			<div class="dropdown-list dropdown-menu dropdown-menu-right shadow animated--grow-in"
+					aria-labelledby="alertsDropdown">
+				<h3 class="dropdown-header">
+					Alerts Center
+				</h3>
+				<div id="alaramListDiv">
+				<!-- <a class="dropdown-item d-flex align-items-center">
 					<div class="mr-3">
-						<div class="icon-circle bg-warning">
-							<i class="fas fa-exclamation-triangle text-white"></i>
+						<div class="icon-circle bg-primary">
+							<i class="fas fa-file-alt text-white"></i>
 						</div>
 					</div>
 					<div>
-						<div class="small text-gray-500">2021-12-28</div>
-							알림 내용 3
-						</div>
+					<div class="small text-gray-500">2021-12-29</div>
+						<span class="font-weight-bold">남나눔님이 캘린더에 '프로젝트 시작일' 일정을 등록하였습니다.</span>
+					</div>
 				</a>
-				<a class="dropdown-item text-center small text-gray-500" href="#">모든 알림 보기</a>
+				<a class="dropdown-item d-flex align-items-center">
+					<div class="mr-3">
+						<div class="icon-circle bg-primary">
+							<i class="fas fa-file-alt text-white"></i>
+						</div>
+					</div>
+					<div>
+					<div class="small text-gray-500">2021-12-29</div>
+						<span class="font-weight-bold">남나눔님이 캘린더에 '프로젝트 시작일' 일정을 등록하였습니다.</span>
+					</div>
+				</a>-->
+				</div>
+				<a class="dropdown-item text-center small text-gray-500" onclick="showAllAlarm();">모든 알림 보기</a>
 			</div>
 		</li>
 	

@@ -7,12 +7,11 @@ import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-
-
 import project.masterpiece.pieceworks.chatting.model.dao.ChattingDAO;
 import project.masterpiece.pieceworks.chatting.model.vo.ChattingInvite;
 import project.masterpiece.pieceworks.chatting.model.vo.ChattingList;
 import project.masterpiece.pieceworks.chatting.model.vo.ChattingMessage;
+import project.masterpiece.pieceworks.member.model.vo.Member;
 
 @Service("cService")
 public class ChattingServiceImpl implements ChattingService{
@@ -86,6 +85,14 @@ public class ChattingServiceImpl implements ChattingService{
 		return cDAO.deleteChatJoinMem(sqlSession, chatNo);
 	}
 
-	
+	@Override
+	public int getRoomNum() {
+		return cDAO.getRoomNum(sqlSession);
+	}
+
+	@Override
+	public ArrayList<Member> selectProjectMemList(int projectNum) {
+		return cDAO.selectProjectMemList(sqlSession, projectNum);
+	}
 
 }

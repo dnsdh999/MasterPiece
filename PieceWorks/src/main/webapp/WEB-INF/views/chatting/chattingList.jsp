@@ -100,15 +100,28 @@
 	width:20px;
 	background-color:red;
 	display:inline-block;
-	margin-left:5px;
+	
 	}
 	
 	.unread{
 	display:inline-block;
+	margin-top:7px;
+	margin-left:25px;
 	}
 	.chatTitle{
 	display:inline-block;
 	}
+	.joinMem{
+	display:inline-block;
+	text-align:center;
+	}
+	
+	#navbarDropdown{
+		padding-top:5px;
+		padding-left:20px;
+	}
+	
+	
 </style>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/lodash.js/3.2.0/lodash.js"></script>
 <script src="http://code.jquery.com/jquery-latest.js"></script>
@@ -133,8 +146,8 @@ function getChattingList(){
                         ,'    <div class="chat_img"></div>'
                         ,'        <div class="chat_ib">'
                         ,'            <h5 class="innerh5">'
-                        ,'				<div class="chatTitle"></div><div class="unread"></div>'
-                        ,'				<span class="chat_date"><div class="chat_dateDiv"></div><a class="nav-link dropdown-toggle" href="#" id="navbarDropdown"'
+                        ,'				<strong><div class="chatTitle"></div></strong><div class="joinMem"><img src="resource/img/personemo.png" style="height:15px; width:20px; margin-bottom:5px; margin-left:7px;"/> ' + data[i].joinMemCount + '</div>'
+                        ,'				<span class="chat_date"><div class="chat_dateDiv"></div><div class="unread"></div><a class="nav-link dropdown-toggle" href="#" id="navbarDropdown"'
                         ,'				role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">'				
                         ,'            		more'
                         ,'					</a>'	
@@ -176,7 +189,13 @@ function getChattingList(){
                 	}
                 	
                 	if(data[i].sendDate >= "${ today }"){
-                		$li.find(".chat_dateDiv").text(data[i].sendTime);
+                		var timeFmV = '';
+                		var hours = 0;
+                		timeFmV += data[i].sendTime.substring(9,11)
+                		timeFmV += ' ' + data[i].sendTime.substring(0,2) + ':';
+                		timeFmV += data[i].sendTime.substring(3,5);
+                		
+                		$li.find(".chat_dateDiv").text(timeFmV);
                 	}else{
                 		$li.find(".chat_dateDiv").text(data[i].sendDate);
                 	}
@@ -213,7 +232,14 @@ function getChattingList(){
 
 $(function(){
 	getChattingList();
-	
+	var isCreate = ${ isCreate };
+	if(isCreate == true){
+		document.getElementById("chatNumber").value = "${ chatRoomNum }";
+		var newWindow = window.open('chattingDetailForm.ch', '채팅' , 'width=400, height=500, resizable=yes, scrollbars=yes, left=200, top=100');
+		 newWindow.focus();
+		 frm.target="채팅";
+		 frm.submit();
+	}
 	setInterval(function(){
 		getChattingList();
 	}, 5000);
@@ -222,7 +248,7 @@ $(function(){
 
 function chatDeatilGo(num){
 	document.getElementById("chatNumber").value = num;
-	 var newWindow = window.open('chattingDetailForm.ch', '채팅' , 'width=400, height=500, resizable=yes, scrollbars=yes, left=200, top=100');
+	 var newWindow = window.open('chattingDetailForm.ch', '채팅' , 'width=380, height=500, resizable=yes, scrollbars=yes, left=200, top=100');
 	 newWindow.focus();
 	 frm.target="채팅";
 	 frm.submit();
@@ -237,10 +263,6 @@ function modifyRoomName(num, title){
 	
 	document.getElementById("chatNumber").value=num;
 
-	//if(yesorno == true){
-	//	location.href="chattingInvite.ch?emails="+chk_id+"&roomName="+roomName+"&memberNames="+memberName;
-	//	alert("채팅방이 생성되었습니다.");
-	//}
 }
 
 function updateChatName(){
@@ -355,45 +377,19 @@ function deleteRoomClick(){
 	                        </div>
 	                        
 	                        <div class="dropdown-divider"></div>
-	                        
+	                        <c:forEach var="m" items="${ mArr }">
 	                        <div>
-					<input type="checkbox" name="checkChat" value="zz@zz" class="projectmem">
-					<input type="hidden" value="건강강" name="memname">
+					<input type="checkbox" name="checkChat" value="${ m.email }" class="projectmem">
+					<input type="hidden" value="${ m.nickName }" name="memname">
 						<svg
 						 xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-person-circle" viewBox="0 0 16 16">
 			  <path d="M11 6a3 3 0 1 1-6 0 3 3 0 0 1 6 0z"/>
 			  <path fill-rule="evenodd" d="M0 8a8 8 0 1 1 16 0A8 8 0 0 1 0 8zm8-7a7 7 0 0 0-5.468 11.37C3.242 11.226 4.805 10 8 10s4.757 1.225 5.468 2.37A7 7 0 0 0 8 1z"/>
 			</svg>
-					건강강</div>
+					${ m.nickName }</div>
 					<div class="dropdown-divider"></div>
-					<div><input type="checkbox" name="checkChat" value="xx@xx" class="projectmem">
-					<input type="hidden" value="대담도" name="memname">
-						<svg
-						 xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-person-circle" viewBox="0 0 16 16">
-			  <path d="M11 6a3 3 0 1 1-6 0 3 3 0 0 1 6 0z"/>
-			  <path fill-rule="evenodd" d="M0 8a8 8 0 1 1 16 0A8 8 0 0 1 0 8zm8-7a7 7 0 0 0-5.468 11.37C3.242 11.226 4.805 10 8 10s4.757 1.225 5.468 2.37A7 7 0 0 0 8 1z"/>
-			</svg>
-					대담도</div>
-					<div class="dropdown-divider"></div>
-					<div><input type="checkbox" name="checkChat" value="aa@aa" class="projectmem">
-					<input type="hidden" value="미미문" name="memname">
-						<svg
-						 xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-person-circle" viewBox="0 0 16 16">
-			  <path d="M11 6a3 3 0 1 1-6 0 3 3 0 0 1 6 0z"/>
-			  <path fill-rule="evenodd" d="M0 8a8 8 0 1 1 16 0A8 8 0 0 1 0 8zm8-7a7 7 0 0 0-5.468 11.37C3.242 11.226 4.805 10 8 10s4.757 1.225 5.468 2.37A7 7 0 0 0 8 1z"/>
-			</svg>
-					미미문
-				</div>
-				<div class="dropdown-divider"></div>
-					<div><input type="checkbox" name="checkChat" value="ee@ee" class="projectmem">
-					<input type="hidden" value="윤오남" name="memname">
-						<svg
-						 xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-person-circle" viewBox="0 0 16 16">
-			  <path d="M11 6a3 3 0 1 1-6 0 3 3 0 0 1 6 0z"/>
-			  <path fill-rule="evenodd" d="M0 8a8 8 0 1 1 16 0A8 8 0 0 1 0 8zm8-7a7 7 0 0 0-5.468 11.37C3.242 11.226 4.805 10 8 10s4.757 1.225 5.468 2.37A7 7 0 0 0 8 1z"/>
-			</svg>
-					윤오남
-				</div>
+					</c:forEach>
+				
 				<div class="chatBottom" align="right"><input class="chatAllBottom" type="checkbox" name="allCheck">전체선택 </div>
 				<script type="text/javascript">
 					$('.chatAllBottom').click(function(){
