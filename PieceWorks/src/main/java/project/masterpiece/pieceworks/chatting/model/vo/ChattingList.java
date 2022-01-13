@@ -16,7 +16,7 @@ public class ChattingList {
 	private Time sendTime;
 	private Date sendDate;
 	private ArrayList<JoinMember> joinMember;
-	
+	private int joinMemCount;
 	public ChattingList() {
 		// TODO Auto-generated constructor stub
 	}
@@ -27,11 +27,18 @@ public class ChattingList {
 
 
 
-	
+
+
+
+
+
+
+
+
 
 	public ChattingList(int chatNo, String chatStatus, String chatTitle, String chatCreator, int projectNo,
 			Date createDate, String chatMessage, int unreadCount, Time sendTime, Date sendDate,
-			ArrayList<JoinMember> joinMember) {
+			ArrayList<JoinMember> joinMember, int joinMemCount) {
 		super();
 		this.chatNo = chatNo;
 		this.chatStatus = chatStatus;
@@ -44,7 +51,53 @@ public class ChattingList {
 		this.sendTime = sendTime;
 		this.sendDate = sendDate;
 		this.joinMember = joinMember;
+		this.joinMemCount = joinMemCount;
 	}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+	public int getJoinMemCount() {
+		return joinMemCount;
+	}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+	public void setJoinMemCount(int joinMemCount) {
+		this.joinMemCount = joinMemCount;
+	}
+
+
+
+
+
+
+
 
 
 
@@ -214,7 +267,7 @@ public class ChattingList {
 		return "ChattingList [chatNo=" + chatNo + ", chatStatus=" + chatStatus + ", chatTitle=" + chatTitle
 				+ ", chatCreator=" + chatCreator + ", projectNo=" + projectNo + ", createDate=" + createDate
 				+ ", chatMessage=" + chatMessage + ", unreadCount=" + unreadCount + ", sendTime=" + sendTime
-				+ ", sendDate=" + sendDate + ", joinMember=" + joinMember + "]";
+				+ ", sendDate=" + sendDate + ", joinMember=" + joinMember + ", joinMemCount=" + joinMemCount + "]";
 	}
 
 
