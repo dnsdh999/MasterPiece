@@ -1,6 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -13,7 +13,6 @@
 <title>프로그램 목록</title>
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
-<!-- <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.8.2/css/all.min.css" /> -->
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 <meta name="description" content="">
@@ -54,7 +53,6 @@
             justify-content: center;
             display: flex;
         }
-        
     </style>
 </head>
 
@@ -93,10 +91,10 @@
 							</tr>
 							<c:forEach var="p" items="${ list }">
 							<tr>
-								<td align="center"><c:out value="${ p.pTitle }"/></td>
-								<td align="center"><c:out value="${ p.nickName }"/></td>
-								<td align="center"><c:out value="${ p.pStatus }"/></td>
-								<td align="center"><c:out value="${ p.pStartDate }"/></td>
+								<td align="center">${ p.pTitle }</td>
+								<td align="center">${ p.pNickName }</td>
+								<td align="center">${ p.pStatus }</td>
+								<td align="center">${ p.pStartDate }</td>
 							</tr>
 							</c:forEach>
 							<tr>
@@ -107,10 +105,11 @@
 							</table>
 							
 							<!-- 페이징 처리 -->
-							<div class="card-body paging-area">
+							<div class="paging-area">
 								<div class="buttons">
 									<nav aria-label="Page navigation example">
 										<ul class="pagination">
+											<!-- 이전 버튼 -->
 											<c:if test="${ pi.currentPage <= 1 }">
 						                        <li class="page-item disabled">
 						                        	<a class="page-link" aria-label="Previous">
@@ -128,7 +127,13 @@
 						            	        	</a>
 						            	        </li>
 						            	      </c:if>
+						            	      <!-- 페이지 -->
 						            	      <c:forEach var="page" begin="${ pi.startPage }" end="${ pi.endPage }">
+						            	      	<c:if test="${ page eq pi.currentPage }">
+	                                            	<li class="page-item">
+	                                            		<a class="page-link">${ page }</a>
+	                                            	</li>
+	                                            </c:if>
 												<c:if test="${ page ne pi.currentPage }">
 								                	<c:url var="pagination" value="pListView.pr">
 								                    	<c:param name="page" value="${ page }"/>
@@ -174,8 +179,8 @@
 			}).mouseout(function(){
 				$(this).parent().css({'color':'black', 'font-weight':'normal'});
 			}).click(function(){
-				var bId = $(this).parent().children().eq(0).text();
-				location.href="pDetailView.pr?projectNo=" + projectNo + '&page=' + ${pi.currentPage};
+				var pNo = $(this).parent().children().eq(0).text();
+				location.href="pDetailView.pr?projectNo=" + pNo + '&page=' + ${pi.currentPage};
 			});
 		});
 	</script>
