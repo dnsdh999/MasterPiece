@@ -18,7 +18,7 @@
           rel="stylesheet">
 
     <!-- Custom styles for this template-->
-    <link href="resource/css/sb-admin-2.css" rel="stylesheet">
+    <link href="resource/css/sb-admin-2.min.css" rel="stylesheet">
 
 
 </head>
@@ -33,7 +33,7 @@
     }
 
 </style>
-<body class="bg-gradient-primary" onload="alert('로그인 후 서비스 이용이 가능합니다.')">
+<body class="bg-gradient-primary"> <!-- onload="alert('로그인 후 서비스 이용이 가능합니다.')" -->
 
     <div class="container">
 
@@ -47,7 +47,8 @@
                         <div class="col-lg-6">
                         	<div class="p-5">
                             	<div class="text-center">
-                                	<h1 class="h1 text-gray-900 mb-4">PIECE WORKS</h1>
+                            		<img src="resource/img/logo_transparent.png" width="350px">
+<!--                                 	<h1 class="h1 text-gray-900 mb-4">PIECE WORKS</h1> -->
                             	</div>
                                	<form class="user" action="login.me" method="post">
                                 	<div class="user-input">
@@ -68,20 +69,20 @@
                                         </div>
                                         <div class="user-btn">
                                 	        <input type="submit" class="btn btn-primary btn-user btn-block" value="로그인">
-<!--                                             <input type="button" class="btn btn-cancle btn-user btn-block" value="취소" onclick="moveHome();"> -->
+                                        </div>
+                                        <div class="user-btn" style="margin-top: 10px">
+                                	        <input class="btn btn-info btn-user btn-block" value="회원 가입" onclick="location.href='signUpView.me'">
                                         </div>
                        	            </div>
                   	            </form>
                                 <hr>
                                 <div class="text-center">
-                                	<a class="small" href="sEmailView.me">이메일 찾기</a>
+                                	<a class="small" href="sEmailView.me">이메일 찾기 </a> /
+                                	<a class="small" href="sPwdView.me"> 비밀번호 찾기</a>
                                 </div>
-                                <div class="text-center">
-                                	<a class="small" href="sPwdView.me">비밀번호 찾기</a>
-                                </div>
-                                <div class=text-center>
-                                	<a class="small" href="signUpView.me">회원가입</a>
-                                </div>
+<!--                                 <div class=text-center> -->
+<!--                                 	<a class="small" href="signUpView.me">회원가입</a> -->
+<!--                                 </div> -->
                             </div>
                         </div>
                   	</div>

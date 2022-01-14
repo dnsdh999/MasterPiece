@@ -19,11 +19,18 @@
         rel="stylesheet">
 
     <!-- Custom styles for this template-->
-    <link href="resource/css/sb-admin-2.css" rel="stylesheet">
+    <link href="resource/css/sb-admin-2.min.css" rel="stylesheet">
 
 </head>
 <style>
 
+	@font-face {
+	    font-family: 'NEXON Lv1 Gothic OTF';
+	    src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_20-04@2.1/NEXON Lv1 Gothic OTF.woff') format('woff');
+	    font-weight: normal;
+	    font-style: normal;
+	}
+	
 	.col-lg-6{
 		max-width: 100%;
 		flex: 0px;
@@ -33,6 +40,10 @@
         width: 50%;
         margin: 0 auto;
     }
+    
+    .customfont1 {
+   		font-family: 'NEXON Lv1 Gothic OTF';
+   }
 
 </style>
 <body class="bg-gradient-primary">
@@ -51,9 +62,9 @@
                             <div class="col-lg-6">
                                 <div class="p-5">
                                     <div class="text-center">
-                                        <h1 class="h1 text-gray-900 mb-4">PIECE WORKS</h1>
+                                        <h1 class="h1 text-gray-900 mb-4 customfont1">PIECE WORKS</h1>
                                         <h1 class="h5 text-gray-900 mb-4">귀하의 이메일은</h1>
-										<p class="mb-4">${ email }입니다!</p> 
+										<p class="mb-4"><b>${ email }</b> 입니다!</p> 
                                     </div>
                                     <form class="user">
                                         <div class="user-input">
