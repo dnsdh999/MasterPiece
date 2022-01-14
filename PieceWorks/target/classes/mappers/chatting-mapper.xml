@@ -106,4 +106,31 @@
 	<select id="getRoomNum" resultType="_int">
 		select SEQ_CHATROOM.currval from dual
 	</select>
+	
+	<select id="cAddMemberList" resultType="project.masterpiece.pieceworks.chatting.model.vo.ChattingAddMember">
+		select nickname, project_member chatMember
+		from project_join
+		join member on(project_member = email)
+		where project_no = #{projectNo} and
+		project_member not in (select chat_member
+								from chat_room 
+								join chat_join using(chat_no)
+								where chat_no = #{chatNo}
+								)
+	</select>
+	<select id="projectNo" resultType="_int">
+		select project_no
+		from chat_room
+		where chat_no = #{chatNo}
+	</select>
+	
+	<insert id="insertChattingMember" parameterType="java.util.List">
+		
+	<foreach collection="list" item="item" open="INSERT ALL" close="select * from dual" separator=" ">
+			into chat_join(chat_No,chat_member ) values
+			(
+				#{item.chatNo},#{item.userUuid}
+			)
+	</foreach>
+	</insert>
 </mapper>

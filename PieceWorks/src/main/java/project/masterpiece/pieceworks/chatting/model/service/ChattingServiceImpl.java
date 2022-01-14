@@ -8,6 +8,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import project.masterpiece.pieceworks.chatting.model.dao.ChattingDAO;
+import project.masterpiece.pieceworks.chatting.model.vo.ChattingAddMember;
+import project.masterpiece.pieceworks.chatting.model.vo.ChattingCheckRoom;
 import project.masterpiece.pieceworks.chatting.model.vo.ChattingInvite;
 import project.masterpiece.pieceworks.chatting.model.vo.ChattingList;
 import project.masterpiece.pieceworks.chatting.model.vo.ChattingMessage;
@@ -94,5 +96,19 @@ public class ChattingServiceImpl implements ChattingService{
 	public ArrayList<Member> selectProjectMemList(int projectNum) {
 		return cDAO.selectProjectMemList(sqlSession, projectNum);
 	}
+	
+	@Override
+	public ArrayList<ChattingAddMember> cAddMemberList(HashMap<String, Integer> map) {
+		return cDAO.cAddMemberList(sqlSession,map);
+	}
 
+	@Override
+	public int selectProjectNo(int chatNo) {
+		return cDAO.selectProjectNo(sqlSession,chatNo);
+	}
+
+	@Override
+	public int insertChattingMember(ArrayList<ChattingCheckRoom> list) {
+		return cDAO.insertChattingMember(sqlSession,list);
+	}
 }

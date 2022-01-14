@@ -6,6 +6,8 @@ import java.util.HashMap;
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.stereotype.Repository;
 
+import project.masterpiece.pieceworks.chatting.model.vo.ChattingAddMember;
+import project.masterpiece.pieceworks.chatting.model.vo.ChattingCheckRoom;
 import project.masterpiece.pieceworks.chatting.model.vo.ChattingInvite;
 import project.masterpiece.pieceworks.chatting.model.vo.ChattingList;
 import project.masterpiece.pieceworks.chatting.model.vo.ChattingMessage;
@@ -77,5 +79,16 @@ public class ChattingDAO {
 	public ArrayList<Member> selectProjectMemList(SqlSessionTemplate sqlSession, int projectNum) {
 		return (ArrayList)sqlSession.selectList("memberMapper.selectProjectMemList", projectNum);
 	}
+	
+	public ArrayList<ChattingAddMember> cAddMemberList(SqlSessionTemplate sqlSession, HashMap<String, Integer> map) {
+		return (ArrayList)sqlSession.selectList("chattingMapper.cAddMemberList", map);
+	}
 
+	public int selectProjectNo(SqlSessionTemplate sqlSession, int chatNo) {
+		return sqlSession.selectOne("chattingMapper.projectNo", chatNo);
+	}
+
+	public int insertChattingMember(SqlSessionTemplate sqlSession, ArrayList<ChattingCheckRoom> list) {
+		return sqlSession.insert("chattingMapper.insertChattingMember",list);
+	}
 }
