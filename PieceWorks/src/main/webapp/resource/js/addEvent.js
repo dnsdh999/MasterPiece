@@ -86,9 +86,16 @@ var newEvent = function (start, end, eventType) {
             data: {eventData: JSON.stringify(eventData)},
             success: function (response) {
             	console.log(eventData);
+            	alert('일정이 추가되었습니다.');
+            	location.reload();
+            	
                 //DB연동시 중복이벤트 방지를 위한
                 $('#calendar').fullCalendar('removeEvents');
                 $('#calendar').fullCalendar('refetchEvents');
+                
+            },
+            error: function(response){
+            	console.log("실패");
             }
         });
     });

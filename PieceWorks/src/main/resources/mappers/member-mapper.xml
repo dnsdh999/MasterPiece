@@ -3,7 +3,7 @@
 <mapper namespace="memberMapper">
 	<insert id="insertMember">
 		insert into member
-		values(#{email}, #{pwd}, #{name}, null, #{phone}, sysdate, default)
+		values (#{email}, #{pwd}, #{name}, #{nickName}, #{phone}, sysdate, default)
 	</insert>
 	
   	<select id="memberLogin" resultMap="memberResultSet">

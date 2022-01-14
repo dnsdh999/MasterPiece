@@ -1,5 +1,4 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -18,10 +17,20 @@
           rel="stylesheet">
 
     <!-- Custom styles for this template-->
-    <link href="resource/css/sb-admin-2.css" rel="stylesheet">
+    <link href="resource/css/sb-admin-2.min.css" rel="stylesheet">
+    
+    <script src="resource/js/jquery-3.6.0.min.js"></script>
 
 </head>
 <style>
+
+	@font-face {
+	    font-family: 'NEXON Lv1 Gothic OTF';
+	    src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_20-04@2.1/NEXON Lv1 Gothic OTF.woff') format('woff');
+	    font-weight: normal;
+	    font-style: normal;
+	}
+	
 	.col-lg-7{
 		max-width:100%; 
 		flex:0px;
@@ -31,7 +40,11 @@
         width: 50%;
         margin: 0 auto;
     }
-	
+    
+   .customfont1 {
+   		font-family: 'NEXON Lv1 Gothic OTF';
+   }
+   
 </style>
 <body class="bg-gradient-primary">
 
@@ -48,48 +61,45 @@
                             <div class="col-lg-7">
                                 <div class="p-5">
                                     <div class="text-center">
-                                        <h1 class="h1 text-gray-900 mb-4">PIECE WORKS</h1>
-                                        <h1 class="h4 text-gray-900 mb-4">회원가입</h1>
+                                        <h1 class="h1 text-gray-900 mb-4 customfont1" style="margin-top: 20px; margin-bottom: 10px"> 회원 가입 </h1> <br>
                                     </div>
-                                    <form class="user" action="insert.me" method="post">
+                                    <form class="user" action="insert.me" method="post" style="padding: 7px;">
                                         <div class="user-input">
                                             <div class="form-group">
                                                 <input type="email" class="form-control form-control-user" id="email"
                                                     	name="email" placeholder="이메일 주소 입력" required>
                                             </div>
-                                            <div class="form-group row">
-                                                <div class="col-sm-6 mb-3 mb-sm-0">
-                                                    <input type="password" class="form-control form-control-user" id="pwd"
-                                                        	name="pwd" placeholder="비밀번호 입력" required>
-                                                </div>
-                                                <div class="col-sm-6">
-                                                    <input type="password" class="form-control form-control-user" id="pwdCheck"
-                                                        	name="pwdCheck" placeholder="비밀번호 확인" required>
-                                                </div>
+											<div class="form-group">
+                                            	<input type="password" class="form-control form-control-user" id="pwd"
+                                                       	name="pwd" placeholder="비밀번호 입력" required>
                                             </div>
-                                            <div class="form-group row">
-                                                <div class="col-sm-6 mb-3 mb-sm-0">
-                                                    <input type="text" class="form-control form-control-user" id="userName" 
-                                                   			name="name" placeholder="이름 입력" required>
-                                                </div>
-                                                <div class="col-sm-6">
-                                                    <input type="text" class="form-control form-control-user" id="phone" 
-                                                    		name="phone" placeholder="휴대전화 입력" required>
-                                                </div>
+											<div class="form-group">
+                                            	<input type="password" class="form-control form-control-user" id="pwdCheck"
+                                                       	name="pwdCheck" placeholder="비밀번호 확인" required>
                                             </div>
-                                            <input type="submit" id="submit" value="회원가입"
-                                            		class="btn btn-primary btn-user btn-block" 
-                                            		onclick="moveLogin();">
-                                            <input type="button" id="button" value="취소" 
-                                            		class="btn btn-cancle btn-user btn-block" 
-                                            		onclick="cancle();">
+                                            <div class="form-group">
+	                                            <input type="text" class="form-control form-control-user" id="userName" 
+                                               			name="name" placeholder="이름 입력" required>
+                                            </div>
+                                            <div class="form-group">
+    	                                        <input type="text" class="form-control form-control-user" id="phone" 
+                                                  		name="phone" placeholder="휴대전화 입력" required>
+                                            </div>
+                                            <div class="form-group">
+        	                                    <input type="text" class="form-control form-control-user" id="nickName" 
+                                                   		name="nickName" placeholder="닉네임 입력" required>
+                                            </div>
+                                            <input type="submit" id="submit" value="회원가입" class="btn btn-primary btn-user btn-block">
+                                            		<!-- onclick="moveLogin();" --> 
+                                            <input type="button" id="button" value="취소" class="btn btn-secondary btn-user btn-block" 
+                                            		onclick="cancel();">
                                     	</div>
                                     </form>
                                     
                                     <hr>
                                     
                                     <div class="text-center">
-                                        <a class="small" href="login.me">이미 계정이 있습니다!</a>
+                                        <a class="small" onclick="location.href='login.me'">이미 계정이 있습니다!</a>
                                     </div>
                                 </div>
                             </div>
@@ -111,6 +121,11 @@
     <script src="js/sb-admin-2.min.js"></script>
 
     <script>
+    
+	    function cancel(){
+	    	location.href = "loginView.me";
+	    }
+	    
         function moveLogin(){
             var login = confirm('회원가입이 완료되었습니다.');
             if(login){
@@ -118,33 +133,33 @@
             }
         }    
 
-        function cancle(){
-        	location.href = "login.jsp";
-        }
-        
-        $("#submit").on("click", function(){
+        $("#submit").on("click", function(){ 
 	        if($("#pwd").val()==""){
 	            alert("비밀번호를 입력해주세요.");
 	            $("#pwd").focus();
 	            return false;
-	          }
-	          if($("#pwdCheck").val()==""){
-	              alert("비밀번호를 확인해주세요.");
-	              $("#pwdCheck").focus();
-	              return false;
-	          }
-	          if($("#pwd").val() != $("#pwdCheck").val()){
-	              alert("비밀번호가 서로 다릅니다. 비밀번호를 확인해 주세요."); 
-	              $("#pwd").focus();
-	              return false; 
-	          }
-	          if ($("#pwd").val().length < 8) {
-	              alert("비밀번호는 8자 이상으로 설정해야 합니다.");
-	              $("#pwd").val("").focus();
-	              return false;
-	          }
-        }
-    </script>
+	        }
+	        
+	        if($("#pwdCheck").val()==""){
+	            alert("비밀번호를 확인해주세요.");
+	            $("#pwdCheck").focus();
+	            return false;
+	        }
+	          
+	        if($("#pwd").val() != $("#pwdCheck").val()){
+	            alert("비밀번호가 서로 다릅니다. 비밀번호를 확인해 주세요."); 
+	            $("#pwd").focus();
+	            return false; 
+	        }
+	        
+	        if ($("#pwd").val().length < 8) {
+	            alert("비밀번호는 8자 이상으로 설정해야 합니다.");
+	            $("#pwd").val("").focus();
+	            return false;
+	        }
+        });
+    
+        </script>
     
 
 </body>
