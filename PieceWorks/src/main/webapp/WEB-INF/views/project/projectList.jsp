@@ -80,11 +80,14 @@
     <div class="container-fluid" style="width:80%">
     	<div class="row">
     		<div class="col-12 col-md-12 col-lg-12">
+    		
     			<div class="card">
     				<div class="card-body">
+    					<button class="btn btn-primary create" onclick="location.href='pInsertView.pr';">새 프로젝트 생성</button>
+						<br><br>
 						<table class="table" id="tb">
 							<tr>
-								<th style="width: 300px;">프로젝트 명</th>
+								<th style="width: 250px;">프로젝트 명</th>
 					            <th style="width: 100px;">생성자</th>
 					            <th style="width: 110px;">진행상황</th>
 					            <th style="width: 170px;">시작 날짜</th>
@@ -97,13 +100,8 @@
 								<td align="center">${ p.pStartDate }</td>
 							</tr>
 							</c:forEach>
-							<tr>
-								<td colspan="6" align="right" id="buttonTab">
-									<button class="btn btn-primary create" onclick="location.href='pInsertView.pr';">새 프로젝트 생성</button>
-								</td>
-							</tr>
 							</table>
-							
+														
 							<!-- 페이징 처리 -->
 							<div class="paging-area">
 								<div class="buttons">
@@ -179,8 +177,8 @@
 			}).mouseout(function(){
 				$(this).parent().css({'color':'black', 'font-weight':'normal'});
 			}).click(function(){
-				var pNo = $(this).parent().children().eq(0).text();
-				location.href="pDetailView.pr?projectNo=" + pNo + '&page=' + ${pi.currentPage};
+				var title = $(this).parent().children().eq(0).text();
+				location.href="pDetailView.pr?title=" + title + '&page=' + ${pi.currentPage};
 			});
 		});
 	</script>
