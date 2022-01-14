@@ -36,4 +36,9 @@ public class CalendarServiceImpl implements CalendarService {
 		return cDAO.deleteEvent(c);
 	}
 
+	@Override
+	public ArrayList<Calendar> callProcedure() {
+		return cDAO.callProcedure();
+	}
+
 }

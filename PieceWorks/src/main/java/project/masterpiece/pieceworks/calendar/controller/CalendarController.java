@@ -94,13 +94,14 @@ public class CalendarController {
 		c.setcStartDate(startDate);
 		c.setcEndDate(endDate);
 		
+		ArrayList<Calendar> pList = caService.callProcedure(); //이벤트 리스트 가져오기 전에 프로시저 실행(end_date가 오늘날짜보다 전인것은 완료처리)
+		
 		ArrayList<Calendar> list = caService.getEventList(c);
 		
 		model.addAttribute("list", list);
-//		System.out.println(list);
 		
 		response.setContentType("application/json; charset=UTF-8");
-		
+			
 		Gson gson = new Gson();
 		try {
 			gson.toJson(list, response.getWriter());
@@ -109,7 +110,7 @@ public class CalendarController {
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
-		
+	
 	}
 	
 	 @RequestMapping(value="editEvent.ca", produces="application/json; charset=UTF-8")

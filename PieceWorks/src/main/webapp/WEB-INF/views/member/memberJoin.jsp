@@ -99,7 +99,7 @@
                                     <hr>
                                     
                                     <div class="text-center">
-                                        <a class="small" onclick="location.href='login.me'">이미 계정이 있습니다!</a>
+                                        <a class="small" onclick="location.href='loginView.me'">이미 계정이 있습니다!</a>
                                     </div>
                                 </div>
                             </div>
