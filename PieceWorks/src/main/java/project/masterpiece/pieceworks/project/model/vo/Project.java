@@ -6,6 +6,7 @@ public class Project {
 	private int projectNo;
 	private String pTitle;
 	private String pCreater;
+	private String pNickName;
 	private String pContent;
 	private String pStatus;
 	private Date pStartDate;
@@ -14,12 +15,13 @@ public class Project {
 	
 	public Project() {}
 
-	public Project(int projectNo, String pTitle, String pCreater, String pContent, String pStatus, Date pStartDate,
-			Date pEndDate, Date createDate) {
+	public Project(int projectNo, String pTitle, String pCreater, String pNickName, String pContent, String pStatus,
+			Date pStartDate, Date pEndDate, Date createDate) {
 		super();
 		this.projectNo = projectNo;
 		this.pTitle = pTitle;
 		this.pCreater = pCreater;
+		this.pNickName = pNickName;
 		this.pContent = pContent;
 		this.pStatus = pStatus;
 		this.pStartDate = pStartDate;
@@ -49,6 +51,14 @@ public class Project {
 
 	public void setpCreater(String pCreater) {
 		this.pCreater = pCreater;
+	}
+
+	public String getpNickName() {
+		return pNickName;
+	}
+
+	public void setpNickName(String pNickName) {
+		this.pNickName = pNickName;
 	}
 
 	public String getpContent() {
@@ -93,8 +103,9 @@ public class Project {
 
 	@Override
 	public String toString() {
-		return "Project [projectNo=" + projectNo + ", pTitle=" + pTitle + ", pCreater=" + pCreater + ", pContent="
-				+ pContent + ", pStatus=" + pStatus + ", pStartDate=" + pStartDate + ", pEndDate=" + pEndDate
-				+ ", createDate=" + createDate + "]";
+		return "Project [projectNo=" + projectNo + ", pTitle=" + pTitle + ", pCreater=" + pCreater + ", pNickName="
+				+ pNickName + ", pContent=" + pContent + ", pStatus=" + pStatus + ", pStartDate=" + pStartDate
+				+ ", pEndDate=" + pEndDate + ", createDate=" + createDate + "]";
 	}
+
 }

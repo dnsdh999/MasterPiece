@@ -5,7 +5,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>프로젝트 생성</title>
+<title>프로젝트 수정</title>
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <!-- <script src="${ contextPath }/resources/js/jquery-3.6.0.min.js"></script>  -->
 
@@ -13,10 +13,12 @@
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
 
 <style>
-	label {font-weight: bold;}
-	#projectInsert {margin-top: 20px; margin-bottom: 20px;}
-	#projectContent {min-height: 500px;}
+	#projectUpdate {margin-top: 20px; margin-bottom: 20px;}
+	#projectWriter:focus {outline: 0 none;}
+	#projectContent {height: 500px;}
 	#startDate, #endDate {width: 50%;}
+	label {font-weight: bold;}
+	
 	#titleImg {width: 150px; height: 150px;}
 </style>
 
@@ -26,7 +28,7 @@
 <meta name="author" content="">
 
 <!-- Custom fonts for this template-->
-<link href="resource/vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
+<link href="vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
 <link href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i" rel="stylesheet">
 
 <!-- Custom styles for this template-->
@@ -34,7 +36,6 @@
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/lodash.js/3.2.0/lodash.js"></script>
 <script src="http://code.jquery.com/jquery-latest.js"></script>
-
 </head>
 <body id="page-top">
 	
@@ -42,7 +43,7 @@
 	<div id="wrapper">
 	
 		<!-- SIDEBAR -->
-		<c:import url="../common/main-sidebar.jsp" />
+		<c:import url="../common/project-sidebar.jsp" />      
 	
 		<!-- Content Wrapper -->
         <div id="content-wrapper" class="d-flex flex-column">
@@ -51,39 +52,33 @@
             <div id="content">
             
 				<!-- TOPBAR -->
-				<c:import url="../common/topbar.jsp" />
-
+				<c:import url="../common/project_topbar.jsp" />
 <!-------------------------------------------------------------------- 컨텐츠 영역 -------------------------------------------------------------------->
-			<div id="projectInsert" class="container text-gray-800">
-				<form action="pInsert.pr" method="post" class="row g-3" onsubmit="return send();">
-					<h3>새 프로젝트 생성</h3>
+			<div id="projectUpdate" class="container text-gray-800">
+				<form action="pUpdate.pr" method="post" class="row g-3" onsubmit="return send();">
+					<h3>프로젝트 수정</h3>
 					<div class="col-12">
 						<label for="projectName" class="form-label">프로젝트명</label>
-						<input type="text" class="form-control text-gray-800" id="projectTitle" name="pTitle">
+						<input type="text" class="form-control text-gray-800" id="projectTitle" name="pTitle" value="${ pr.pTitle }">
 					</div>
 					<div class="col-12">
 						<label for="projectWriter" class="form-label">생성자</label>
-						<input type="text" class="form-control text-gray-900" id="projectWriter" name="pCreater" value="${ sessionScope.loginUser.email }" readonly>
-					</div>
-					<div class="col-12">
-						<label for="wirterNickName" class="form-label">닉네임</label>
-						<input type="text" class="form-control text-gray-800" id="wirterNickName" name="pNickName" value="${ sessionScope.loginUser.nickName }" readonly>
+						<input type="text" class="form-control text-gray-800" id="projectWriter" name="pCreater" value="${ p.pCreater }" readonly>
 					</div>
 					<div class="col-12">
 						<label for="projectContent" class="form-label">프로젝트 내용</label>
-						<textarea class="form-control text-gray-800" id="projectContent" name="pContent" style="resize: none;"></textarea>
+						<textarea class="form-control text-gray-800" id="projectContent" name="pContent" style="resize: none;">${ p.pContent }</textarea>
 					</div>
 					<div class="col-12">
 						<label for="startDate" class="form-label">프로젝트 시작일</label>
-						<input type="date" class="form-control text-gray-800" id="startDate" name="pStartDate" max="9999-12-31">
+						<input type="date" class="form-control text-gray-800" id="startDate" name="pStartDate" max="9999-12-31" value="${ p.pStartDate }">
 					</div>
 					<div class="col-12" id="projectBtn">
 						<label for="endDate" class="form-label">프로젝트 종료일</label>
-						<input type="date" class="form-control text-gray-800" id="endDate" name="pEndDate" max="9999-12-31">
+						<input type="date" class="form-control text-gray-800" id="endDate" name="pEndDate" max="9999-12-31" value="${ p.pEndDate }">
 					</div>
 					<div class="d-grid gap-2 col-12 d-md-block" align="center">
-						<button type="submit" class="btn btn-primary">등록</button> 
-						<button type="button" class="btn btn-secondary" onclick="history.back();">취소</button>
+						<button type="submit" class="btn btn-primary">수정</button> <button type="button" class="btn btn-secondary" onclick="history.back();">취소</button>
 					</div>
 				</form>
 			</div>
@@ -116,7 +111,8 @@
 				};
 			</script>
 <!-------------------------------------------------------------------- 컨텐츠 영역 -------------------------------------------------------------------->
-			<!-- End of Main content -->
+
+<!-- End of Main content -->
 			
 			<!-- Footer -->
 			<c:import url="../common/footer.jsp" />
@@ -127,6 +123,5 @@
 		</div>
 	<!-- Page Wrapper 끝 -->    
 	</div>
-
 </body>
 </html>
