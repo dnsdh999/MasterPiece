@@ -39,14 +39,14 @@ public class ProjectController {
 		int result = pService.insertProject(p);
 		
 		if(result > 0) {
-			return "projectList";
+			return "redirect:pListView.pr";
 		} else {
 			throw new ProjectException("프로젝트 생성에 실패하였습니다.");
 		}
 	}
 	
 	// 프로젝트 목록
-	@RequestMapping("pList.pr")
+	@RequestMapping("pListView.pr")
 	public String projcetList(@RequestParam(value="page", required=false) Integer page, Model model) {
 		
 		int currentPage = 1;
@@ -60,6 +60,9 @@ public class ProjectController {
 		
 		ArrayList<Project> list =  pService.selectList(pi);
 
+		System.out.println(pi);
+		System.out.println(list);
+		
 		if(list != null) {
 			model.addAttribute("pi", pi);
 			model.addAttribute("list", list);
@@ -67,14 +70,14 @@ public class ProjectController {
 			throw new ProjectException("프로젝트 목록 조회에 실패하였습니다.");
 		}
 		
-		return "projcetList";
+		return "projectList";
 	}
 
 	// 프로젝트 목록 페이지 이동
-	@RequestMapping("pListView.pr")
-	public String pListView() {
-		return "projectList";
-	}
+//	@RequestMapping("pListView.pr")
+//	public String pListView() {
+//		return "projectList";
+//	}
 	
 	
 	// 프로젝트 상세 페이지 이동
