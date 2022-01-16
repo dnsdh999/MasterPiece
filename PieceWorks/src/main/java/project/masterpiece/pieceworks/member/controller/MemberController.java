@@ -1,7 +1,10 @@
 package project.masterpiece.pieceworks.member.controller;
 
+import java.io.IOException;
+
 import javax.mail.MessagingException;
 import javax.mail.internet.MimeMessage;
+import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,6 +17,7 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.bind.support.SessionStatus;
 import org.springframework.web.servlet.ModelAndView;
@@ -158,14 +162,15 @@ public class MemberController {
 	// 메일 전송
 	public void sendEmail(String email, int random) {
 		
-		String subject = "[MasterPiece] 이메일 인증번호 입니다.";
+		String subject = "[PIECE WORKS] 이메일 인증번호입니다.";
 		String content = "<div style='text-align:center;'>"
-							+ "<h1>인증번호<h1><br><hr style='width: 50%;'>"
-							+ "<h3>안녕하십니까. MasterPiece입니다.<h3><br>"
-							+ "<div style='text-align:center;'>요청하신 인증번호는<b>"+ random +"</b>입니다.</div>"
-							+ "진행 중인 화면으로 돌아가 인증번호를 입력해주세요."
+							+ "<h1>[인증번호]<h1><hr style='width: 50%;'>"
+							+ "<h3>안녕하십니까!<h3>"
+							+ "<h3>PIECE WORKS입니다.<h3><br>"
+							+ "<div style='text-align:center;'>요청하신 인증번호는 <b>"+ random +"</b>입니다.</div>"
+							+ "진행 중인 화면으로 돌아가 인증번호를 입력해주세요.<br>"
 							+ "<br><hr style='width: 50%;'><br>"
-							+ "MasterPiece를 이용해 주셔서 감사합니다.</div>";
+							+ "PIECE WORKS를 이용해 주셔서 감사합니다.</div>";
 		String from = "wjddms0700@gmail.com";
 		String to = email;
 		
@@ -226,5 +231,17 @@ public class MemberController {
 		} else {
 			throw new MemberException("비밀번호 재설정에 실패하였습니다.");
 		}
+	}
+	
+	// 이메일 중복 확인
+	@ResponseBody
+	@RequestMapping("emailCheck.me")
+	public String duplicateEmail(String email) {
+		
+		int result = mService.duplicateEmail(email);
+		
+		System.out.println(result);
+		
+		return result > 0 ? "NoDup" : "Dup";
 	}
 }

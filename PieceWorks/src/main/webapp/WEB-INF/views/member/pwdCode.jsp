@@ -9,10 +9,10 @@
     <meta name="description" content="">
     <meta name="author" content="">
 
-    <title>Forgot Password Code</title>
+    <title>PIECE WORKS</title>
 
     <!-- Custom fonts for this template-->
-    <link href="vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
+    <link href="resource/vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
     <link
         href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i"
         rel="stylesheet">
@@ -55,30 +55,29 @@
                                     <div class="text-center">
                                         <h1 class="h1 text-gray-900 mb-4">PIECE WORKS</h1>
                                         <h1 class="h4 text-gray-900 mb-2">인증번호</h1>
-                                        <span id="timer"></span>
+                                        <span id="timer" class="mb-2"></span> <br><br>
                                     </div>
-                                    <form class="user" action="pwdCode.me" method="post">
+                                    <form class="user" action="pwdCode.me" method="post" onsubmit="return randomNumCheck();">
                                         <div class="user-input">
                                             <div class="form-group">
-	                                            <input type="hidden" id="random" value="${ random }" />
+	                                            <input type="hidden" id="random" name="random" value="${ random }" />
 	                                            <input type="text" class="form-control form-control-user"
-	                                                    id="code" placeholder="인증번호를 입력하세요">
-	                                            <br>
+	                                                    id="code" name="code" placeholder="인증번호를 입력하세요">
   	                                    	</div>
                                         	<div>
                                         		<input type="hidden" name="email" value="${ email }">
                                         	</div>
                                             <input type="submit" class="btn btn-primary btn-user btn-block" value="확인">
-                                            <input type="button" class="btn btn-cancle btn-user btn-block" value="취소" onclick="cancle();">
+                                            <input type="button" class="btn btn-secondary btn-user btn-block" value="취소" onclick="cancel();">
                                         </div>
                                     </form>
-                                    <hr>
-                                    <div class="text-center">
-                                        <a class="small" href="signUpView.me">계정이 없으신가요?</a>
-                                    </div>
-                                    <div class="text-center">
-                                        <a class="small" href="loginView.me">이미 계정이 있습니다!</a>
-                                    </div>
+<!--                                     <hr> -->
+<!--                                     <div class="text-center"> -->
+<!--                                         <a class="small" href="signUpView.me">계정이 없으신가요?</a> -->
+<!--                                     </div> -->
+<!--                                     <div class="text-center"> -->
+<!--                                         <a class="small" href="loginView.me">이미 계정이 있습니다!</a> -->
+<!--                                     </div> -->
                                 </div>
                             </div>
                         </div>
@@ -89,17 +88,17 @@
     </div>
 
     <!-- Bootstrap core JavaScript-->
-    <script src="vendor/jquery/jquery.min.js"></script>
-    <script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+    <script src="resource/vendor/jquery/jquery.min.js"></script>
+    <script src="resource/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
 
     <!-- Core plugin JavaScript-->
-    <script src="vendor/jquery-easing/jquery.easing.min.js"></script>
+    <script src="resource/vendor/jquery-easing/jquery.easing.min.js"></script>
 
     <!-- Custom scripts for all pages-->
-    <script src="js/sb-admin-2.min.js"></script>
+    <script src="resource/js/sb-admin-2.min.js"></script>
 
     <script>
-        function cancle(){
+        function cancel(){
             location.href = "loginView.me";
         }
         
@@ -113,7 +112,6 @@
             , timer : ""
             , domId : ""
             , fnTimer : function(){
-            	debugger;
                 var m = Math.floor(this.comSecond / 60) + "분 " + (this.comSecond % 60) + "초";	// 남은 시간 계산
                 this.comSecond--;					// 1초씩 감소
                 console.log(m);
@@ -132,7 +130,7 @@
         $(document).ready(function(){
           var AuthTimer = new $ComTimer()
           AuthTimer.comSecond = 180;
-          AuthTimer.fnCallback = function(){alert("다시인증을 시도해주세요.")}
+          AuthTimer.fnCallback = function(){alert("다시 인증을 시도해주세요.")};
           AuthTimer.timer =  setInterval(function(){AuthTimer.fnTimer()},1000);
           AuthTimer.domId = document.getElementById("timer");
         });
@@ -140,7 +138,7 @@
         	
         	AuthTimer.comSecond = 180;
         	AuthTimer.fnCallback = function(){
-        			alert("다시인증을 시도해주세요.");
+        			alert("다시 인증을 시도해주세요.");
         			location.href="findPwdForm.me";
         	};
         	AuthTimer.timer =  setInterval(function(){AuthTimer.fnTimer()},1000);
@@ -151,14 +149,13 @@
         		var ran1 = document.getElementById("random").value;
         		var ran2 = document.getElementById("code").value;
         		
-        		
         		console.log(count);
         		
         		if(ran1 == ran2){
         			return true;
         		} else {
         			if(count > 3){
-        				alert("인증번호가 일치하지 않습니다. 재시도 가능 횟수를 초과하여 메일인증 페이지로 돌아갑니다.");
+        				alert("인증번호가 일치하지 않습니다. 재시도 가능 횟수를 초과하여 메일 인증 페이지로 돌아갑니다.");
         				location.href="sPwdView.me";
         				return false;
         			}

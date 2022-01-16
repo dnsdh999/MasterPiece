@@ -9,16 +9,16 @@
     <meta name="description" content="">
     <meta name="author" content="">
 
-    <title>Search Password</title>
+    <title>PIECE WORKS</title>
 
     <!-- Custom fonts for this template-->
-    <link href="vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
+    <link href="resource/vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
     <link
         href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i"
         rel="stylesheet">
 
     <!-- Custom styles for this template-->
-    <link href="resource/css/sb-admin-2.min.css" rel="stylesheet">
+    <link href="resource/css/sb-admin-2.css" rel="stylesheet">
 </head>
 <style>
 
@@ -59,8 +59,7 @@
                                 <div class="p-5">
                                     <div class="text-center">
                                         <h1 class="h1 text-gray-900 mb-4 customfont1">비밀번호를 잊으셨나요?</h1>
-<!--                                         <h1 class="h4 text-gray-900 mb-2"></h1> -->
-                                        <p class="mb-4">아래에 이름과 이메일 주소를 입력하면 비밀번호 재설정으로 넘어갑니다.</p>
+                                        <p class="mb-4">가입하신 이름과 이메일 주소를 입력하면 비밀번호 재설정으로 넘어갑니다.</p>
                                     </div>
                                     <form class="user" action="sPwd.me" method="post">
                                         <div class="user-input">
@@ -73,7 +72,7 @@
 	                                                    id="email" aria-describedby="emailHelp" name="email"
 	                                                    placeholder="이메일을 입력하세요" required>
                                             </div>
-                                            <input type="submit" class="btn btn-primary btn-user btn-block" onclick="moveForgotCode();" value="비밀번호 찾기">
+                                            <input type="submit" class="btn btn-primary btn-user btn-block" value="비밀번호 찾기">
                                             <input type="button" class="btn btn-secondary btn-user btn-block" onclick="cancel();" value="취소">
                                         </div>
                                     </form>
@@ -81,9 +80,6 @@
                                     <div class="text-center">
                                         <a class="small" href="signUpView.me">PIECE WORKS의 회원이 아니신가요?</a>
                                     </div>
-<!--                                     <div class="text-center"> -->
-<!--                                         <a class="small" href="loginView.me">이미 계정이 있습니다!</a> -->
-<!--                                     </div> -->
                                 </div>
                             </div>
                         </div>
@@ -94,22 +90,16 @@
     </div>
 
     <!-- Bootstrap core JavaScript-->
-    <script src="vendor/jquery/jquery.min.js"></script>
-    <script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+    <script src="resource/vendor/jquery/jquery.min.js"></script>
+    <script src="resource/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
 
     <!-- Core plugin JavaScript-->
-    <script src="vendor/jquery-easing/jquery.easing.min.js"></script>
+    <script src="resource/vendor/jquery-easing/jquery.easing.min.js"></script>
 
     <!-- Custom scripts for all pages-->
-    <script src="js/sb-admin-2.min.js"></script>
+    <script src="resource/js/sb-admin-2.min.js"></script>
 
     <script>
-        function moveForgotCode(){
-            var password = confirm('인증번호가 발송되었습니다.');
-            if(password){
-                location.href = "pwdCode.me";
-            }
-        }
         
         function cancel(){
             location.href = "loginView.me";

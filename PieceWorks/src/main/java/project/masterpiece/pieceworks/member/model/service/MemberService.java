@@ -7,10 +7,9 @@ public interface MemberService {
 	int insertMember(Member m);
 
 	Member memberLogin(Member m);
-
-	/*
-	 * int duplicateEmail(String email);
-	 */ 
+	
+	int duplicateEmail(String email);
+	 
 	int updateMember(Member m);
 
 	int deleteMember(String email);
@@ -20,9 +19,5 @@ public interface MemberService {
 	Member searchPwd(Member m);
 
 	int updatePwd(Member m);
-
-
-
-
 
 }
