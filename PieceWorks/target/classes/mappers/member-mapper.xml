@@ -21,19 +21,18 @@
   		<result column="M_STATUS" property="m_status"/>
   	</resultMap>
   
-  
-  
   	<select id="selectProjectMemList" resultMap="memberResultSet">
   		select project_member as email, nickname
   		from project_join join member on (email = project_member)
   		where project_no = #{projectNum} order by nickname
   	</select>
-  <!-- 이메일 확인 -->
-  <!-- 	<select id="duplicateEmail" resultType="_int" >
+  	
+  	<!-- 이메일 확인 -->
+   	<select id="duplicateEmail" resultType="_int" >
   		select count(*)
   		from member
   		where email = #{email}
-  	</select> -->
+  	</select>
  
   	<update id="updateMember">
   		update member 

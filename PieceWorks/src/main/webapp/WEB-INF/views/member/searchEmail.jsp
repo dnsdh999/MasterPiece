@@ -9,7 +9,7 @@
     <meta name="description" content="">
     <meta name="author" content="">
 
-    <title>Search Email</title>
+    <title>PIECE WORKS</title>
 
     <!-- Custom fonts for this template-->
     <link href="resource/vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
@@ -18,7 +18,7 @@
         rel="stylesheet">
 
     <!-- Custom styles for this template-->
-    <link href="resource/css/sb-admin-2.min.css" rel="stylesheet">
+    <link href="resource/css/sb-admin-2.css" rel="stylesheet">
 </head>
 <style>
 
@@ -86,7 +86,7 @@
                                     </form>
                                     <hr>
                                     <div class="text-center">
-                                        <a class="small" onclick="location.href='signUpView.me'">PIECE WORKS의 회원이 아니신가요?</a>
+                                        <a class="small" href="signUpView.me">PIECE WORKS의 회원이 아니신가요?</a>
                                     </div>
 <!--                                     <div class="text-center"> -->
 <!--                                         <a class="small" href="loginView.me">이미 계정이 있습니다!</a> -->
@@ -104,14 +104,14 @@
     </div>
 
     <!-- Bootstrap core JavaScript-->
-    <script src="vendor/jquery/jquery.min.js"></script>
-    <script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+    <script src="resource/vendor/jquery/jquery.min.js"></script>
+    <script src="resource/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
 
     <!-- Core plugin JavaScript-->
-    <script src="vendor/jquery-easing/jquery.easing.min.js"></script>
+    <script src="resource/vendor/jquery-easing/jquery.easing.min.js"></script>
 
     <!-- Custom scripts for all pages-->
-    <script src="js/sb-admin-2.min.js"></script>
+    <script src="resource/js/sb-admin-2.min.js"></script>
 
     <script>
 
