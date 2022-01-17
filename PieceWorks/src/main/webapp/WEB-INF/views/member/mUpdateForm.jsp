@@ -35,8 +35,9 @@
 	.profileplace { text-align: center; }
 
 	.pImg { 
-		height: 130px; 
-		border-radius: 50px;
+		width: 200px;
+		height: 200px; 
+		border-radius: 100px;
 	}
 </style>
 
@@ -76,10 +77,19 @@
 							</div>
 							<form class="user" action="mUpdate.me" method="post" enctype="Multipart/form-data">
 								<div class="form-group form-control-user img">
-									<div class="col-xs-6 profileplace">
-	<%-- 									<c:if value="${ loginUser }"> --%>
-										<img class="pImg" id="profile" name="profile" alt="프로필 사진" src="resource/img/undraw_profile.svg">
+									<div class="col-xs-6 profileplace" id="img">
+										<c:choose>
+											<c:when test="${ loginUser.reProfile eq null }">
+												<img class="pImg" id="profile" name="profile" alt="프로필 사진" src="resource/img/undraw_profile.svg">
+											</c:when>
+											<c:otherwise>
+												<img class="pImg" id="profile" name="profile" alt="프로필 사진" src="resource/profileFiles/${ loginUser.reProfile }">
+											</c:otherwise>
+										</c:choose>									
 									</div>
+								</div>
+								<div id="imgArea">
+									<input type="file" id="profileImg" name="profileImg" onchange="LoadImg(this)">
 								</div>
 								<div class="form-group">
 									<label class="control-label" for="email">Email</label>
@@ -104,6 +114,25 @@
 						</div>
 					</div>
 				</div>
+				<script>
+					$(function() {
+						$("#imgArea").hide();
+						
+						$("#profile").click(function() {
+							$("#profileImg").click();
+						});
+					});
+					
+					function LoadImg(value) {
+						if(value.files && value.files[0]){	
+				            var reader = new FileReader();
+						}
+						reader.onload = function(e) {
+							$("#profile").attr("src", e.target.result);
+						}
+						reader.readAsDataURL(value.files[0]);
+					}
+				</script>
 				<!-- End of Main content -->
 <!-------------------------------------------------------------------- 컨텐츠 영역 -------------------------------------------------------------------->
 				<!-- Footer -->
