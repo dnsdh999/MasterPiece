@@ -3,7 +3,7 @@
 <mapper namespace="memberMapper">
 	<insert id="insertMember">
 		insert into member
-		values (#{email}, #{pwd}, #{name}, #{nickName}, #{phone}, sysdate, default)
+		values (#{email}, #{pwd}, #{name}, #{nickName}, #{phone}, sysdate, default, null, null)
 	</insert>
 	
   	<select id="memberLogin" resultMap="memberResultSet">
@@ -19,6 +19,8 @@
   		<result column="PHONE" property="phone"/>
   		<result column="ENROLL_DATE" property="enroll_date"/>
   		<result column="M_STATUS" property="m_status"/>
+  		<result column="ORIGINPROFILE" property="originProfile" />
+  		<result column="REPROFILE" property="reProfile"/>
   	</resultMap>
   
   	<select id="selectProjectMemList" resultMap="memberResultSet">
@@ -36,7 +38,11 @@
  
   	<update id="updateMember">
   		update member 
-  		set name = #{name}, nickName = #{nickName}, phone = #{phone}
+  		set
+  			<if test="originProfile != null">
+				originProfile = #{originProfile},
+			</if>
+  		 reProfile = #{reProfile}, name = #{name}, nickName = #{nickName}, phone = #{phone}
   		where email = #{email}
   	</update>
   	

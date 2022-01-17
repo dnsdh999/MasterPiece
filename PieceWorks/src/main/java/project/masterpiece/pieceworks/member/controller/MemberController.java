@@ -1,10 +1,13 @@
 package project.masterpiece.pieceworks.member.controller;
 
+import java.io.File;
 import java.io.IOException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 
 import javax.mail.MessagingException;
 import javax.mail.internet.MimeMessage;
-import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,6 +23,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.bind.support.SessionStatus;
+import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
 import project.masterpiece.pieceworks.member.model.exception.MemberException;
@@ -101,9 +105,55 @@ public class MemberController {
 		return "mUpdateForm";
 	}
 	
+	// 프로필 파일 등록
+	public String saveProfile(MultipartFile file, HttpServletRequest request) {
+			
+		String root = request.getSession().getServletContext().getRealPath("resource");
+		String savePath = root + "/profileFiles";
+			
+		File folder = new File(savePath);
+			
+		if(!folder.exists()) {
+			folder.mkdirs(); // 폴더 생성
+		}
+		
+		
+		SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMddHHmmssSSS");
+		String originProfile = file.getOriginalFilename();
+		String reProfile = sdf.format(new Date(System.currentTimeMillis())) + "." + originProfile.substring(originProfile.lastIndexOf(".") + 1);
+		
+		String renamePath = folder + "/" + reProfile;
+		try {
+			file.transferTo(new File(renamePath));
+		} catch (IllegalStateException e) {
+			e.printStackTrace();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}	
+		
+		System.out.println(originProfile);
+		System.out.println(reProfile);
+		
+		return reProfile;	
+	}
+	
 	// 내 정보 수정 
 	@RequestMapping("mUpdate.me")
-	public String updateMember(@ModelAttribute Member m, Model model) {
+	public String updateMember(@ModelAttribute Member m, @RequestParam("profileImg") MultipartFile profileImg,
+								Model model, HttpServletRequest request) {
+		
+		if(profileImg != null && !profileImg.isEmpty()) {
+			if(m.getReProfile() != null) {
+				deleteProfile(m.getReProfile(), request);
+			}
+			
+			String reProfile = saveProfile(profileImg, request);
+		
+			if(reProfile != null) {
+				m.setOriginProfile(profileImg.getOriginalFilename());
+				m.setReProfile(reProfile);
+			}
+		}
 		
 		int result = mService.updateMember(m);
 		
@@ -112,6 +162,17 @@ public class MemberController {
 			return "redirect:myPageView.me";
 		} else {
 			throw new MemberException("회원정보 수정에 실패하였습니다.");
+		}
+	}
+	
+	public void deleteProfile(String fileName, HttpServletRequest request) {
+		String root = request.getSession().getServletContext().getRealPath("resource"); // 작은 resources
+		String savePath = root + "/profileFiles";
+		
+		File f = new File(savePath + "/" + fileName);
+		
+		if(f.exists()) {
+			f.delete();
 		}
 	}
 	
@@ -244,4 +305,5 @@ public class MemberController {
 		
 		return result > 0 ? "NoDup" : "Dup";
 	}
+	
 }
