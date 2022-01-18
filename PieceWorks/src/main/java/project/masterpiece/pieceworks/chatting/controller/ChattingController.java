@@ -3,6 +3,7 @@ package project.masterpiece.pieceworks.chatting.controller;
 
 
 import java.io.IOException;
+import java.io.PrintWriter;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -234,6 +235,31 @@ public class ChattingController {
 		}
 		return mv;
 	}
+	
+	@RequestMapping("updateConfirmTime.ch")
+	public void confirmTimeSet(@RequestParam("chatNo") int chatNo,
+								HttpServletRequest request, HttpServletResponse response, Model model) {
+		String email = ((Member)request.getSession().getAttribute("loginUser")).getEmail();
+		
+		ChattingMessage cm = new ChattingMessage();
+		cm.setChatNo(chatNo);
+		cm.setChatWriter(email);
+		
+		int result = cService.updateConfirmTime(cm);
+		try {
+			PrintWriter out = response.getWriter();
+			
+			if(result > 0) {
+				out.println("ok");
+			}else {
+				out.println("fail");
+			}
+			out.close();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+	}
+	
 	
 	@RequestMapping("chattingDetailForm.ch")
 	public ModelAndView chattingDetailForm(@ModelAttribute ChattingMessage c,ModelAndView mv) {

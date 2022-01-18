@@ -91,4 +91,8 @@ public class ChattingDAO {
 	public int insertChattingMember(SqlSessionTemplate sqlSession, ArrayList<ChattingCheckRoom> list) {
 		return sqlSession.insert("chattingMapper.insertChattingMember",list);
 	}
+
+	public int updateConfirmTime(SqlSessionTemplate sqlSession, ChattingMessage cm) {
+		return sqlSession.update("chattingMapper.updateConfirmTime", cm);
+	}
 }

@@ -47,4 +47,6 @@ public interface ChattingService {
 	int selectProjectNo(int chatNo);
 
 	int insertChattingMember(ArrayList<ChattingCheckRoom> list);
+
+	int updateConfirmTime(ChattingMessage cm);
 }
