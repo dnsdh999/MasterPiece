@@ -27,7 +27,7 @@
 
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
- 
+ <script src="https://cdn.jsdelivr.net/npm/sockjs-client@1/dist/sockjs.min.js"></script>
 </head>
 <style>
 	.topchatbar{
@@ -306,6 +306,7 @@ function deleteRoomClick(){
 	</form>
 	<input type="hidden" id="userEmail" name="userEmail">
 	<input type="hidden" id="userNick" name="userNick">
+	<input type="hidden" id="chk_id" name="chk_id">
 	<div class="inbox_people">
 	  <div class="headind_srch">
 		<div class="recent_heading">
@@ -418,16 +419,54 @@ function deleteRoomClick(){
 	                			var name = $(this).next().val();
 	                			memberName.push(name);
 	                			chk_id.push(id);
-	                			});
+	                		});
 	                		
 	                		var roomName = document.getElementById("chatRoomName").value;
-	                	
+	                		document.getElementById("chk_id").value = chk_id;
+	                		
 	                		var yesorno = confirm("입력한 정보로 채팅방을 생성하시겠습니까?");
 	                		if(yesorno == true){
 	                			location.href="chattingInvite.ch?emails="+chk_id+"&roomName="+roomName+"&memberNames="+memberName;
 	                			alert("채팅방이 생성되었습니다.");
+	                			sendMessage();
 	                		}
 	                	}
+	                	
+	                	var sock = new SockJS("http://localhost:9580/pieceworks/alarm");
+	            		sock.onmessage = onMessage;
+	            		sock.onclose = onClose;
+	            		sock.onopen = onOpen;
+	            	
+	            		function sendMessage() {
+	            			// 내 메시지 서버로 보내기
+	            			var message = '새로운 알림이 도착하였습니다.';
+	            			var emails = document.getElementById("chk_id").value;
+	            			
+	            			var data = {
+	            					"alarmContent" : message,
+	            					"recipient" : emails
+	            	            };
+	            			
+	            	        var jsonData = JSON.stringify(data);
+	            	        
+	            	       
+	            	        sock.send(jsonData);
+	            		}
+	            		
+	            		
+	            		function onMessage(msg) {
+	            		}
+	            		
+	            		
+	            		function onClose(evt) {
+	            			console.log('나감');
+	            		}
+	            		
+	            		
+	            		function onOpen(evt) {
+	            			console.log('들어옴');
+	            		}
+	            		
 	                </script>
 	            </div>
 	        </div>
