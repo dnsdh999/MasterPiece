@@ -31,7 +31,7 @@ public class ProjectController {
 	}
 	
 	// 프로젝트 생성
-	@RequestMapping(value="pInsert.pr", method={RequestMethod.GET, RequestMethod.POST})
+	@RequestMapping("pInsert.pr")
 	public String pInsert(@ModelAttribute Project p) {
 		
 		System.out.println(p);
