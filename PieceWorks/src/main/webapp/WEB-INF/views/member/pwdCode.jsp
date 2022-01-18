@@ -53,8 +53,7 @@
                             <div class="col-lg-6">
                                 <div class="p-5">
                                     <div class="text-center">
-                                        <h1 class="h1 text-gray-900 mb-4">PIECE WORKS</h1>
-                                        <h1 class="h4 text-gray-900 mb-2">인증번호</h1>
+                                        <h1 class="h1 text-gray-900 mb-3">인증번호</h1>
                                         <span id="timer" class="mb-2"></span> <br><br>
                                     </div>
                                     <form class="user" action="pwdCode.me" method="post" onsubmit="return randomNumCheck();">
