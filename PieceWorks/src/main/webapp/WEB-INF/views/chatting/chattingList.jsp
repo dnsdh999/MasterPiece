@@ -439,12 +439,15 @@ function deleteRoomClick(){
 	            	
 	            		function sendMessage() {
 	            			// 내 메시지 서버로 보내기
-	            			var message = '새로운 알림이 도착하였습니다.';
+	            			
+	            			var message = '${ loginUser.nickName }님이 회원님을 채팅방에 초대했습니다.';
 	            			var emails = document.getElementById("chk_id").value;
 	            			
 	            			var data = {
 	            					"alarmContent" : message,
-	            					"recipient" : emails
+	            					"recipient" : emails,
+	            					"alarmType" : 1,
+	            					"projectNo" : 1000
 	            	            };
 	            			
 	            	        var jsonData = JSON.stringify(data);

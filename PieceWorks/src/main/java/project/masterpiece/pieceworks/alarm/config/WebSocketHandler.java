@@ -1,7 +1,6 @@
 package project.masterpiece.pieceworks.alarm.config;
 
 import java.io.IOException;
-import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
@@ -17,6 +16,7 @@ import org.springframework.web.socket.handler.TextWebSocketHandler;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 
+import project.masterpiece.pieceworks.alarm.model.AlarmException;
 import project.masterpiece.pieceworks.alarm.model.service.AlarmService;
 import project.masterpiece.pieceworks.alarm.model.vo.Alarm;
 import project.masterpiece.pieceworks.member.model.vo.Member;
@@ -56,19 +56,25 @@ public class WebSocketHandler extends TextWebSocketHandler implements Initializi
 		List<String> recipientList = Arrays.asList(recipientArr);
 		
 		//로그인해서 세션에 들어와있는 사람들과 받은 recipient를 비교해서
+		int result = 0;
+		for(String s : recipientList) {
+			a.setRecipient(s);
+			result += aService.insertAlarm(a);
+		}
 		
-		hashSessions.forEach((key, value)->{
-			for(String s : recipientList) {
-			}
-			if(recipientList.contains(key)) {
-				try {
-					value.sendMessage(message);
-				} catch (IOException e) {
-					e.printStackTrace();
+		if(recipientList.size() == result) {
+			hashSessions.forEach((key, value)->{
+				if(recipientList.contains(key)) {
+					try {
+						value.sendMessage(message);
+					} catch (IOException e) {
+						e.printStackTrace();
+					}
 				}
-			}
-		});
-		
+			});
+		}else {
+			throw new AlarmException("실패하였습니다.");
+		}
 	}
 	
 	@Override

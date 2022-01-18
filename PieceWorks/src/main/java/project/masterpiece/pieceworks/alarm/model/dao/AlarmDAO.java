@@ -26,4 +26,8 @@ public class AlarmDAO {
 		return sqlSession.update("alarmMapper.updateAlarmStatus", aNo);
 	}
 
+	public int insertAlarm(SqlSessionTemplate sqlSession, Alarm a) {
+		return sqlSession.insert("alarmMapper.insertAlarm", a);
+	}
+
 }

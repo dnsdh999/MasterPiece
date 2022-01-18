@@ -36,4 +36,9 @@ public class AlarmServiceImpl implements AlarmService{
 	public int updateAlarmStatus(int aNo) {
 		return aDAO.updateAlarmStatus(sqlSession, aNo);
 	}
+
+	@Override
+	public int insertAlarm(Alarm a) {
+		return aDAO.insertAlarm(sqlSession, a);
+	}
 }
