@@ -18,9 +18,8 @@
 		<result column="CHAT_WRITER" property="chatWriter"/>
 	</resultMap>
 	
-	
 	<select id="selectChattingList" resultMap="ChattingListSet">
-		SELECT CHAT_NO, CHAT_STATUS, CHAT_TITLE, CHAT_CREATER, PROJECT_NO, CREATE_DATE, CHAT_MESSAGE, SEND_TIME, cast(send_time as DATE) as send_date, nvl(unread,0) as unread_count, chat_member, nickname AS MEMBER_NAME
+		SELECT CHAT_NO, CHAT_STATUS, CHAT_TITLE, CHAT_CREATER, PROJECT_NO, CREATE_DATE, CHAT_MESSAGE, SEND_TIME, cast(send_time as DATE) as send_date, nvl(unread,0) as unread_count, chat_member, nickname AS MEMBER_NAME, join_mem_count
 		FROM CHAT_JOIN 
 		JOIN (SELECT * FROM
 		(SELECT CHAT_NO, CHAT_MESSAGE, SEND_TIME, RANK() OVER (PARTITION BY CHAT_NO ORDER BY SEND_TIME DESC) AS RANK FROM CHAT_MESSAGE) WHERE RANK = 1 ORDER BY SEND_TIME DESC) USING(CHAT_NO)
@@ -32,6 +31,7 @@
         join (select chat_no, chat_member, confirm_time from chat_join where chat_member = #{email})
         using (chat_no)
         where chat_no in (select chat_no from chat_join where chat_member = #{email}) and confirm_time <![CDATA[ < ]]> send_time) group by chat_no) using(chat_no)
+        join (select chat_no, count(*) as join_mem_count from chat_join group by chat_no) using(chat_no)
 		WHERE chat_no in (select chat_no from chat_join where chat_member in(#{email})) and CHAT_STATUS='Y' order by send_time desc
 	</select>
 	
@@ -46,6 +46,7 @@
 		<result column="SEND_TIME" property="sendTime"/>
 		<result column="SEND_DATE" property="sendDate"/>
 		<result column="UNREAD_COUNT" property="unreadCount"/>
+		<result column="join_mem_count" property="joinMemCount"/>
 		<collection resultMap="joinMemberResultSet" property="joinMember" javaType="arrayList"/>
 	</resultMap>
 	
@@ -101,4 +102,40 @@
 	<delete id="deleteChatJoinMem">
 		delete from chat_join where chat_no = #{chatNo}
 	</delete>
+	
+	<select id="getRoomNum" resultType="_int">
+		select SEQ_CHATROOM.currval from dual
+	</select>
+	
+	<select id="cAddMemberList" resultType="project.masterpiece.pieceworks.chatting.model.vo.ChattingAddMember">
+		select nickname, project_member chatMember
+		from project_join
+		join member on(project_member = email)
+		where project_no = #{projectNo} and
+		project_member not in (select chat_member
+								from chat_room 
+								join chat_join using(chat_no)
+								where chat_no = #{chatNo}
+								)
+	</select>
+	<select id="projectNo" resultType="_int">
+		select project_no
+		from chat_room
+		where chat_no = #{chatNo}
+	</select>
+	
+	<insert id="insertChattingMember" parameterType="java.util.List">
+		
+	<foreach collection="list" item="item" open="INSERT ALL" close="select * from dual" separator=" ">
+			into chat_join(chat_No,chat_member ) values
+			(
+				#{item.chatNo},#{item.userUuid}
+			)
+	</foreach>
+	</insert>
+	
+	<update id="updateConfirmTime">
+		UPDATE CHAT_JOIN SET CONFIRM_TIME = SYSDATE where chat_member = #{chatWriter} and chat_no = #{chatNo}
+	</update>
+	
 </mapper>

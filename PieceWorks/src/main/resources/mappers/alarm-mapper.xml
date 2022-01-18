@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="alarmMapper">
+	<select id="getAllAlarmCount" parameterType="string" resultType="_int">
+		select count(*) from alarm where recipient = #{userEmail} and a_status = 'Y'
+	</select>
+
+	<select id="getAllAlarmList" resultMap="alarmListSet">
+	select * from (SELECT * FROM ALARM WHERE RECIPIENT = #{email} and rownum <![CDATA[ <= ]]> 5 and a_status = 'Y')
+	order by alarm_date desc
+	</select>
+	
+	<select id="getAlarmListForPage" resultMap="alarmListSet">
+		select * from(
+		select * from alarm where recipient = #{email} and a_status = 'Y' order by alarm_date desc)
+		union all
+		select * from(
+		select * from alarm where recipient = #{email} and a_status = 'N' order by alarm_date desc)
+	</select>
+	
+	<resultMap type="Alarm" id="alarmListSet">
+		<id column="ALARM_NO" property="alarmNo"/>
+		<result column="TYPE" property="alarmType"/>
+		<result column="ALARM_CONTENT" property="alarmContent"/>
+		<result column="A_STATUS" property="alarmStatus"/>
+		<result column="RECIPIENT" property="recipient"/>
+		<result column="PROJECT_NO" property="projectNo"/>
+		<result column="ALARM_DATE" property="alarmDate"/>
+	</resultMap>
+	
+	<update id="updateAlarmStatus">
+		update alarm set a_status = 'N' where alarm_no = #{aNo}
+	</update>
+	
+	<insert id="insertAlarm" parameterType="Alarm">
+		insert into alarm 
+		values(seq_alarmno.nextval, #{alarmType}, #{alarmContent}, 'Y', #{recipient}, #{projectNo}, sysdate)
+	</insert>
+</mapper>

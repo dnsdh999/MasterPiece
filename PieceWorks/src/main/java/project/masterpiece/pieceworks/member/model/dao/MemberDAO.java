@@ -16,10 +16,11 @@ public class MemberDAO {
 		return sqlSession.selectOne("memberMapper.memberLogin", m);
 	}
 
-	/*
-	 * public int duplicateEmail(SqlSessionTemplate sqlSession, String email) {
-	 * return sqlSession.selectOne("memberMapper.duplicateEmail", email); }
-	 */ 
+	
+	 public int duplicateEmail(SqlSessionTemplate sqlSession, String email) {
+		 return sqlSession.selectOne("memberMapper.duplicateEmail", email); 
+	 }
+	 
 	 
 
 	public int updateMember(SqlSessionTemplate sqlSession, Member m) {

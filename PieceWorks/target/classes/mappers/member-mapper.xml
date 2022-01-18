@@ -3,7 +3,7 @@
 <mapper namespace="memberMapper">
 	<insert id="insertMember">
 		insert into member
-		values(#{email}, #{pwd}, #{name}, null, #{phone}, sysdate, default)
+		values (#{email}, #{pwd}, #{name}, #{nickName}, #{phone}, sysdate, default, null, null)
 	</insert>
 	
   	<select id="memberLogin" resultMap="memberResultSet">
@@ -19,18 +19,30 @@
   		<result column="PHONE" property="phone"/>
   		<result column="ENROLL_DATE" property="enroll_date"/>
   		<result column="M_STATUS" property="m_status"/>
+  		<result column="ORIGINPROFILE" property="originProfile" />
+  		<result column="REPROFILE" property="reProfile"/>
   	</resultMap>
   
-  <!-- 이메일 확인 -->
-  <!-- 	<select id="duplicateEmail" resultType="_int" >
+  	<select id="selectProjectMemList" resultMap="memberResultSet">
+  		select project_member as email, nickname
+  		from project_join join member on (email = project_member)
+  		where project_no = #{projectNum} order by nickname
+  	</select>
+  	
+  	<!-- 이메일 확인 -->
+   	<select id="duplicateEmail" resultType="_int" >
   		select count(*)
   		from member
   		where email = #{email}
-  	</select> -->
+  	</select>
  
   	<update id="updateMember">
   		update member 
-  		set name = #{name}, nickName = #{nickName}, phone = #{phone}
+  		set
+  			<if test="originProfile != null">
+				originProfile = #{originProfile},
+			</if>
+  		 reProfile = #{reProfile}, name = #{name}, nickName = #{nickName}, phone = #{phone}
   		where email = #{email}
   	</update>
   	

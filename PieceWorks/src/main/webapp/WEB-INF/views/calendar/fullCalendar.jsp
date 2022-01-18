@@ -133,7 +133,7 @@
 						                                <select class="inputModal" name="color" id="edit-color">
 						                                    <option value="#e74a3b" style="color:#e74a3b;">빨간색</option>
 						                                    <option value="#4e73df" style="color:#4e73df;">파란색</option>
-						                                    <option value="#858796" style="color:#858796;">회색</option>
+<!-- 						                                    <option value="#858796" style="color:#858796;">회색</option> -->
 						                                    <option value="#1cc88a" style="color:#1cc88a;">초록색</option>
 						                                    <option value="#36b9cc" style="color:#36b9cc;">민트색</option>
 						                                    <option value="#f6c23e" style="color:#f6c23e;">노란색</option>

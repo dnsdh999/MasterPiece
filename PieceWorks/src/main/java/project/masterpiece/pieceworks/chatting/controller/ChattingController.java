@@ -3,6 +3,7 @@ package project.masterpiece.pieceworks.chatting.controller;
 
 
 import java.io.IOException;
+import java.io.PrintWriter;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -27,6 +28,8 @@ import com.google.gson.JsonIOException;
 
 import project.masterpiece.pieceworks.chatting.model.ChattingException;
 import project.masterpiece.pieceworks.chatting.model.service.ChattingService;
+import project.masterpiece.pieceworks.chatting.model.vo.ChattingAddMember;
+import project.masterpiece.pieceworks.chatting.model.vo.ChattingCheckRoom;
 import project.masterpiece.pieceworks.chatting.model.vo.ChattingInvite;
 import project.masterpiece.pieceworks.chatting.model.vo.ChattingList;
 import project.masterpiece.pieceworks.chatting.model.vo.ChattingMessage;
@@ -35,7 +38,8 @@ import project.masterpiece.pieceworks.member.model.vo.Member;
 @SessionAttributes("today")
 @Controller
 public class ChattingController {
-
+	private boolean isCreate = false;
+	private int chatRoomNum = 0;
 	@Autowired
 	private ChattingService cService;
 	
@@ -63,9 +67,15 @@ public class ChattingController {
          int day = Integer.parseInt(dateArr[2]);
          
          sqlDate = new java.sql.Date(new GregorianCalendar(year,month,day).getTimeInMillis());
-	      
+         int projectNum = 1000;
+         ArrayList<Member> mArr = new ArrayList<Member>();
          
-         
+         mArr = cService.selectProjectMemList(projectNum);
+        
+         model.addAttribute("isCreate", isCreate);
+         model.addAttribute("chatRoomNum", chatRoomNum);
+         model.addAttribute("mArr", mArr);
+         isCreate = false;	chatRoomNum = 0;
          model.addAttribute("today", sqlDate);
          
          
@@ -98,11 +108,11 @@ public class ChattingController {
 	}
 	
 	@RequestMapping("chattingInvite.ch")
-	public ModelAndView chattingInvite(HttpServletRequest request,
+	public String chattingInvite(HttpServletRequest request,
 										@RequestParam("emails") String emails,
 										@RequestParam("roomName") String roomName,
 										@RequestParam("memberNames") String memberNames,
-										ModelAndView mv) {
+										Model model) {
 		
 		String userEmail = ((Member)request.getSession().getAttribute("loginUser")).getEmail();
 		
@@ -140,7 +150,9 @@ public class ChattingController {
 				int megResult = cService.insertFirstMeg(map);
 				
 				if(megResult > 0) {
-					mv.setViewName("redirect:chatList.ch");
+					isCreate = true;
+					chatRoomNum = cService.getRoomNum();
+					return "redirect:chatList.ch";
 				}else {
 					throw new ChattingException("실패하였습니다.");
 				}
@@ -151,7 +163,7 @@ public class ChattingController {
 			throw new ChattingException("실패하였습니다.");
 		}
 		
-		return mv;
+
 	}
 	
 	@RequestMapping("updateChatTitle.ch")
@@ -224,6 +236,31 @@ public class ChattingController {
 		return mv;
 	}
 	
+	@RequestMapping("updateConfirmTime.ch")
+	public void confirmTimeSet(@RequestParam("chatNo") int chatNo,
+								HttpServletRequest request, HttpServletResponse response, Model model) {
+		String email = ((Member)request.getSession().getAttribute("loginUser")).getEmail();
+		
+		ChattingMessage cm = new ChattingMessage();
+		cm.setChatNo(chatNo);
+		cm.setChatWriter(email);
+		
+		int result = cService.updateConfirmTime(cm);
+		try {
+			PrintWriter out = response.getWriter();
+			
+			if(result > 0) {
+				out.println("ok");
+			}else {
+				out.println("fail");
+			}
+			out.close();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+	}
+	
+	
 	@RequestMapping("chattingDetailForm.ch")
 	public ModelAndView chattingDetailForm(@ModelAttribute ChattingMessage c,ModelAndView mv) {
 	
@@ -240,10 +277,18 @@ public class ChattingController {
 	
 	ArrayList<ChattingMessage> list = new ArrayList<ChattingMessage>();
 	list = cService.selectChattingMessageList(c);
-
+	
+	int projectNo = cService.selectProjectNo(c.getChatNo());
+	HashMap<String, Integer> map = new HashMap<String, Integer>();
+	map.put("projectNo", projectNo);
+	map.put("chatNo", c.getChatNo());
+	ArrayList<ChattingAddMember> memberList = new ArrayList<ChattingAddMember>();
+	memberList = cService.cAddMemberList(map);
+	System.out.println(memberList);
 	if(list != null) {
 		mv.addObject("chatNo",c.getChatNo());
 		mv.addObject("userId",c.getChatWriter());
+		mv.addObject("memberList",memberList);
 		mv.addObject("list",list);
 		mv.setViewName("chattingDetailForm");
 	}else {
@@ -252,5 +297,34 @@ public class ChattingController {
 	return mv;
 }
 	
-	
+	@RequestMapping("addChatRoomMember.ch")
+	public ModelAndView cAddMemberList(@RequestParam("userEmail") String userEmail,@RequestParam("chatNo") String chatNo,
+										@RequestParam("userId") String userId , HttpServletResponse response,ModelAndView mv) {
+		String[] addEmail = userEmail.split(",");
+		
+		ArrayList<ChattingCheckRoom> list = new ArrayList<ChattingCheckRoom>();
+		
+		for (String s : addEmail) {
+			ChattingCheckRoom c = new ChattingCheckRoom();
+			 c.setUserUuid(s);
+			 c.setChatNo(chatNo);
+			 list.add(c);
+			 
+		}
+
+		
+		
+		  int result = cService.insertChattingMember(list);
+		  if(result>0) {
+			  mv.setViewName("redirect:chattingDetailForm.ch?chatNo="+chatNo + "&chatWriter="+userId); 
+		  }
+		  else { 
+			  throw new ChattingException("초대 실패"); 
+		  }
+		  return mv;
+		 
+		
+		
+		
+	}
 }

@@ -75,5 +75,9 @@
 		where calendar_no = #{calendarNo}
 	</update>
 	
+	<select id="callProcedure" statementType="CALLABLE">
+		{call UPDATE_ALL_EVENTS}
+	</select>
+	
 
 </mapper>

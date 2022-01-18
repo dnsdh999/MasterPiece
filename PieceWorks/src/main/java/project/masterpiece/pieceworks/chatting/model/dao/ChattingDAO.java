@@ -2,14 +2,16 @@ package project.masterpiece.pieceworks.chatting.model.dao;
 
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.List;
 
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.stereotype.Repository;
 
+import project.masterpiece.pieceworks.chatting.model.vo.ChattingAddMember;
+import project.masterpiece.pieceworks.chatting.model.vo.ChattingCheckRoom;
 import project.masterpiece.pieceworks.chatting.model.vo.ChattingInvite;
 import project.masterpiece.pieceworks.chatting.model.vo.ChattingList;
 import project.masterpiece.pieceworks.chatting.model.vo.ChattingMessage;
+import project.masterpiece.pieceworks.member.model.vo.Member;
 
 @Repository("cDAO")
 public class ChattingDAO {
@@ -69,5 +71,28 @@ public class ChattingDAO {
 		return sqlSession.delete("chattingMapper.deleteChatJoinMem", chatNo);
 	}
 
+	public int getRoomNum(SqlSessionTemplate sqlSession) {
+		return sqlSession.selectOne("chattingMapper.getRoomNum");
+	}
 
+
+	public ArrayList<Member> selectProjectMemList(SqlSessionTemplate sqlSession, int projectNum) {
+		return (ArrayList)sqlSession.selectList("memberMapper.selectProjectMemList", projectNum);
+	}
+	
+	public ArrayList<ChattingAddMember> cAddMemberList(SqlSessionTemplate sqlSession, HashMap<String, Integer> map) {
+		return (ArrayList)sqlSession.selectList("chattingMapper.cAddMemberList", map);
+	}
+
+	public int selectProjectNo(SqlSessionTemplate sqlSession, int chatNo) {
+		return sqlSession.selectOne("chattingMapper.projectNo", chatNo);
+	}
+
+	public int insertChattingMember(SqlSessionTemplate sqlSession, ArrayList<ChattingCheckRoom> list) {
+		return sqlSession.insert("chattingMapper.insertChattingMember",list);
+	}
+
+	public int updateConfirmTime(SqlSessionTemplate sqlSession, ChattingMessage cm) {
+		return sqlSession.update("chattingMapper.updateConfirmTime", cm);
+	}
 }

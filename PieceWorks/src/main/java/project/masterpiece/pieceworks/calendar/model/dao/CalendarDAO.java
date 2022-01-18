@@ -31,4 +31,8 @@ public class CalendarDAO {
 	public int deleteEvent(Calendar c) {
 		return sqlSession.update("calendarMapper.deleteEvent", c);
 	}
+
+	public ArrayList<Calendar> callProcedure() {
+		return sqlSession.selectOne("calendarMapper.callProcedure");
+	}
 }

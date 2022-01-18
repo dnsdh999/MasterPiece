@@ -15,6 +15,7 @@ public interface CalendarService {
 	
 	int deleteEvent(Calendar c);
 
+	ArrayList<Calendar> callProcedure();
 	
 
 }

@@ -7,12 +7,13 @@ import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-
-
 import project.masterpiece.pieceworks.chatting.model.dao.ChattingDAO;
+import project.masterpiece.pieceworks.chatting.model.vo.ChattingAddMember;
+import project.masterpiece.pieceworks.chatting.model.vo.ChattingCheckRoom;
 import project.masterpiece.pieceworks.chatting.model.vo.ChattingInvite;
 import project.masterpiece.pieceworks.chatting.model.vo.ChattingList;
 import project.masterpiece.pieceworks.chatting.model.vo.ChattingMessage;
+import project.masterpiece.pieceworks.member.model.vo.Member;
 
 @Service("cService")
 public class ChattingServiceImpl implements ChattingService{
@@ -86,6 +87,33 @@ public class ChattingServiceImpl implements ChattingService{
 		return cDAO.deleteChatJoinMem(sqlSession, chatNo);
 	}
 
-	
+	@Override
+	public int getRoomNum() {
+		return cDAO.getRoomNum(sqlSession);
+	}
 
+	@Override
+	public ArrayList<Member> selectProjectMemList(int projectNum) {
+		return cDAO.selectProjectMemList(sqlSession, projectNum);
+	}
+	
+	@Override
+	public ArrayList<ChattingAddMember> cAddMemberList(HashMap<String, Integer> map) {
+		return cDAO.cAddMemberList(sqlSession,map);
+	}
+
+	@Override
+	public int selectProjectNo(int chatNo) {
+		return cDAO.selectProjectNo(sqlSession,chatNo);
+	}
+
+	@Override
+	public int insertChattingMember(ArrayList<ChattingCheckRoom> list) {
+		return cDAO.insertChattingMember(sqlSession,list);
+	}
+
+	@Override
+	public int updateConfirmTime(ChattingMessage cm) {
+		return cDAO.updateConfirmTime(sqlSession, cm);
+	}
 }

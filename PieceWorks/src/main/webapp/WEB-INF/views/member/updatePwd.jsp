@@ -9,7 +9,7 @@
     <meta name="description" content="">
     <meta name="author" content="">
 
-    <title>New Password</title>
+    <title>PIECE WORKS</title>
 
     <!-- Custom fonts for this template-->
     <link href="resource/vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
@@ -31,6 +31,11 @@
         width: 50%;
         margin: 0 auto;
     }
+    
+    .guide {
+ 		font-size: 10px; 
+ 		font-weight: bold;  
+ 	}
 </style>
 <body class="bg-gradient-primary">
     <div class="container">
@@ -48,73 +53,112 @@
                                 <div class="p-5">
                                     <div class="text-center">
                                         <h1 class="h1 text-gray-900 mb-4">PIECE WORKS</h1>
-                                        <h1 class="h4 text-gray-900 mb-2">비밀번호 재설정</h1>
+                                        <h1 class="h4 text-gray-900 mb-3">비밀번호 재설정</h1>
                                     </div>
-                                    <form class="user" id="updatePwdForm" action="updatePwd.me" method="post">
+                                    <form class="user" action="updatePwd.me" method="post" id="insertForm" name="insert" onsubmit="return check();">
                                         <div class="user-input">
                                             <div class="form-group">
-                                            <input type="password" class="form-control form-control-user" name="pwd"
-                                                    id="newPwd" placeholder="비밀번호 입력" required>
-                                            <br>
+	                                            <input type="password" class="form-control form-control-user" name="pwd"
+	                                                    id="newPwd" placeholder="비밀번호 입력" required>
+	                                            <span class="guide" id="pwdGuide"></span>
+                                            </div>
+                                            <div class="form-group">
                                             <input type="password" class="form-control form-control-user" name="pwdCheck"
                                                     id="newPwdCheck" placeholder="비밀번호 확인" required>
+                                            <span class="guide" id="pwdCheckGuide"></span>
                                             </div>
-                                            <input type="submit" class="btn btn-primary btn-user btn-block" onclick="moveLogin();" value="확인">
-                                            <input type="button" class="btn btn-cancle btn-user btn-block" onclick="cancle();" value="취소">
+                                           	
                                         	<input type="hidden" name="email" value="${ email }">
+                                            <input type="submit" class="btn btn-primary btn-user btn-block" value="확인">
                                         </div>
                                     </form>
                                     <hr>
-                                    <div class="text-center">
-                                        <a class="small" href="signUpView.me">아이디가 없으신가요?</a>
-                                    </div>
-                                    <div class="text-center">
-                                        <a class="small" href="login.me">이미 계정이 있습니다!</a>
-                                    </div>
+<!--                                     <div class="text-center"> -->
+<!--                                         <a class="small" href="signUpView.me">아이디가 없으신가요?</a> -->
+<!--                                     </div> -->
+<!--                                     <div class="text-center"> -->
+<!--                                         <a class="small" href="login.me">이미 계정이 있습니다!</a> -->
+<!--                                     </div> -->
                                 </div>
                             </div>
                         </div>
                     </div>
                 </div>
-
             </div>
-
         </div>
-
     </div>
 
     <!-- Bootstrap core JavaScript-->
-    <script src="vendor/jquery/jquery.min.js"></script>
-    <script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+    <script src="resource/vendor/jquery/jquery.min.js"></script>
+    <script src="resource/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
 
     <!-- Core plugin JavaScript-->
-    <script src="vendor/jquery-easing/jquery.easing.min.js"></script>
+    <script src="resource/vendor/jquery-easing/jquery.easing.min.js"></script>
 
     <!-- Custom scripts for all pages-->
-    <script src="js/sb-admin-2.min.js"></script>
+    <script src="resource/js/sb-admin-2.min.js"></script>
 
     <script>
     
-    	userPwd = false;
-    	checkPwd = false;
+	    var $pwd = $("#insertForm input[name=pwd]");
+		var $pwdCheck = $("#insertForm input[name=pwdCheck]");
     	
-    	function newPwdCheck(){
-    		var regExp = /^(?=.*[A-Za-z])(?=.*\d)(?=.*[$@$!%*#?&])[A-Za-z\d$@$!%*#?&]{5,}$/;
-    		var newPwd = document.getElementById("newPwd");
-    		var newCheckPwd = documnet.getElementById("newCheckPwd");
-    		var message = document.getElementById("newPwdMsg");
-    	}
-    	
-        function moveLogin(){
-            var login = confirm('비밀번호 재설정이 완료되었습니다.');
-            if(login){
-                location.href = "loginView.me";
-            }
-        }         
-        
-        function cancle(){
-            location.href = "";
-        }
+		var pwd = false;
+		var pwdCheck = false;
+		
+		// [비밀번호] 하나 이상의 문자, 숫자 , 특수문자 포함한 8자 이상
+		let pCheck = /^(?=.*[A-Za-z])(?=.*\d)(?=.*[$@$!%*#?&])[A-Za-z\d$@$!%*#?&]{8,}$/;
+		
+		// 비밀번호
+		function pwdCK() {
+			if(!pCheck.test($pwd.val())) {
+				pwd = false;
+				$("#pwdGuide").css({"color":"red","margin-left":"10px"}).text("❌ 문자,숫자,특수문자를 포함한 8자 이상 입력하세요.");
+			} else if(pCheck.test($pwd.val())) {
+				pwd = true;
+				$("#pwdGuide").css({"color":"green","margin-left":"10px"}).text("✔ 사용 가능한 비밀번호입니다.");
+			}
+		}
+		
+		// 비밀번호 확인
+		function pwdCheckCK() {
+			if($pwd.val() != $pwdCheck.val()) {
+				pwdCheck = false;
+				$("#pwdCheckGuide").css({"color":"red","margin-left":"10px"}).text("❌ 비밀번호가 일치하지 않습니다.");
+			} else if($pwd.val() == $pwdCheck.val()) {
+				pwdCheck = true;
+				$("#pwdCheckGuide").css({"color":"green", "margin-left":"10px"}).text("✔ 비밀번호가 일치합니다.");
+			}
+		}
+		
+		$(function() {
+			$pwd.keyup(function() {
+				pwdCK();
+			});
+			
+			$pwdCheck.keyup(function() {
+				pwdCheckCK();
+			});
+		});
+		
+		function check() {
+			console.log("check start");
+			
+			if(pwd == false) {
+				console.log("Pwd Fail");
+				$pwd.focus();
+				pwdCK();
+				return false;
+			}
+			
+			if(pwdCheck == false) {
+				console.log("PwdCheck Fail");
+				$pwdCheck.focus();
+				pwdCheckCK();
+				return false;
+			}
+		}
+		
     </script>
 </body>
 

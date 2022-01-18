@@ -3,12 +3,33 @@
     <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <!DOCTYPE html>
 <html>
- <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
-  <link href="resource/vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
-  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+<head>
+
+
+    <!-- Custom styles for this template-->
+    <link href="resource/css/sb-admin-2.min.css" rel="stylesheet">
+    
   <meta name="viewport" content="width=device-width, initial-scale=1">
 	<link rel="stylesheet" href="resource/css/chatting-css.css">
-	<style type="text/css">
+
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+  
+   <!-- Custom fonts for this template-->
+    <link href="resource/vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
+    <link
+        href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i"
+        rel="stylesheet">
+
+   
+
+ 
+  
+  
+<meta charset="UTF-8">
+<title>Insert title here</title>
+
+<style type="text/css">
 		.messaging{
 			padding-bottom: 0px;
 		}
@@ -38,6 +59,12 @@
 		#nickNameText{
 			font-size: 10px;
 		}
+		.dropdown-toggle{
+			text-align: right;
+		}
+		.chatAddMember{
+			margin-left: 10px;
+		}
 	</style>
 	<script type="text/javascript">
 	var name;
@@ -45,13 +72,22 @@
 	var userId = "${userId}";
 	
 	$(document).ready(function() {
+		updateConfirmTime();
 		name = prompt("이름입력");
 		connect();
+		var chatAreaHeight = $(".msg_history").height();
+		var maxScroll = $(".msgArea").height() - chatAreaHeight;
+		$(".msg_history").scrollTop(maxScroll);
+		
+		
+		setInterval(function(){
+			updateConfirmTime();
+		}, 5000);
 	});
 
 	function connect() {
 		wsocket = new WebSocket(
-				"ws://localhost:9580/pieceworks/chat-ws.ch");
+				"ws://localhost:9280/pieceworks/chat-ws.ch");
 		wsocket.onopen = onOpen;
 		wsocket.onmessage = onMessage;
 		wsocket.onclose = onClose;
@@ -147,16 +183,36 @@
 		$('#exitBtn').click(function() { disconnect(); });
 	});
 	
-	
+	function updateConfirmTime(){
+		$.ajax({
+			url:'updateConfirmTime.ch',
+			data:{chatNo:"${chatNo}"},
+			success:function(data){
+				console.log(data);
+			},
+			error:function(data){
+				console.log(data);
+			}
+		});
+	}
 	</script>
-<head>
-
-<meta charset="UTF-8">
-<title>Insert title here</title>
 </head>
 <body >
 
  <!-- 채팅목록 & 채팅창 -->
+
+<span class="chat_date">
+ 	<a class="nav-link dropdown-toggle" href="#" id="navbarDropdown"
+                                                    role="button" data-toggle="dropdown" aria-haspopup="true"
+                                                    aria-expanded="false">
+                                                    	more
+                                                </a>
+                                                <span class="dropdown-menu dropdown-menu-right animated--fade-in"
+                                                    aria-labelledby="navbarDropdown">
+                                                    <a class="dropdown-item" id="chatExit" data-toggle="modal" data-target="#chatExitModal">초대하기</a>
+                                                    
+                                                </span></span>
+
            <div class="messaging">
   <div class="inbox_msg">
 	<div class="mesgs">
@@ -185,19 +241,7 @@
 		  </c:forEach>
 		
 		
-		<!-- <div class="incoming_msg">
-		  <div class="incoming_msg_img"> <img src="https://ptetutorials.com/images/user-profile.png" alt="sunil"> </div>
-		  <div class="received_msg">
-			<div class="received_withd_msg">
-			  <p>하이하이</p>
-			  <span class="time_date"> 11:01 AM    |    Yesterday</span></div>
-		  </div>
-		</div>
-		<div class="outgoing_msg">
-		  <div class="sent_msg">
-			<p>ㅇㅋㅇㅋ</p>
-			<span class="time_date"> 11:01 AM    |    Today</span> </div>
-		</div> -->
+		
 		</div>
 	  </div>
 	  <div class="type_msg">
@@ -210,8 +254,73 @@
 	</div>
   </div>
 </div>
+	     <!-- 나가기 Model -->
+	    <div class="modal fade" id="chatExitModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+	        aria-hidden="true">
+	        <div class="modal-dialog" role="document">
+	            <div class="modal-content">
+	                <div class="modal-header">
+	                    <h5 class="modal-title" id="exampleModalLabel">채팅방 초대하기</h5>
+	                    <button class="close" type="button" data-dismiss="modal" aria-label="Close">
+	                        <span aria-hidden="true">×</span>
+	                    </button>
+	                </div>
+	                
+	                 <div class="modal-body">
+	                <c:forEach var="ml" items="${memberList }">
+					 	<div class="dropdown-divider"></div>
+	                        
+	                        <div class="chatAddMember">
+					<input type="checkbox" name="checkChat" value="${ml.chatMember }">
+						<!-- <svg
+						 xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-person-circle" viewBox="0 0 16 16">
+			  <path d="M11 6a3 3 0 1 1-6 0 3 3 0 0 1 6 0z"/>
+			  <path fill-rule="evenodd" d="M0 8a8 8 0 1 1 16 0A8 8 0 0 1 0 8zm8-7a7 7 0 0 0-5.468 11.37C3.242 11.226 4.805 10 8 10s4.757 1.225 5.468 2.37A7 7 0 0 0 8 1z"/>
+			</svg> -->
+					${ml.nickname }</div>
+					</c:forEach>  
+					</div>
+	                <div class="chatBottom" align="right"><input class="chatAllBottom" type="checkbox" name="allCheck">전체선택 </div>
+				<script type="text/javascript">
+					$('.chatAllBottom').click(function(){
+						
+						if($('.chatAllBottom').prop("checked")){
+							$('input[type=checkbox]').prop('checked',true);
+						}else{
+							$('input[type=checkbox]').prop('checked',false);
+						}
+					});	
+				</script>
+	                
+					<div class="modal-footer">
+	                    <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancel</button>
+	                    <span  id="addMember" class="btn btn-primary">초대하기</span>
+	                </div>
+	               
+	            </div>
+	        </div>
+	    </div>
+	    <!-- Bootstrap core JavaScript-->
+		    <script src="resource/vendor/jquery/jquery.min.js"></script>
+		    <script src="resource/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+		
+		    <!-- Core plugin JavaScript-->
+		    <script src="resource/vendor/jquery-easing/jquery.easing.min.js"></script>
+		
+		    <!-- Custom scripts for all pages-->
+		    <script src="resource/js/sb-admin-2.min.js"></script>
 </body>
 <script type="text/javascript">
-	
+$('#addMember').click(function(){
+	var userEmail ="";
+	$("input:checkbox[name=checkChat]:checked").each(function(index){
+		if(index !=0){
+			userEmail +=",";
+		}
+		userEmail +=$(this).val();
+	});
+	console.log(userEmail);
+	location.href="addChatRoomMember.ch?userEmail="+userEmail + "&chatNo="+${chatNo} +"&userId="+'${userId}';
+});
 </script>
 </html>
