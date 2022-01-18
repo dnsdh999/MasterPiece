@@ -379,6 +379,7 @@ function deleteRoomClick(){
 	                        
 	                        <div class="dropdown-divider"></div>
 	                        <c:forEach var="m" items="${ mArr }">
+	                        <c:if test="${ loginUser.email ne m.email}">
 	                        <div>
 					<input type="checkbox" name="checkChat" value="${ m.email }" class="projectmem">
 					<input type="hidden" value="${ m.nickName }" name="memname">
@@ -387,7 +388,7 @@ function deleteRoomClick(){
 			  <path d="M11 6a3 3 0 1 1-6 0 3 3 0 0 1 6 0z"/>
 			  <path fill-rule="evenodd" d="M0 8a8 8 0 1 1 16 0A8 8 0 0 1 0 8zm8-7a7 7 0 0 0-5.468 11.37C3.242 11.226 4.805 10 8 10s4.757 1.225 5.468 2.37A7 7 0 0 0 8 1z"/>
 			</svg>
-					${ m.nickName }</div>
+					${ m.nickName }</div></c:if>
 					<div class="dropdown-divider"></div>
 					</c:forEach>
 				
@@ -420,6 +421,9 @@ function deleteRoomClick(){
 	                			memberName.push(name);
 	                			chk_id.push(id);
 	                		});
+	                		
+	                		memberName.push('${loginUser.name}');
+	                		chk_id.push('${loginUser.email}');
 	                		
 	                		var roomName = document.getElementById("chatRoomName").value;
 	                		document.getElementById("chk_id").value = chk_id;
