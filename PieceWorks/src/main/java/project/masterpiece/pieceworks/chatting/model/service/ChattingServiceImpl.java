@@ -111,4 +111,9 @@ public class ChattingServiceImpl implements ChattingService{
 	public int insertChattingMember(ArrayList<ChattingCheckRoom> list) {
 		return cDAO.insertChattingMember(sqlSession,list);
 	}
+
+	@Override
+	public int updateConfirmTime(ChattingMessage cm) {
+		return cDAO.updateConfirmTime(sqlSession, cm);
+	}
 }

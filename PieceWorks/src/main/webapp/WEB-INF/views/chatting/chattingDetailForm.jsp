@@ -72,7 +72,7 @@
 	var userId = "${userId}";
 	
 	$(document).ready(function() {
-		
+		updateConfirmTime();
 		name = prompt("이름입력");
 		connect();
 		var chatAreaHeight = $(".msg_history").height();
@@ -80,7 +80,9 @@
 		$(".msg_history").scrollTop(maxScroll);
 		
 		
-		
+		setInterval(function(){
+			updateConfirmTime();
+		}, 5000);
 	});
 
 	function connect() {
@@ -181,7 +183,18 @@
 		$('#exitBtn').click(function() { disconnect(); });
 	});
 	
-	
+	function updateConfirmTime(){
+		$.ajax({
+			url:'updateConfirmTime.ch',
+			data:{chatNo:"${chatNo}"},
+			success:function(data){
+				console.log(data);
+			},
+			error:function(data){
+				console.log(data);
+			}
+		});
+	}
 	</script>
 </head>
 <body >

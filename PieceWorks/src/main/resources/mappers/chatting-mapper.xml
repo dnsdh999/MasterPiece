@@ -133,4 +133,9 @@
 			)
 	</foreach>
 	</insert>
+	
+	<update id="updateConfirmTime">
+		UPDATE CHAT_JOIN SET CONFIRM_TIME = SYSDATE where chat_member = #{chatWriter} and chat_no = #{chatNo}
+	</update>
+	
 </mapper>
