@@ -5,7 +5,7 @@
 	<insert id="insertProject">
 		insert into project
 		values(seq_pno.nextval, #{pTitle}, #{pCreater}, #{pContent}, default, 
-			   #{pStartDate}, #{pEndDate}, sysdate, #{pNickName})
+			   #{pStartDate}, #{pEndDate}, sysdate)
 	</insert>
 	
 	<select id="getListCount" resultType="_int">
@@ -31,4 +31,31 @@
 		<result column="PROJECT_NICKNAME" property="pNickName"/>
 	</resultMap>
 	
+	<!-- 프로젝트 생성과 동시에 프로젝트 조인에도 생성자가 추가되도록 하는 매퍼(이후에 참여자 추가는 프로젝트 초대 기능으로 구현) -->
+	<insert id="insertPrJoin">
+		insert into project_join
+		values(seq_proj.nextval, #{pCreater})
+	</insert>
+	
+	<!-- sql 테이블 컬럼이 달라서 일단 정은님의 프로젝트 목록도 같이 놔뒀습니다. -->
+	<select id="getPList" resultMap="ProjectListSet">
+		select project_no, project_title, p_status, p_start_date, p_end_date
+		from project
+			 join project_join using(project_no)
+			 join member on(project_member=email)
+		where p_status like '진행%' and project_member = #{email}
+		order by project_no
+	</select>
+	
+	<resultMap type="Project" id="ProjectListSet">
+		<id column="PROJECT_NO" property="projectNo"/>
+		<result column="PROJECT_TITLE" property="pTitle"/>
+		<result column="PROJECT_CREATER" property="pCreater"/>
+		<result column="NICKNAME" property="pNickName"/>
+		<result column="PROJECT_CONTENT" property="pContent"/>
+		<result column="P_STATUS" property="pStatus"/>
+		<result column="P_START_DATE" property="pStartDate"/>
+		<result column="P_END_DATE" property="pEndDate"/>
+		<result column="CREATE_DATE" property="createDate"/>
+	</resultMap>
 </mapper>

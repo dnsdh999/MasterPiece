@@ -31,7 +31,7 @@ public class ProjectController {
 	}
 	
 	// 프로젝트 생성
-	@RequestMapping("pInsert.pr")
+	@RequestMapping(value="pInsert.pr", method={RequestMethod.GET, RequestMethod.POST})
 	public String pInsert(@ModelAttribute Project p) {
 		
 		System.out.println(p);
@@ -39,7 +39,8 @@ public class ProjectController {
 		int result = pService.insertProject(p);
 		
 		if(result > 0) {
-			return "redirect:pListView.pr";
+			pService.insertPrJoin(p);
+			return "redirect:main.com";
 		} else {
 			throw new ProjectException("프로젝트 생성에 실패하였습니다.");
 		}
@@ -96,6 +97,34 @@ public class ProjectController {
 	@RequestMapping("pUpdateView.pr")
 	public String pUpdateView() {
 		return "projectUpdate";
+	}
+
+	// 메인화면에 프로젝트 목록 불러오기
+	@RequestMapping("pList.pr")
+	public void getPList(HttpSession session, HttpServletResponse response, Model model) {
+		
+		Member loginUser = (Member)session.getAttribute("loginUser");
+		String email = loginUser.getEmail();
+		
+		ArrayList<Project> list = pService.getPList(email);
+		
+		System.out.println(list);
+		
+		response.setContentType("application/json; charset=UTF-8");
+		
+		GsonBuilder gb = new GsonBuilder().setDateFormat("yyyy-MM-dd");
+		
+		model.addAttribute("list", list);
+		
+		Gson gson = gb.create();
+		
+		try {
+			gson.toJson(list, response.getWriter());
+		} catch (JsonIOException e) {
+			e.printStackTrace();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
 	}
 }
 
