@@ -52,21 +52,16 @@ public class WebSocketHandler extends TextWebSocketHandler implements Initializi
 		
 		Alarm a = objectMapper.readValue(msg, Alarm.class);
 		
-		String email = getEmail(session);
-		
 		String[] recipientArr = a.getRecipient().split(",");
 		List<String> recipientList = Arrays.asList(recipientArr);
 		
-		
+		//로그인해서 세션에 들어와있는 사람들과 받은 recipient를 비교해서
 		int result = 0;
 		for(String s : recipientList) {
-			if(!s.equals(email)) {
-				a.setRecipient(s);
-				result += aService.insertAlarm(a);
-			}
+			a.setRecipient(s);
+			result += aService.insertAlarm(a);
 		}
 		
-		//로그인해서 세션에 들어와있는 사람들과 받은 recipient를 비교해서
 		if(recipientList.size() == result) {
 			hashSessions.forEach((key, value)->{
 				if(recipientList.contains(key)) {

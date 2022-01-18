@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <html>
 <head>
 	<link rel="stylesheet" href="resource/vendor/css/fullcalendar.min.css" />
@@ -196,67 +197,7 @@
                                     <h5 class="m-0 font-weight-bold text-primary">프로젝트 목록</h5>
                                 </div>
                                 <!-- Card Body -->
-                                <div>
-                                    <div class="card-body">
-                                        <div class="col-lg-12 mb-2">
-                                            <div class="card border-bottom-primary shadow h-100 py-2">
-                                                <div class="card-body">
-                                                    <div class="row no-gutters align-items-center">
-                                                        <div class="col mr-2">
-                                                            <div class="text-s font-weight-bold text-primary text-uppercase mb-1">
-                                                              	  프로젝트 1 TITLE</div>
-                                                            <div class="text-s mb-0 font-weight-bold text-gray-800">시작일 ~ 종료일</div>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="card-body">
-                                        <div class="col-lg-12 mb-2">
-                                            <div class="card border-bottom-primary shadow h-100 py-2">
-                                                <div class="card-body">
-                                                    <div class="row no-gutters align-items-center">
-                                                        <div class="col mr-2">
-                                                            <div class="text-s font-weight-bold text-primary text-uppercase mb-1">
-                                                              	  프로젝트 2 TITLE</div>
-                                                            <div class="text-s mb-0 font-weight-bold text-gray-800">시작일 ~ 종료일</div>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="card-body">
-                                        <div class="col-lg-12 mb-2">
-                                            <div class="card border-bottom-primary shadow h-100 py-2">
-                                                <div class="card-body">
-                                                    <div class="row no-gutters align-items-center">
-                                                        <div class="col mr-2">
-                                                            <div class="text-s font-weight-bold text-primary text-uppercase mb-1">
-                                                              	  프로젝트 3 TITLE</div>
-                                                            <div class="text-s mb-0 font-weight-bold text-gray-800">시작일 ~ 종료일</div>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="card-body">
-                                        <div class="col-lg-12 mb-2">
-                                            <div class="card border-bottom-primary shadow h-100 py-2">
-                                                <div class="card-body">
-                                                    <div class="row no-gutters align-items-center">
-                                                        <div class="col mr-2">
-                                                            <div class="text-s font-weight-bold text-primary text-uppercase mb-1">
-                                                              	  프로젝트 4 TITLE</div>
-                                                            <div class="text-s mb-0 font-weight-bold text-gray-800">시작일 ~ 종료일</div>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
+                                <div id="pList">
                                 </div>
                             </div>
                         </div>
@@ -301,6 +242,50 @@
 			<!-- Content Wrapper 끝 -->
 		</div>
 		<!-- Page Wrapper 끝 -->    
+		<script>
+			$(function(){
+				pList();
+			});
+			
+			function pList(){
+				$.ajax({
+					url: 'pList.pr',
+					dataType: 'JSON',
+					success: function(data){
+						console.log(data);
+						
+						var pList = '';
+						$('#pList').html('');
+						
+						if(data.length > 0){
+							for(var i in data){
+								console.log(i);
+								pList += '<div class="card-body">';
+								pList += '<div class="col-lg-12 mb-2">';
+								pList += '<div class="card border-bottom-primary shadow h-100 py-2">';
+								pList += '<div class="card-body">';
+								pList += '<div class="row no-gutters align-items-center">';
+								pList += '<div class="col mr-2">';
+								pList += '<div class="text-s font-weight-bold text-primary text-uppercase mb-1">';
+								pList += '<input type="hidden" value="' + data[i].projectNo + '">';
+								pList += data[i].pTitle;
+								pList += '</div><div class="text-s mb-0 font-weight-bold text-gray-800">';
+								pList += data[i].pStartDate + " ~ " + data[i].pEndDate;
+								pList += "</div></div></div></div></div></div></div>";
+								
+								
+							}
+							$('#pList').append(pList);
+						}
+					},
+					error: function(data){
+						console.log(data);
+					}
+				});
+			}
+			
+			
+		</script>
 </body>
 
 </html>
