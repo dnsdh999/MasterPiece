@@ -62,8 +62,8 @@
                             <div class="col-lg-6">
                                 <div class="p-5">
                                     <div class="text-center">
-                                        <h1 class="h1 text-gray-900 mb-4 customfont1">PIECE WORKS</h1>
-                                        <h1 class="h5 text-gray-900 mb-4">귀하의 이메일은</h1>
+                                        <h1 class="h1 text-gray-900 mb-4 customfont1">이메일 찾기</h1>
+                                        <h5 class="h5 text-gray-900 mb-2">귀하의 이메일은</h5>
 										<p class="mb-4"><b>${ email }</b> 입니다!</p> 
                                     </div>
                                     <form class="user">

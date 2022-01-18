@@ -37,7 +37,14 @@
 		<li class="nav-item dropdown no-arrow">
 			<a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button"
 				data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-				<img class="img-profile rounded-circle" src="resource/img/undraw_profile.svg" style="margin-right: 10px">
+				<c:choose>
+					<c:when test="${ loginUser.reProfile eq null }">
+						<img class="img-profile rounded-circle" id="profile" name="profile" style="margin-right: 10px" alt="프로필 사진" src="resource/img/undraw_profile.svg">
+					</c:when>
+					<c:otherwise>
+						<img class="img-profile rounded-circle" id="profile" name="profile" style="margin-right: 10px" alt="프로필 사진" src="resource/profileFiles/${ loginUser.reProfile }">
+					</c:otherwise>
+				</c:choose>	
 				<span class="mr-2 d-none d-lg-inline text-gray-600 small">
 					<c:out value="${ loginUser.nickName }"/> 님 환영합니다!
 				</span>

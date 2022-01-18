@@ -21,7 +21,13 @@
     <link href="resource/css/sb-admin-2.css" rel="stylesheet">
 </head>
 <style>
-
+	@font-face {
+	    font-family: 'NEXON Lv1 Gothic OTF';
+	    src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_20-04@2.1/NEXON Lv1 Gothic OTF.woff') format('woff');
+	    font-weight: normal;
+	    font-style: normal;
+	}
+	
 	.col-lg-6{
 		max-width: 100%;
 		flex: 0px;
@@ -36,6 +42,10 @@
  		font-size: 10px; 
  		font-weight: bold;  
  	}
+ 	
+ 	.customfont1 {
+   		font-family: 'NEXON Lv1 Gothic OTF';
+   }
 </style>
 <body class="bg-gradient-primary">
     <div class="container">
@@ -52,8 +62,7 @@
                             <div class="col-lg-6">
                                 <div class="p-5">
                                     <div class="text-center">
-                                        <h1 class="h1 text-gray-900 mb-4">PIECE WORKS</h1>
-                                        <h1 class="h4 text-gray-900 mb-3">비밀번호 재설정</h1>
+                                        <h1 class="h1 text-gray-900 mb-4 customfont1">비밀번호 재설정</h1>
                                     </div>
                                     <form class="user" action="updatePwd.me" method="post" id="insertForm" name="insert" onsubmit="return check();">
                                         <div class="user-input">
@@ -72,13 +81,6 @@
                                             <input type="submit" class="btn btn-primary btn-user btn-block" value="확인">
                                         </div>
                                     </form>
-                                    <hr>
-<!--                                     <div class="text-center"> -->
-<!--                                         <a class="small" href="signUpView.me">아이디가 없으신가요?</a> -->
-<!--                                     </div> -->
-<!--                                     <div class="text-center"> -->
-<!--                                         <a class="small" href="login.me">이미 계정이 있습니다!</a> -->
-<!--                                     </div> -->
                                 </div>
                             </div>
                         </div>
