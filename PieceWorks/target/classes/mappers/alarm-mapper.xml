@@ -31,4 +31,9 @@
 	<update id="updateAlarmStatus">
 		update alarm set a_status = 'N' where alarm_no = #{aNo}
 	</update>
+	
+	<insert id="insertAlarm" parameterType="Alarm">
+		insert into alarm 
+		values(seq_alarmno.nextval, #{alarmType}, #{alarmContent}, 'Y', #{recipient}, #{projectNo}, sysdate)
+	</insert>
 </mapper>
