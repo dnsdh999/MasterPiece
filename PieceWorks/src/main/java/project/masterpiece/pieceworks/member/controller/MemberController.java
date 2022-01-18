@@ -1,7 +1,13 @@
 package project.masterpiece.pieceworks.member.controller;
 
+import java.io.File;
+import java.io.IOException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+
 import javax.mail.MessagingException;
 import javax.mail.internet.MimeMessage;
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,8 +20,10 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.bind.support.SessionStatus;
+import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
 import project.masterpiece.pieceworks.member.model.exception.MemberException;
@@ -97,9 +105,55 @@ public class MemberController {
 		return "mUpdateForm";
 	}
 	
+	// 프로필 파일 등록
+	public String saveProfile(MultipartFile file, HttpServletRequest request) {
+			
+		String root = request.getSession().getServletContext().getRealPath("resource");
+		String savePath = root + "/profileFiles";
+			
+		File folder = new File(savePath);
+			
+		if(!folder.exists()) {
+			folder.mkdirs(); // 폴더 생성
+		}
+		
+		
+		SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMddHHmmssSSS");
+		String originProfile = file.getOriginalFilename();
+		String reProfile = sdf.format(new Date(System.currentTimeMillis())) + "." + originProfile.substring(originProfile.lastIndexOf(".") + 1);
+		
+		String renamePath = folder + "/" + reProfile;
+		try {
+			file.transferTo(new File(renamePath));
+		} catch (IllegalStateException e) {
+			e.printStackTrace();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}	
+		
+		System.out.println(originProfile);
+		System.out.println(reProfile);
+		
+		return reProfile;	
+	}
+	
 	// 내 정보 수정 
 	@RequestMapping("mUpdate.me")
-	public String updateMember(@ModelAttribute Member m, Model model) {
+	public String updateMember(@ModelAttribute Member m, @RequestParam("profileImg") MultipartFile profileImg,
+								Model model, HttpServletRequest request) {
+		
+		if(profileImg != null && !profileImg.isEmpty()) {
+			if(m.getReProfile() != null) {
+				deleteProfile(m.getReProfile(), request);
+			}
+			
+			String reProfile = saveProfile(profileImg, request);
+		
+			if(reProfile != null) {
+				m.setOriginProfile(profileImg.getOriginalFilename());
+				m.setReProfile(reProfile);
+			}
+		}
 		
 		int result = mService.updateMember(m);
 		
@@ -108,6 +162,17 @@ public class MemberController {
 			return "redirect:myPageView.me";
 		} else {
 			throw new MemberException("회원정보 수정에 실패하였습니다.");
+		}
+	}
+	
+	public void deleteProfile(String fileName, HttpServletRequest request) {
+		String root = request.getSession().getServletContext().getRealPath("resource"); // 작은 resources
+		String savePath = root + "/profileFiles";
+		
+		File f = new File(savePath + "/" + fileName);
+		
+		if(f.exists()) {
+			f.delete();
 		}
 	}
 	
@@ -158,14 +223,15 @@ public class MemberController {
 	// 메일 전송
 	public void sendEmail(String email, int random) {
 		
-		String subject = "[MasterPiece] 이메일 인증번호 입니다.";
+		String subject = "[PIECE WORKS] 이메일 인증번호입니다.";
 		String content = "<div style='text-align:center;'>"
-							+ "<h1>인증번호<h1><br><hr style='width: 50%;'>"
-							+ "<h3>안녕하십니까. MasterPiece입니다.<h3><br>"
-							+ "<div style='text-align:center;'>요청하신 인증번호는<b>"+ random +"</b>입니다.</div>"
-							+ "진행 중인 화면으로 돌아가 인증번호를 입력해주세요."
+							+ "<h1>[인증번호]<h1><hr style='width: 50%;'>"
+							+ "<h3>안녕하십니까!<h3>"
+							+ "<h3>PIECE WORKS입니다.<h3><br>"
+							+ "<div style='text-align:center;'>요청하신 인증번호는 <b>"+ random +"</b>입니다.</div>"
+							+ "진행 중인 화면으로 돌아가 인증번호를 입력해주세요.<br>"
 							+ "<br><hr style='width: 50%;'><br>"
-							+ "MasterPiece를 이용해 주셔서 감사합니다.</div>";
+							+ "PIECE WORKS를 이용해 주셔서 감사합니다.</div>";
 		String from = "wjddms0700@gmail.com";
 		String to = email;
 		
@@ -227,4 +293,17 @@ public class MemberController {
 			throw new MemberException("비밀번호 재설정에 실패하였습니다.");
 		}
 	}
+	
+	// 이메일 중복 확인
+	@ResponseBody
+	@RequestMapping("emailCheck.me")
+	public String duplicateEmail(String email) {
+		
+		int result = mService.duplicateEmail(email);
+		
+		System.out.println(result);
+		
+		return result > 0 ? "NoDup" : "Dup";
+	}
+	
 }

@@ -3,6 +3,8 @@ package project.masterpiece.pieceworks.chatting.model.service;
 import java.util.ArrayList;
 import java.util.HashMap;
 
+import project.masterpiece.pieceworks.chatting.model.vo.ChattingAddMember;
+import project.masterpiece.pieceworks.chatting.model.vo.ChattingCheckRoom;
 import project.masterpiece.pieceworks.chatting.model.vo.ChattingInvite;
 import project.masterpiece.pieceworks.chatting.model.vo.ChattingList;
 import project.masterpiece.pieceworks.chatting.model.vo.ChattingMessage;
@@ -39,4 +41,10 @@ public interface ChattingService {
 	int getRoomNum();
 	
 	ArrayList<Member> selectProjectMemList(int projectNum);
+	
+	ArrayList<ChattingAddMember> cAddMemberList(HashMap<String, Integer> map);
+
+	int selectProjectNo(int chatNo);
+
+	int insertChattingMember(ArrayList<ChattingCheckRoom> list);
 }

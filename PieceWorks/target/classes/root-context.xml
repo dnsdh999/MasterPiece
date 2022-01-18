@@ -24,8 +24,8 @@
 	<bean id="mailSender" class="org.springframework.mail.javamail.JavaMailSenderImpl">
 		<property name="host" value="smtp.gmail.com" />
 		<property name="port" value="587" />
-		<property name="username" value="younghwajin.90@gmail.com" /> <!-- 본인 이메일 작성 -->
-		<property name="password" value="MovieJin521!" /> <!-- 본인 비밀번호 작성 -->
+		<property name="username" value="" /> <!-- 본인 이메일 작성 -->
+		<property name="password" value="" /> <!-- 본인 비밀번호 작성 -->
 		<property name="javaMailProperties">
 			<props>
 				<prop key="mail.transport.protocol">smtp</prop>
@@ -35,5 +35,11 @@
 				<prop key="mail.smtp.ssl.protocols">TLSv1.2</prop>
 			</props>
 		</property>
+	</bean>
+	
+	<!-- 파일 업로드시 사용할 MultipartResolver -->
+	<bean id="multipartResolver" class="org.springframework.web.multipart.commons.CommonsMultipartResolver">
+		<property name="maxUploadSize" value="1000000000"/>
+		<property name="maxInMemorySize" value="1000000000"/>
 	</bean>
 </beans>

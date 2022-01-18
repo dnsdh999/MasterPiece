@@ -26,10 +26,10 @@ public class MemberServiceImpl implements MemberService{
 		return mDAO.memberLogin(sqlSession, m);
 	}
 
-	/*
-	 * @Override public int duplicateEmail(String email) { return
-	 * mDAO.duplicateEmail(sqlSession, email); }
-	 */
+	@Override 
+	public int duplicateEmail(String email) {
+		return  mDAO.duplicateEmail(sqlSession, email); 
+	}
 
 	@Override
 	public int updateMember(Member m) {
@@ -56,7 +56,4 @@ public class MemberServiceImpl implements MemberService{
 		return mDAO.updatePwd(sqlSession, m);
 	}
 
-
-
-	
 }

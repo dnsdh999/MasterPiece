@@ -27,8 +27,8 @@
         <ul class="navbar-nav bg-gradient-primary sidebar sidebar-dark accordion" id="accordionSidebar">
 
             <!-- Sidebar - Brand -->
-            <a class="sidebar-brand d-flex align-items-center justify-content-center" style="height: 175px;">
-                <img src="resource/img/TitleImg.png" width="175px"> <!--  style="cursor: pointer" onclick="location.href='index.jsp'"-->
+            <a class="sidebar-brand d-flex align-items-center justify-content-center" style="height: 180px;">
+                <img src="resource/img/logo_transparent.png" width="180px"> <!--  style="cursor: pointer" onclick="location.href='index.jsp'"-->
             </a>
 
         <!-- Divider -->
@@ -80,7 +80,7 @@
                 data-parent="#accordionSidebar">
                 <div class="bg-white py-2 collapse-inner rounded">
                     <h6 class="collapse-header">MY PROJECTS</h6>
-                    <a class="collapse-item" href="utilities-color.html">프로젝트 목록</a>
+                    <a class="collapse-item" href="pListView.pr">프로젝트 목록</a>
                     <a class="collapse-item" href="pInsertView.pr">새 프로젝트 생성</a>
                     <a class="collapse-item" href="fullCal.ca">프로젝트상세일정(임시)</a>
                 </div>

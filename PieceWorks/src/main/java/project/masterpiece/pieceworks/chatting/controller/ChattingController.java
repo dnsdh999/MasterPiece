@@ -27,6 +27,8 @@ import com.google.gson.JsonIOException;
 
 import project.masterpiece.pieceworks.chatting.model.ChattingException;
 import project.masterpiece.pieceworks.chatting.model.service.ChattingService;
+import project.masterpiece.pieceworks.chatting.model.vo.ChattingAddMember;
+import project.masterpiece.pieceworks.chatting.model.vo.ChattingCheckRoom;
 import project.masterpiece.pieceworks.chatting.model.vo.ChattingInvite;
 import project.masterpiece.pieceworks.chatting.model.vo.ChattingList;
 import project.masterpiece.pieceworks.chatting.model.vo.ChattingMessage;
@@ -249,10 +251,18 @@ public class ChattingController {
 	
 	ArrayList<ChattingMessage> list = new ArrayList<ChattingMessage>();
 	list = cService.selectChattingMessageList(c);
-
+	
+	int projectNo = cService.selectProjectNo(c.getChatNo());
+	HashMap<String, Integer> map = new HashMap<String, Integer>();
+	map.put("projectNo", projectNo);
+	map.put("chatNo", c.getChatNo());
+	ArrayList<ChattingAddMember> memberList = new ArrayList<ChattingAddMember>();
+	memberList = cService.cAddMemberList(map);
+	System.out.println(memberList);
 	if(list != null) {
 		mv.addObject("chatNo",c.getChatNo());
 		mv.addObject("userId",c.getChatWriter());
+		mv.addObject("memberList",memberList);
 		mv.addObject("list",list);
 		mv.setViewName("chattingDetailForm");
 	}else {
@@ -261,5 +271,34 @@ public class ChattingController {
 	return mv;
 }
 	
-	
+	@RequestMapping("addChatRoomMember.ch")
+	public ModelAndView cAddMemberList(@RequestParam("userEmail") String userEmail,@RequestParam("chatNo") String chatNo,
+										@RequestParam("userId") String userId , HttpServletResponse response,ModelAndView mv) {
+		String[] addEmail = userEmail.split(",");
+		
+		ArrayList<ChattingCheckRoom> list = new ArrayList<ChattingCheckRoom>();
+		
+		for (String s : addEmail) {
+			ChattingCheckRoom c = new ChattingCheckRoom();
+			 c.setUserUuid(s);
+			 c.setChatNo(chatNo);
+			 list.add(c);
+			 
+		}
+
+		
+		
+		  int result = cService.insertChattingMember(list);
+		  if(result>0) {
+			  mv.setViewName("redirect:chattingDetailForm.ch?chatNo="+chatNo + "&chatWriter="+userId); 
+		  }
+		  else { 
+			  throw new ChattingException("초대 실패"); 
+		  }
+		  return mv;
+		 
+		
+		
+		
+	}
 }
