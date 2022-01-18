@@ -13,8 +13,4 @@ public interface ProjectService {
 
 	ArrayList<Project> selectList(PageInfo pi);
 
-	ArrayList<Project> getPList(String email);
-
-	int insertPrJoin(Project p);
-
 }

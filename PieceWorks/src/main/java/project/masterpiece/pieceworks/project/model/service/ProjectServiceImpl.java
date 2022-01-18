@@ -33,14 +33,4 @@ public class ProjectServiceImpl implements ProjectService {
 	public ArrayList<Project> selectList(PageInfo pi) {
 		return pDAO.selectList(sqlSession, pi);
 	}
-
-	@Override
-	public ArrayList<Project> getPList(String email) {
-		return pDAO.getPList(sqlSession, email);
-	}
-
-	@Override
-	public int insertPrJoin(Project p) {
-		return pDAO.insertPrJoin(sqlSession, p);
-	}
 }

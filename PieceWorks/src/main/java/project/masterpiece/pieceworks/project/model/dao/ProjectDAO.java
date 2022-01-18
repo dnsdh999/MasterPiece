@@ -28,12 +28,4 @@ public class ProjectDAO {
 		return (ArrayList)sqlSession.selectList("projectMapper.selectList", null, rowBounds);
 	}
 
-	public ArrayList<Project> getPList(SqlSessionTemplate sqlSession, String email) {
-		return (ArrayList)sqlSession.selectList("projectMapper.getPList", email);
-	}
-
-	public int insertPrJoin(SqlSessionTemplate sqlSession, Project p) {
-		return sqlSession.insert("projectMapper.insertPrJoin", p);
-	}
-
 }
