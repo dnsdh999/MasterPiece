@@ -87,7 +87,7 @@ public class MemberController {
 		// 암호화 했을 때 로그인 
 		if(bcrypt.matches(m.getPwd(), loginMember.getPwd())) {
 			model.addAttribute("loginUser", loginMember);
-			return "../common/main";
+			return "redirect:main.com";
 		} else {
 			throw new MemberException("로그인에 실패하였습니다.");
 		}

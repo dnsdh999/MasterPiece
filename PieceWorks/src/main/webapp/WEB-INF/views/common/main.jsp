@@ -13,6 +13,19 @@
     <!-- 얘를 수정해야 modal창 안뜨는거 + 크기 줄어드는거 해결 가능 -->
     <link rel="stylesheet" href="resource/vendor/css/calbootstrap.min.css"> 
 </head>
+<style>
+	.btn-link {
+	    border: none;
+	    outline: none;
+	    background: none;
+	    cursor: pointer;
+	    color: #0000EE;
+	    padding: 0;
+	    text-decoration: underline;
+	    font-family: inherit;
+	    font-size: inherit;
+	}
+</style>
 <body id="page-top">
 
 	<!-- Page Wrapper -->
@@ -250,6 +263,7 @@
 			function pList(){
 				$.ajax({
 					url: 'pList.pr',
+					type: 'post',
 					dataType: 'JSON',
 					success: function(data){
 						console.log(data);
@@ -267,12 +281,14 @@
 								pList += '<div class="row no-gutters align-items-center">';
 								pList += '<div class="col mr-2">';
 								pList += '<div class="text-s font-weight-bold text-primary text-uppercase mb-1">';
-								pList += '<input type="hidden" value="' + data[i].projectNo + '">';
-								pList += data[i].pTitle;
+								pList += '<form action="pDetailView2.pr" method="post">';
+								pList += '<input type="hidden" name="pNo" value="' + data[i].projectNo + '">';
+								pList += '<button type="submit" value="' + data[i].projectNo + '" class="btn-link">';
+								pList += '</form>' + data[i].pTitle;
 								pList += '</div><div class="text-s mb-0 font-weight-bold text-gray-800">';
 								pList += data[i].pStartDate + " ~ " + data[i].pEndDate;
 								pList += "</div></div></div></div></div></div></div>";
-								
+
 								
 							}
 							$('#pList').append(pList);
@@ -285,6 +301,12 @@
 			}
 			
 			
+		</script>
+		
+		<script>
+			function detailView(data){
+				var
+			}
 		</script>
 </body>
 
