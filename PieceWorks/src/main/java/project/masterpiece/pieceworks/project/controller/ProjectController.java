@@ -118,10 +118,10 @@ public class ProjectController {
 	}
 	
 	// 프로젝트 캘린더로 이동
-	@RequestMapping("fullCal.ca")
-	public String fullCalView() {
-		return "fullCalendar";
-	}
+	//@RequestMapping("fullCal.ca")
+	//public String fullCalView() {
+	//	return "fullCalendar";
+	//}
 	
 }
 
