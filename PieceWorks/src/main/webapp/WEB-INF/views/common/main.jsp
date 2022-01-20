@@ -303,11 +303,6 @@
 			
 		</script>
 		
-		<script>
-			function detailView(data){
-				var
-			}
-		</script>
 </body>
 
 </html>
