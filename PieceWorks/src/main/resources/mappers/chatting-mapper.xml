@@ -19,7 +19,7 @@
 	</resultMap>
 	
 	<select id="selectChattingList" resultMap="ChattingListSet">
-		SELECT CHAT_NO, CHAT_STATUS, CHAT_TITLE, CHAT_CREATER, PROJECT_NO, CREATE_DATE, CHAT_MESSAGE, SEND_TIME, cast(send_time as DATE) as send_date, nvl(unread,0) as unread_count, chat_member, nickname AS MEMBER_NAME, join_mem_count
+		SELECT CHAT_NO, CHAT_STATUS, CHAT_TITLE, CHAT_CREATER, PROJECT_NO, CREATE_DATE, CHAT_MESSAGE, SEND_TIME, cast(send_time as DATE) as send_date, nvl(unread,0) as unread_count, chat_member, nickname AS MEMBER_NAME, REPROFILE, join_mem_count
 		FROM CHAT_JOIN 
 		JOIN (SELECT * FROM
 		(SELECT CHAT_NO, CHAT_MESSAGE, SEND_TIME, RANK() OVER (PARTITION BY CHAT_NO ORDER BY SEND_TIME DESC) AS RANK FROM CHAT_MESSAGE) WHERE RANK = 1 ORDER BY SEND_TIME DESC) USING(CHAT_NO)
@@ -53,6 +53,7 @@
 	 <resultMap type="JoinMember" id="joinMemberResultSet">
 	 	<result column="CHAT_MEMBER" property="chatMember"/> <!-- 일반컬럼 -->
 	 	<result column="MEMBER_NAME" property="memberName"/>
+	 	<result column="REPROFILE" property="reProfile"/>
 	 </resultMap>
 	
 

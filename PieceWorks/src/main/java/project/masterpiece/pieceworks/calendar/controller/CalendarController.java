@@ -32,10 +32,10 @@ public class CalendarController {
 	@Autowired
 	private CalendarService caService;
 
-	@RequestMapping("fullCal.ca")
-	public String fullCalView() {
-		return "fullCalendar";
-	}
+//	@RequestMapping("fullCal.ca")
+//	public String fullCalView() {
+//		return "fullCalendar";
+//	}
 	
 	@RequestMapping("proCal.ca")
 	public String proCalView() {

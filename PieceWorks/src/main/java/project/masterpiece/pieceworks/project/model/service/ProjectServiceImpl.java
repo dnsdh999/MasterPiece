@@ -6,8 +6,8 @@ import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import project.masterpiece.pieceworks.calendar.model.vo.Calendar;
 import project.masterpiece.pieceworks.project.model.dao.ProjectDAO;
-import project.masterpiece.pieceworks.project.model.vo.PageInfo;
 import project.masterpiece.pieceworks.project.model.vo.Project;
 
 @Service("pService")
@@ -25,16 +25,6 @@ public class ProjectServiceImpl implements ProjectService {
 	}
 
 	@Override
-	public int getListCount() {
-		return pDAO.getListCount(sqlSession);
-	}
-
-	@Override
-	public ArrayList<Project> selectList(PageInfo pi) {
-		return pDAO.selectList(sqlSession, pi);
-	}
-
-	@Override
 	public ArrayList<Project> getPList(String email) {
 		return pDAO.getPList(sqlSession, email);
 	}
@@ -42,5 +32,15 @@ public class ProjectServiceImpl implements ProjectService {
 	@Override
 	public int insertPrJoin(Project p) {
 		return pDAO.insertPrJoin(sqlSession, p);
+	}
+
+	@Override
+	public Project selectProject(int projectNo) {
+		return pDAO.selectProject(sqlSession, projectNo);
+	}
+
+	@Override
+	public Calendar selectCalendar(int projectNo) {
+		return pDAO.selectCalendar(sqlSession, projectNo);
 	}
 }

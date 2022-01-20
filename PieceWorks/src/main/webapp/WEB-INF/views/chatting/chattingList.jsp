@@ -121,7 +121,10 @@
 		padding-left:20px;
 	}
 	
-	
+	.rounded-circle{
+	height:55.63px;
+	width:55.63px;
+	}
 </style>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/lodash.js/3.2.0/lodash.js"></script>
 <script src="http://code.jquery.com/jquery-latest.js"></script>
@@ -165,7 +168,17 @@ function getChattingList(){
                 	if(data[i].joinMember.length > 2){
                 		$li.find(".chat_img").html('<img src="https://ptetutorials.com/images/user-profile.png" alt="sunil">');
                 	}else{
-                		$li.find(".chat_img").html('<img src="https://mblogthumb-phinf.pstatic.net/20151212_254/julielove450_1449914547821gAtcQ_PNG/20151212_1850201.png?type=w2" alt="sunil">');
+                		for(var j in data[i].joinMember){
+                			if("${ loginUser.email }" != data[i].joinMember[j].chatMember){
+                				if(data[i].joinMember[j].reProfile == null){
+                					$li.find(".chat_img").html('<img src="resource/img/undraw_profile.svg" alt="sunil">');
+                					break;
+                				}else{
+                					$li.find(".chat_img").html('<img class="img-profile rounded-circle" alt="sunil" src="resource/profileFiles/' + data[i].joinMember[j].reProfile + '">');
+                					break;
+                				}
+                			}
+                		}
                 	}
                 	
                 	var chatMemStr = "";
@@ -379,6 +392,7 @@ function deleteRoomClick(){
 	                        
 	                        <div class="dropdown-divider"></div>
 	                        <c:forEach var="m" items="${ mArr }">
+	                        <c:if test="${ loginUser.email ne m.email}">
 	                        <div>
 					<input type="checkbox" name="checkChat" value="${ m.email }" class="projectmem">
 					<input type="hidden" value="${ m.nickName }" name="memname">
@@ -387,8 +401,8 @@ function deleteRoomClick(){
 			  <path d="M11 6a3 3 0 1 1-6 0 3 3 0 0 1 6 0z"/>
 			  <path fill-rule="evenodd" d="M0 8a8 8 0 1 1 16 0A8 8 0 0 1 0 8zm8-7a7 7 0 0 0-5.468 11.37C3.242 11.226 4.805 10 8 10s4.757 1.225 5.468 2.37A7 7 0 0 0 8 1z"/>
 			</svg>
-					${ m.nickName }</div>
-					<div class="dropdown-divider"></div>
+                    ${ m.nickName }</div></c:if>
+                   	<div class="dropdown-divider"></div>
 					</c:forEach>
 				
 				<div class="chatBottom" align="right"><input class="chatAllBottom" type="checkbox" name="allCheck">전체선택 </div>
@@ -421,6 +435,9 @@ function deleteRoomClick(){
 	                			chk_id.push(id);
 	                		});
 	                		
+                            memberName.push('${loginUser.nickName}');
+                            chk_id.push('${loginUser.email}');
+                            
 	                		var roomName = document.getElementById("chatRoomName").value;
 	                		document.getElementById("chk_id").value = chk_id;
 	                		
