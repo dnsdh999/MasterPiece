@@ -12,7 +12,6 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.SessionAttributes;
 
 import com.google.gson.Gson;
@@ -94,5 +93,13 @@ public class ProjectController {
 			e.printStackTrace();
 		}
 	}
+	
+	// 멤버 초대 페이지 이동
+	@RequestMapping("invite.pr")
+	public String inviteView() {
+		return "inviteMember";  
+	}
+	
+	
 }
 
