@@ -121,7 +121,10 @@
 		padding-left:20px;
 	}
 	
-	
+	.rounded-circle{
+	height:55.63px;
+	width:55.63px;
+	}
 </style>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/lodash.js/3.2.0/lodash.js"></script>
 <script src="http://code.jquery.com/jquery-latest.js"></script>
@@ -165,7 +168,17 @@ function getChattingList(){
                 	if(data[i].joinMember.length > 2){
                 		$li.find(".chat_img").html('<img src="https://ptetutorials.com/images/user-profile.png" alt="sunil">');
                 	}else{
-                		$li.find(".chat_img").html('<img src="https://mblogthumb-phinf.pstatic.net/20151212_254/julielove450_1449914547821gAtcQ_PNG/20151212_1850201.png?type=w2" alt="sunil">');
+                		for(var j in data[i].joinMember){
+                			if("${ loginUser.email }" != data[i].joinMember[j].chatMember){
+                				if(data[i].joinMember[j].reProfile == null){
+                					$li.find(".chat_img").html('<img src="resource/img/undraw_profile.svg" alt="sunil">');
+                					break;
+                				}else{
+                					$li.find(".chat_img").html('<img class="img-profile rounded-circle" alt="sunil" src="resource/profileFiles/' + data[i].joinMember[j].reProfile + '">');
+                					break;
+                				}
+                			}
+                		}
                 	}
                 	
                 	var chatMemStr = "";
