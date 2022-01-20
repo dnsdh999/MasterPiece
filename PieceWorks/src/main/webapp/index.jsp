@@ -19,12 +19,17 @@
 <p><button onclick="location.href='loginView.me'">Login</button></p>
 <p><button onclick="location.href='pDetailView.pr'">Project Detail</button></p>
 <p><button onclick="location.href='pUpdateView.pr'">Project Update</button></p>
+<p><button onclick="loaction.href='inviteMember.pr'" id="inviteMember">InviteMember</button>
 
 </body>
 <script>
 document.getElementById('chatList').onclick = function(){
 	window.open('chatList.ch', 'chattingList', 'width=500,height=460');
 }
+
+$('#inviteMember').on('click', function() {
+	window.open('inviteMember.pr', 'inviteMember', 'width=400, height=400');
+});
 </script>
 
 
