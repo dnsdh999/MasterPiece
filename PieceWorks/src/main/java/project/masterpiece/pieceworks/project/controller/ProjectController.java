@@ -100,6 +100,27 @@ public class ProjectController {
 		return "inviteMember";  
 	}
 	
+	// 프로젝트 상세 페이지 이동
+	@RequestMapping("pDetailView2.pr")
+	public String pDetailView2(@RequestParam("pNo") int projectNo, Model model) {
+		System.out.println(projectNo);
+		
+		Project p = pService.selectProject(projectNo);
+		
+		
+		if(p != null) {
+			model.addAttribute("p", p);
+			return "projectDetail2";
+		} else {
+			throw new ProjectException("프로젝트 상세 조회에 실패하였습니다.");
+		}
+	}
+	
+	// 프로젝트 캘린더로 이동
+	@RequestMapping("fullCal.ca")
+	public String fullCalView() {
+		return "fullCalendar";
+	}
 	
 }
 
