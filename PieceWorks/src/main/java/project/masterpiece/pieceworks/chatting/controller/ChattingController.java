@@ -134,11 +134,11 @@ public class ChattingController {
 				
 				String firstMessage = ((Member)request.getSession().getAttribute("loginUser")).getNickName() + "님이 ";
 				
-				for(int i = 0; i<mNameList.size(); i++) {
-					if(i!=mNameList.size()-1) {
+				for(int i = 0; i<mNameList.size()-1; i++) {
+					if(i!=mNameList.size()-2) {
 						firstMessage += mNameList.get(i) + "님, ";
 					}
-					if(i==mNameList.size()-1) {
+					if(i==mNameList.size()-2) {
 						firstMessage += mNameList.get(i) + "님을 초대했습니다.";
 					}
 				}
