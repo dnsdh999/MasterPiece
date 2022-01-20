@@ -64,7 +64,9 @@ public class WebSocketHandler extends TextWebSocketHandler implements Initializi
     			result += aService.insertAlarm(a);
             }
 		}
-
+		
+		result = result + 1;
+		
 		//로그인해서 세션에 들어와있는 사람들과 받은 recipient를 비교해서
 
 		if(recipientList.size() == result) {
