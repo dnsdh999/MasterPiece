@@ -7,8 +7,8 @@
     <link rel="stylesheet" href="resource/vendor/css/calbootstrap.min.css">
     <link rel="stylesheet" href='resource/vendor/css/select2.min.css' />
     <link rel="stylesheet" href='resource/vendor/css/bootstrap-datetimepicker.min.css' />
-
     <link rel="stylesheet" href="resource/css/main.css">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous"><script src="https://cdn.jsdelivr.net/npm/sockjs-client@1/dist/sockjs.min.js"></script>
     
     <!-- 얘를 수정해야 modal창 안뜨는거 + 크기 줄어드는거 해결 가능 -->
     <link rel="stylesheet" href="resource/vendor/css/calbootstrap.min.css"> 
