@@ -267,6 +267,30 @@ public class ChattingController {
 		}
 	}
 	
+	@RequestMapping("getPChatAlarmCount.ch")
+	public void getPChatAlarmCount(HttpServletRequest request, HttpServletResponse response, Model model,
+								@RequestParam("projectNo") int projectNo) {
+		int count = 0;
+		
+		String userEmail = ((Member)request.getSession().getAttribute("loginUser")).getEmail();
+		
+		
+		Member m = new Member();
+		m.setEmail(userEmail);
+		m.setCurrPno(projectNo);
+		count = cService.getPChatAlarmCount(m);
+		
+		
+		try {
+			PrintWriter out = response.getWriter();
+			
+			out.println(count);
+			
+			out.close();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+	}
 	
 	@RequestMapping("chattingDetailForm.ch")
 	public ModelAndView chattingDetailForm(@ModelAttribute ChattingMessage c,ModelAndView mv) {

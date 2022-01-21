@@ -139,4 +139,10 @@
 		UPDATE CHAT_JOIN SET CONFIRM_TIME = SYSDATE where chat_member = #{chatWriter} and chat_no = #{chatNo}
 	</update>
 	
+	<select id="getPChatAlarmCount" parameterType="Member" resultType="_int">
+		select count(*) from chat_join
+		join chat_room using(chat_no)
+		join chat_message using(chat_no)
+		where chat_member in (#{email}) and project_no = #{currPno} and confirm_time <![CDATA[ < ]]> send_time
+	</select>
 </mapper>
