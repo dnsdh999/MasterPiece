@@ -24,7 +24,7 @@
     
   <meta name="viewport" content="width=device-width, initial-scale=1">
 	<link rel="stylesheet" href="resource/css/chatting-css.css">
-
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
  <script src="https://cdn.jsdelivr.net/npm/sockjs-client@1/dist/sockjs.min.js"></script>
@@ -125,6 +125,18 @@
 	height:55.63px;
 	width:55.63px;
 	}
+	
+	.chat_img{
+	width:55.63px;
+	height:55.63px;
+	}
+	
+	.twoprofile{
+	border-radius: 19px;
+	-moz-border-radius: 19px;
+	-khtml-border-radius: 19px;
+	-webkit-border-radius: 19px;
+	}
 </style>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/lodash.js/3.2.0/lodash.js"></script>
 <script src="http://code.jquery.com/jquery-latest.js"></script>
@@ -139,12 +151,12 @@ function getChattingList(){
 			console.log(data);
 			
 			$chatList = $("#wholeChatList");
-		    $chatList.html("");
+		    $chatList.html("<table id='tb'>");
 		    
 			if(data.length>0){
 				for(var i in data){
 					$li = $([
-						'<div class="chat_list"  ondblclick="chatDeatilGo('+ data[i].chatNo + ')">'
+						'<tr><td><div class="chat_list" onmouseover="chatMouseOver(this);" onmouseout="chatMouseLeave(this);" ondblclick="chatDeatilGo('+ data[i].chatNo + ', this)">'
                         ,'<div class="chat_people">'
                         ,'    <div class="chat_img"></div>'
                         ,'        <div class="chat_ib">'
@@ -160,21 +172,107 @@ function getChattingList(){
                         ,'			<div class="deleteRoom"><div>'	
                         ,'    	</span></span></h5>'
                         ,'		<p class="chatmeg"></p>'		
-                        ,'</div></div></div>'
+                        ,'</div></div></div></td></tr>'
                     ].join(''));   
                   
-					$li.find(".chat_list").attr("onclick", 'chatDetailGo(' + data[i].chatNo + ')');
-
-                	if(data[i].joinMember.length > 2){
-                		$li.find(".chat_img").html('<img src="https://ptetutorials.com/images/user-profile.png" alt="sunil">');
-                	}else{
+					
+					if(data[i].joinMember.length > 4){
+						var chatimghtml = '';
+                		var count = 0;
+                		
                 		for(var j in data[i].joinMember){
                 			if("${ loginUser.email }" != data[i].joinMember[j].chatMember){
                 				if(data[i].joinMember[j].reProfile == null){
-                					$li.find(".chat_img").html('<img src="resource/img/undraw_profile.svg" alt="sunil">');
+                					if(count == 0){
+                						chatimghtml += '<img class="twoprofile" style="position:absolute; width:28px; height:28px;" src="resource/img/undraw_profile.svg" alt="sunil">';
+                					}else if(count == 1){
+                						chatimghtml += '<img class="twoprofile" style="position:absolute; margin-left:30px; width:28px; height:28px;" src="resource/img/undraw_profile.svg" alt="sunil">';
+                					}else if(count == 2){
+                						chatimghtml += '<img class="twoprofile" style="position:absolute; margin-top:30px; width:28px; height:28px;" src="resource/img/undraw_profile.svg" alt="sunil">';
+                					}else{
+                						chatimghtml += '<img class="twoprofile" style="position:absolute; margin-left:30px; margin-top:30px; width:28px; height:28px;" src="resource/img/undraw_profile.svg" alt="sunil">';
+                						break;
+                					}
+                				}else{
+                					if(count == 0){
+                						chatimghtml += '<img class="twoprofile" position:absolute; width:28px; height:28px;" src="resource/profileFiles/' + data[i].joinMember[j].reProfile + '">';
+                					}else if(count == 1){
+                						chatimghtml += '<img class="twoprofile" style="position:absolute;  margin-left:30px; width:28px; height:28px;" src="resource/profileFiles/' + data[i].joinMember[j].reProfile + '">';
+                					}else if(count == 2){
+                						chatimghtml += '<img class="twoprofile" style="position:absolute; margin-top:30px; width:28px; height:28px;" src="resource/profileFiles/' + data[i].joinMember[j].reProfile + '">';
+                					}else{
+                						chatimghtml += '<img class="twoprofile" style="position:absolute;  margin-left:30px; margin-top:30px; width:28px; height:28px;" src="resource/profileFiles/' + data[i].joinMember[j].reProfile + '">';
+                						break;
+                					}
+                				}
+                				count++;
+                			}
+                		}
+ 
+                		$li.find(".chat_img").html(chatimghtml);
+					}
+					if(data[i].joinMember.length == 4){
+						var chatimghtml = '';
+                		var count = 0;
+                		
+                		for(var j in data[i].joinMember){
+                			if("${ loginUser.email }" != data[i].joinMember[j].chatMember){
+                				if(data[i].joinMember[j].reProfile == null){
+                					if(count == 0){
+                						chatimghtml += '<img class="twoprofile" style="position:absolute; margin-left:12px; width:32px; height:32px;" src="resource/img/undraw_profile.svg" alt="sunil">';
+                					}else if(count == 1){
+                						chatimghtml += '<img class="twoprofile" style="position:absolute; margin-top:25px; width:32px; height:32px;" src="resource/img/undraw_profile.svg" alt="sunil">';
+                					}else{
+                						chatimghtml += '<img class="twoprofile" style="position:absolute; margin-left:25px; margin-top:25px; width:32px; height:32px;" src="resource/img/undraw_profile.svg" alt="sunil">';
+                					}
+                				}else{
+                					if(count == 0){
+                						chatimghtml += '<img class="twoprofile" style="margin-left:12px; position:absolute; width:32px; height:32px;" src="resource/profileFiles/' + data[i].joinMember[j].reProfile + '">';
+                					}else if(count == 1){
+                						chatimghtml += '<img class="twoprofile" style="position:absolute;  margin-top:25px; width:32px; height:32px;" src="resource/profileFiles/' + data[i].joinMember[j].reProfile + '">';
+                					}else{
+                						chatimghtml += '<img class="twoprofile" style="position:absolute; margin-left:25px; margin-top:25px; width:32px; height:32px;" src="resource/profileFiles/' + data[i].joinMember[j].reProfile + '">';
+                					}
+                				}
+                				count++;
+                			}
+                		}
+ 
+                		$li.find(".chat_img").html(chatimghtml);
+					}
+					
+                	if(data[i].joinMember.length == 3){
+                		var chatimghtml = '';
+                		var count = 0;
+                		
+                		for(var j in data[i].joinMember){
+                			if("${ loginUser.email }" != data[i].joinMember[j].chatMember){
+                				if(data[i].joinMember[j].reProfile == null){
+                					if(count == 0){
+                						chatimghtml += '<img class="twoprofile" style="position:absolute; width:40px; height:40px;" src="resource/img/undraw_profile.svg" alt="sunil">';
+                					}else{
+                						chatimghtml += '<img class="twoprofile" style="position:absolute; margin-top:20px; margin-left:20px; width:40px; height:40px;" src="resource/img/undraw_profile.svg" alt="sunil">';
+                					}
+                				}else{
+                					if(count == 0){
+                						chatimghtml += '<img class="twoprofile" style=" position:absolute; width:40px; height:40px;" src="resource/profileFiles/' + data[i].joinMember[j].reProfile + '">';
+                					}else{
+                						chatimghtml += '<img class="twoprofile" style="position:absolute; margin-top:20px; margin-left:20px; width:40px; height:40px;" src="resource/profileFiles/' + data[i].joinMember[j].reProfile + '">';
+                					}
+                				}
+                				count++;
+                			}
+                		}
+ 
+                		$li.find(".chat_img").html(chatimghtml);
+                	}else if(data[i].joinMember.length == 2){
+                		for(var j in data[i].joinMember){
+                			if("${ loginUser.email }" != data[i].joinMember[j].chatMember){
+                				if(data[i].joinMember[j].reProfile == null){
+                					$li.find(".chat_img").html('<img class="twoprofile" src="resource/img/undraw_profile.svg" alt="sunil">');
                 					break;
                 				}else{
-                					$li.find(".chat_img").html('<img class="img-profile rounded-circle" alt="sunil" src="resource/profileFiles/' + data[i].joinMember[j].reProfile + '">');
+                					$li.find(".chat_img").html('<img class="img-profile rounded-circle twoprofile" alt="sunil" src="resource/profileFiles/' + data[i].joinMember[j].reProfile + '">');
                 					break;
                 				}
                 			}
@@ -186,7 +284,14 @@ function getChattingList(){
                 		for(var j in data[i].joinMember){
                 			if("${ loginUser.email }" != data[i].joinMember[j].chatMember){
                 				chatMemStr += data[i].joinMember[j].memberName + " ";
-                			}
+                				if(j >= 4){
+                					break;
+                				}
+                				}
+                		}
+                		
+                		if(data[i].joinMemCount > 5){
+                			chatMemStr += "...";
                 		}
                 		
                 		if(data[i].joinMember.length == 1 && "${loginUser.email}" == data[i].joinMember[0].chatMember){
@@ -194,7 +299,12 @@ function getChattingList(){
                 		}
                 		$li.find(".chatTitle").text(chatMemStr);
                 	}else{
-                		$li.find(".chatTitle").text(data[i].chatTitle);
+                		if(data[i].chatTitle.length > 15){
+                			$li.find(".chatTitle").text(data[i].chatTitle.substring(0,30) + '...');
+                			
+                		}else{
+                			$li.find(".chatTitle").text(data[i].chatTitle);
+                		}
                 	}
                 	
                 	if(data[i].unreadCount > 0){
@@ -227,6 +337,7 @@ function getChattingList(){
                     $li.find(".chatmeg").text(data[i].chatMessage);
                     
                     $chatList.append($li);
+                    $chatList.append('</table>');
 				}
 
 				
@@ -253,19 +364,37 @@ $(function(){
 		 frm.target="채팅";
 		 frm.submit();
 	}
+
+
+	
 	setInterval(function(){
 		getChattingList();
 	}, 5000);
 });
 
+function chatMouseOver(me){
+	me.style.backgroundColor = "#E9E9E9";
+}
+function chatMouseLeave(me){
+	me.style.backgroundColor = "#F5F5F5";
+}
 
-function chatDeatilGo(num){
+function chatDeatilGo(num, me){
+	var clist = document.getElementsByClassName('chat_list');
+	var len = clist.length;
+
+	for(var i=0 ; i<len; i++){
+	   clist[i].style.backgroundColor="#F5F5F5";
+	}
+	me.style.backgroundColor = "#D9D9D9";
+	
 	document.getElementById("chatNumber").value = num;
 	 var newWindow = window.open('chattingDetailForm.ch', '채팅' , 'width=380, height=500, resizable=yes, scrollbars=yes, left=200, top=100');
 	 newWindow.focus();
 	 frm.target="채팅";
 	 frm.submit();
 }
+
 
 function modifyRoomName(num, title){
 	if(title == 'undefined'){
@@ -390,19 +519,21 @@ function deleteRoomClick(){
 	                                aria-label="Search" aria-describedby="basic-addon2">
 	                        </div>
 	                        
-	                        <div class="dropdown-divider"></div>
+	                         <div class="dropdown-divider"></div>
 	                        <c:forEach var="m" items="${ mArr }">
 	                        <c:if test="${ loginUser.email ne m.email}">
+	                       
 	                        <div>
 					<input type="checkbox" name="checkChat" value="${ m.email }" class="projectmem">
 					<input type="hidden" value="${ m.nickName }" name="memname">
-						<svg
-						 xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-person-circle" viewBox="0 0 16 16">
-			  <path d="M11 6a3 3 0 1 1-6 0 3 3 0 0 1 6 0z"/>
-			  <path fill-rule="evenodd" d="M0 8a8 8 0 1 1 16 0A8 8 0 0 1 0 8zm8-7a7 7 0 0 0-5.468 11.37C3.242 11.226 4.805 10 8 10s4.757 1.225 5.468 2.37A7 7 0 0 0 8 1z"/>
-			</svg>
-                    ${ m.nickName }</div></c:if>
-                   	<div class="dropdown-divider"></div>
+					<c:if test="${ m.reProfile ne null}">
+					<img class="twoprofile" style="margin-left:5px; width:36px; height:36px;" src="resource/profileFiles/${ m.reProfile }">
+					</c:if>
+					<c:if test="${ m.reProfile eq null}">
+					<img class="twoprofile" style="margin-left:5px; width:36px; height:36px;" src="resource/img/undraw_profile.svg" alt="sunil">
+					</c:if>
+                    ${ m.nickName }</div><div class="dropdown-divider"></div></c:if>
+                   	
 					</c:forEach>
 				
 				<div class="chatBottom" align="right"><input class="chatAllBottom" type="checkbox" name="allCheck">전체선택 </div>
