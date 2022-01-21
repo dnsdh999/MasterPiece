@@ -43,4 +43,8 @@ public class AlarmDAO {
 		return (ArrayList)sqlSession.selectList("alarmMapper.getPAListForPage", m);
 	}
 
+	public int updateAllAlarmStatus(SqlSessionTemplate sqlSession, Member m) {
+		return sqlSession.update("alarmMapper.updateAllAlarmStatus", m);
+	}
+
 }

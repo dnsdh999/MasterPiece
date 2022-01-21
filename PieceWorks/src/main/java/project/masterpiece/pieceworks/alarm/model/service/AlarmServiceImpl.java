@@ -57,4 +57,9 @@ public class AlarmServiceImpl implements AlarmService{
 	public ArrayList<Alarm> getPAListForPage(Member m) {
 		return aDAO.getPAListForPage(sqlSession, m);
 	}
+
+	@Override
+	public int updateAllAlarmStatus(Member m) {
+		return aDAO.updateAllAlarmStatus(sqlSession, m);
+	}
 }

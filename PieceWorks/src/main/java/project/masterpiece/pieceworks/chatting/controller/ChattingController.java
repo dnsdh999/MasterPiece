@@ -74,17 +74,22 @@ public class ChattingController {
          ArrayList<Member> mArr = new ArrayList<Member>();
          
          mArr = cService.selectProjectMemList(projectNum);
-        
+         
+         String projectName = cService.selectProjectName(projectNum);
+         
          model.addAttribute("isCreate", isCreate);
          model.addAttribute("chatRoomNum", chatRoomNum);
          model.addAttribute("mArr", mArr);
-         isCreate = false;	chatRoomNum = 0;
+         model.addAttribute("projectName", projectName);
+        
+        isCreate = false;	chatRoomNum = 0;
          model.addAttribute("today", sqlDate);
          
          
          return "chattingList";
 	}
 	
+
 	@RequestMapping("getChatList.ch")
 	public void getChatList(HttpServletRequest request, HttpServletResponse response, Model model) {
 		Member loginUser = (Member)request.getSession().getAttribute("loginUser");

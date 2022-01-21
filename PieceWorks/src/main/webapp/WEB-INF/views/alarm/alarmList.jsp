@@ -42,7 +42,22 @@
     .closediv{
     	display:inline-block;
     }
+    
+    #eraseAllAlarm{
+    	margin-left:320px;
+    	margin-bottom:15px;
+    	font-size:12px;
+    }
     </style>
+    <script type="text/javascript">
+    	function readAllAlarm(){
+    		var yesorno = confirm('모든 알림을 읽음 처리하시겠습니까?');
+    		if(yesorno == true){
+    			location.href="updateAllAlarmStatus.al";
+    		}
+    	}
+    </script>
+    
     </head>
     <body>
 
@@ -52,7 +67,7 @@
 					aria-labelledby="alertsDropdown">
 				<h6 class="dropdown-header">
 					Alerts Center
-				</h6>
+				</h6><div id="eraseAllAlarm" onclick="readAllAlarm();" onmouseover="this.style.cursor='pointer'; this.style.color='green'" onmouseout="this.style.color='gray'">모든 알림 읽기</div>
 				<c:forEach var="a" items="${ aList }">
 				<a class="dropdown-item d-flex align-items-center" ondblclick="goDetail('${ a.projectNo }', '${ a.alarmType }');">
 					<div class="mr-3">
@@ -100,9 +115,10 @@
 			</div>
 		
 	<script>
-		function goDetail(projectNo, alarmType){
-			alert(projectNo);
-			alert(alarmType);
+		function goDetail(alarmType){
+			if(alarmType == 1){
+				
+			}
 		}
 		
 		function updateAlarmStatus(alarmNo){
