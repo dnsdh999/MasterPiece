@@ -98,6 +98,13 @@ public class WebSocketHandler extends TextWebSocketHandler implements Initializi
 		return email;
 	}
 	
+	public int getCurrentPno(WebSocketSession session) {
+		Map<String, Object> httpSession = session.getAttributes();
+		Member m = (Member)httpSession.get("loginUser");
+		int currPno = m.getCurrPno();
+		return currPno;
+	}
+	
 	@Override
 	public void afterPropertiesSet() throws Exception {}
 }

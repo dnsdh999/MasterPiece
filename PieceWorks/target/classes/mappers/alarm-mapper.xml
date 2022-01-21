@@ -4,9 +4,18 @@
 	<select id="getAllAlarmCount" parameterType="string" resultType="_int">
 		select count(*) from alarm where recipient = #{userEmail} and a_status = 'Y'
 	</select>
-
+	
+	<select id="getProjectAlarmCount" parameterType="Member" resultType="_int">
+	select count(*) from alarm where recipient = #{email} and a_status = 'Y' and project_no = #{currPno}
+	</select>
+	
 	<select id="getAllAlarmList" resultMap="alarmListSet">
 	select * from (SELECT * FROM ALARM WHERE RECIPIENT = #{email} and rownum <![CDATA[ <= ]]> 5 and a_status = 'Y')
+	order by alarm_date desc
+	</select>
+	
+	<select id="getProjectAlarmList" resultMap="alarmListSet">
+	select * from (SELECT * FROM ALARM WHERE RECIPIENT = #{email} and rownum <![CDATA[ <= ]]> 5 and a_status = 'Y' and project_no = #{currPno})
 	order by alarm_date desc
 	</select>
 	
@@ -16,6 +25,14 @@
 		union all
 		select * from(
 		select * from alarm where recipient = #{email} and a_status = 'N' order by alarm_date desc)
+	</select>
+	
+	<select id="getPAListForPage" resultMap="alarmListSet">
+		select * from(
+		select * from alarm where recipient = #{email} and a_status = 'Y' and project_no = #{currPno} order by alarm_date desc)
+		union all
+		select * from(
+		select * from alarm where recipient = #{email} and a_status = 'N' and project_no = #{currPno} order by alarm_date desc)
 	</select>
 	
 	<resultMap type="Alarm" id="alarmListSet">
