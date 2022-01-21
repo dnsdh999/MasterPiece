@@ -464,7 +464,7 @@ function deleteRoomClick(){
 	            					"alarmContent" : message,
 	            					"recipient" : emails,
 	            					"alarmType" : 1,
-	            					"projectNo" : 1000
+	            					"projectNo" : '${loginUser.currPno}'
 	            	            };
 	            			
 	            	        var jsonData = JSON.stringify(data);
