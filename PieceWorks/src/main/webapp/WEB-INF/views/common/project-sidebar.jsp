@@ -117,7 +117,7 @@
 
 		
 		document.getElementById('chatList').onclick = function(){
-			window.open('chatList.ch', 'chattingList', 'width=500,height=460');
+			window.open('chatList.ch', 'chattingList', 'width=500,height=560');
 		}
 		
 		function getPChatAlarmCount(){

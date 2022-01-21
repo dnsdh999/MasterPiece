@@ -11,8 +11,8 @@
     <meta name="description" content="">
     <meta name="author" content="">
 
-    <title>ChattingForm</title>
-
+    <title>${ projectName } 채팅</title>
+    <link rel="icon" href="resource/img/favicon.png">
     <!-- Custom fonts for this template-->
     <link href="resource/vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
     <link
@@ -147,7 +147,7 @@ body {
 	
 	
 	.recent_heading{
-		color:#435BD2;
+		color:#152FB0;
 		font-size:18px;
 		margin-bottom:10px;
 	}
@@ -385,10 +385,12 @@ $(function(){
 });
 
 function chatMouseOver(me){
-	me.style.backgroundColor = "#DDDFE6";
+	me.style.backgroundColor = "#D2D6EB";
+	me.childNodes[0].childNodes[3].lastChild.style.color = "black";
 }
 function chatMouseLeave(me){
 	me.style.backgroundColor = "#F5F5F5";
+	me.childNodes[0].childNodes[3].lastChild.style.color = "gray";
 }
 
 function chatDeatilGo(num, me){
