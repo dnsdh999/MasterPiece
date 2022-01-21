@@ -195,7 +195,7 @@ function getChattingList(){
                 					}
                 				}else{
                 					if(count == 0){
-                						chatimghtml += '<img class="twoprofile" position:absolute; width:28px; height:28px;" src="resource/profileFiles/' + data[i].joinMember[j].reProfile + '">';
+                						chatimghtml += '<img class="twoprofile" style="position:absolute; width:28px; height:28px;" src="resource/profileFiles/' + data[i].joinMember[j].reProfile + '">';
                 					}else if(count == 1){
                 						chatimghtml += '<img class="twoprofile" style="position:absolute;  margin-left:30px; width:28px; height:28px;" src="resource/profileFiles/' + data[i].joinMember[j].reProfile + '">';
                 					}else if(count == 2){
@@ -284,23 +284,21 @@ function getChattingList(){
                 		for(var j in data[i].joinMember){
                 			if("${ loginUser.email }" != data[i].joinMember[j].chatMember){
                 				chatMemStr += data[i].joinMember[j].memberName + " ";
-                				if(j >= 4){
+                				if(chatMemStr.length >= 20){
+                					chatMemStr = chatMemStr.substring(0,20) + '...';
                 					break;
                 				}
                 				}
                 		}
                 		
-                		if(data[i].joinMemCount > 5){
-                			chatMemStr += "...";
-                		}
                 		
                 		if(data[i].joinMember.length == 1 && "${loginUser.email}" == data[i].joinMember[0].chatMember){
                 			chatMemStr = "대화 상대 없음";
                 		}
                 		$li.find(".chatTitle").text(chatMemStr);
                 	}else{
-                		if(data[i].chatTitle.length > 15){
-                			$li.find(".chatTitle").text(data[i].chatTitle.substring(0,30) + '...');
+                		if(data[i].chatTitle.length > 20){
+                			$li.find(".chatTitle").text(data[i].chatTitle.substring(0,20) + '...');
                 			
                 		}else{
                 			$li.find(".chatTitle").text(data[i].chatTitle);
