@@ -23,4 +23,6 @@ public interface AlarmService {
 
 	ArrayList<Alarm> getPAListForPage(Member m);
 
+	int updateAllAlarmStatus(Member m);
+
 }

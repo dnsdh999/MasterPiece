@@ -49,6 +49,13 @@
 		update alarm set a_status = 'N' where alarm_no = #{aNo}
 	</update>
 	
+	<update id="updateAllAlarmStatus" parameterType="Member">
+		update alarm set a_status = 'N' where recipient = #{email}
+		<if test="currPno != 0">
+			and project_no = #{currPno}
+		</if>
+	</update>
+	
 	<insert id="insertAlarm" parameterType="Alarm">
 		insert into alarm 
 		values(seq_alarmno.nextval, #{alarmType}, #{alarmContent}, 'Y', #{recipient}, #{projectNo}, sysdate)

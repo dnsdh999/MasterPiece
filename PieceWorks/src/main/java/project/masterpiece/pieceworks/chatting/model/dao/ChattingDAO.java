@@ -99,4 +99,8 @@ public class ChattingDAO {
 	public int getPChatAlarmCount(SqlSessionTemplate sqlSession, Member m) {
 		return sqlSession.selectOne("chattingMapper.getPChatAlarmCount", m);
 	}
+
+	public String selectProjectName(SqlSessionTemplate sqlSession, int projectNum) {
+		return sqlSession.selectOne("chattingMapper.selectProjectName", projectNum);
+	}
 }

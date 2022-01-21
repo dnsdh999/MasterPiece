@@ -24,12 +24,18 @@
     
   <meta name="viewport" content="width=device-width, initial-scale=1">
 	<link rel="stylesheet" href="resource/css/chatting-css.css">
+	<link rel="preconnect" href="https://fonts.gstatic.com">
+	<link href="https://fonts.googleapis.com/css2?family=Roboto:wght@100&display=swap" rel="stylesheet">
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
  <script src="https://cdn.jsdelivr.net/npm/sockjs-client@1/dist/sockjs.min.js"></script>
 </head>
 <style>
+@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@100&display=swap');
+body {
+	font-family: 'Roboto', sans-serif;
+}
 	.topchatbar{
 		display: flex;
 		max-width : 50%;
@@ -136,6 +142,14 @@
 	-moz-border-radius: 19px;
 	-khtml-border-radius: 19px;
 	-webkit-border-radius: 19px;
+	}
+	
+	
+	
+	.recent_heading{
+		color:#435BD2;
+		font-size:18px;
+		margin-bottom:10px;
 	}
 </style>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/lodash.js/3.2.0/lodash.js"></script>
@@ -371,20 +385,13 @@ $(function(){
 });
 
 function chatMouseOver(me){
-	me.style.backgroundColor = "#E9E9E9";
+	me.style.backgroundColor = "#DDDFE6";
 }
 function chatMouseLeave(me){
 	me.style.backgroundColor = "#F5F5F5";
 }
 
 function chatDeatilGo(num, me){
-	var clist = document.getElementsByClassName('chat_list');
-	var len = clist.length;
-
-	for(var i=0 ; i<len; i++){
-	   clist[i].style.backgroundColor="#F5F5F5";
-	}
-	me.style.backgroundColor = "#D9D9D9";
 	
 	document.getElementById("chatNumber").value = num;
 	 var newWindow = window.open('chattingDetailForm.ch', '채팅' , 'width=380, height=500, resizable=yes, scrollbars=yes, left=200, top=100');
@@ -450,14 +457,14 @@ function deleteRoomClick(){
 	<div class="inbox_people">
 	  <div class="headind_srch">
 		<div class="recent_heading">
-		  <h4>채팅</h4>
+		  <b>${ projectName }</b> 채팅
 		</div>
 		<div class="srch_bar">
 		  <div class="stylish-input-group">
 <!-- 			 <input type="text" class="search-bar"  placeholder="Search" > -->
 			<div class="chatadd">
 						<div class="my-2"></div>
-                                    <a href="#" class="btn btn-success btn-icon-split">
+                                    <a href="#" class="btn btn-primary btn-icon-split">
                                         <span class="icon text-white-50">
                                           	 <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-plus-lg" viewBox="0 0 16 16">
   <path d="M8 0a1 1 0 0 1 1 1v6h6a1 1 0 1 1 0 2H9v6a1 1 0 1 1-2 0V9H1a1 1 0 0 1 0-2h6V1a1 1 0 0 1 1-1z"/>
@@ -521,7 +528,8 @@ function deleteRoomClick(){
 	                        <c:forEach var="m" items="${ mArr }">
 	                        <c:if test="${ loginUser.email ne m.email}">
 	                       
-	                        <div>
+	                        <div class="PMNicks">
+	                        
 					<input type="checkbox" name="checkChat" value="${ m.email }" class="projectmem">
 					<input type="hidden" value="${ m.nickName }" name="memname">
 					<c:if test="${ m.reProfile ne null}">
@@ -530,7 +538,7 @@ function deleteRoomClick(){
 					<c:if test="${ m.reProfile eq null}">
 					<img class="twoprofile" style="margin-left:5px; width:36px; height:36px;" src="resource/img/undraw_profile.svg" alt="sunil">
 					</c:if>
-                    ${ m.nickName }</div><div class="dropdown-divider"></div></c:if>
+                    ${ m.nickName }<div class="dropdown-divider"></div></div></c:if>
                    	
 					</c:forEach>
 				

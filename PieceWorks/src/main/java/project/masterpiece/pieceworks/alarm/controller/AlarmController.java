@@ -116,6 +116,8 @@ public class AlarmController {
 		return "alarmList";
 	}
 	
+	
+	
 	@RequestMapping("updateAlarmStatus.al")
 	public String updateAlarmStatus(@RequestParam("alarmNo") String alarmNo, HttpServletRequest request, Model model ) {
 		
@@ -127,5 +129,22 @@ public class AlarmController {
 			throw new AlarmException("채팅목록 불러오기 실패");
 		}
 		
+	}
+	
+	@RequestMapping("updateAllAlarmStatus.al")
+	public String updateAllAlarmStatus(HttpServletRequest request, Model model) {
+		String email = ((Member)request.getSession().getAttribute("loginUser")).getEmail();
+		int currPno = ((Member)request.getSession().getAttribute("loginUser")).getCurrPno();
+		
+		Member m = new Member();
+		m.setCurrPno(currPno);
+		m.setEmail(email);
+		
+		int result = aService.updateAllAlarmStatus(m);
+		if(result > 0) {
+			return "redirect:allAlarmList.al";
+		}else {
+			throw new AlarmException("채팅목록 불러오기 실패");
+		}
 	}
 }

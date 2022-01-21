@@ -145,4 +145,8 @@
 		join chat_message using(chat_no)
 		where chat_member in (#{email}) and project_no = #{currPno} and confirm_time <![CDATA[ < ]]> send_time
 	</select>
+	
+	<select id="selectProjectName" parameterType="_int" resultType="string">
+		select project_title from project where project_no = #{projectNum}
+	</select>
 </mapper>

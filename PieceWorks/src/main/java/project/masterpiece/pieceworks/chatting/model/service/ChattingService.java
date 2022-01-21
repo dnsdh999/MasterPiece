@@ -51,4 +51,6 @@ public interface ChattingService {
 	int updateConfirmTime(ChattingMessage cm);
 
 	int getPChatAlarmCount(Member m);
+
+	String selectProjectName(int projectNum);
 }

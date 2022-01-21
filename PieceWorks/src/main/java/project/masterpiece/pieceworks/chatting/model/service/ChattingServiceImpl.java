@@ -121,4 +121,9 @@ public class ChattingServiceImpl implements ChattingService{
 	public int getPChatAlarmCount(Member m) {
 		return cDAO.getPChatAlarmCount(sqlSession, m);
 	}
+
+	@Override
+	public String selectProjectName(int projectNum) {
+		return cDAO.selectProjectName(sqlSession, projectNum);
+	}
 }
