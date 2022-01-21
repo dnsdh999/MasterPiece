@@ -1,8 +1,14 @@
 package project.masterpiece.pieceworks;
 
+import javax.servlet.http.HttpSession;
+
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.SessionAttributes;
 
+import project.masterpiece.pieceworks.member.model.vo.Member;
+
+@SessionAttributes("loginUser")
 @Controller
 public class CommonController {
 
@@ -17,7 +23,9 @@ public class CommonController {
 	}
 	
 	@RequestMapping("main.com")
-	public String main() {
+	public String main(HttpSession session) {
+		Member loginUser = (Member)session.getAttribute("loginUser");
+		loginUser.setCurrPno(0);
 		return "main";
 	}
 	

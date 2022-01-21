@@ -25,8 +25,8 @@ public class ChattingDAO {
 		return (ArrayList)sqlSession.selectList("chattingMapper.selectChattingMessageList",c);
 	}
 
-	public ArrayList<ChattingList> selectChattingList(SqlSessionTemplate sqlSession, String email) {
-		return (ArrayList)sqlSession.selectList("chattingMapper.selectChattingList", email);
+	public ArrayList<ChattingList> selectChattingList(SqlSessionTemplate sqlSession, Member m) {
+		return (ArrayList)sqlSession.selectList("chattingMapper.selectChattingList", m);
 	}
 
 	

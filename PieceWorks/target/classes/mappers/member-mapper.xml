@@ -3,7 +3,7 @@
 <mapper namespace="memberMapper">
 	<insert id="insertMember">
 		insert into member
-		values (#{email}, #{pwd}, #{name}, #{nickName}, #{phone}, sysdate, default, null, null)
+		values (#{email}, #{pwd}, #{name}, #{nickName}, #{phone}, sysdate, default, null, null, 0)
 	</insert>
 	
   	<select id="memberLogin" resultMap="memberResultSet">
@@ -21,6 +21,7 @@
   		<result column="M_STATUS" property="m_status"/>
   		<result column="ORIGINPROFILE" property="originProfile" />
   		<result column="REPROFILE" property="reProfile"/>
+  		<result column="CURR_PNO" property="currPno"/>
   	</resultMap>
   
   	<select id="selectProjectMemList" resultMap="memberResultSet">

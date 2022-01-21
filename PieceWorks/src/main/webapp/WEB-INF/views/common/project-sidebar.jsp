@@ -82,13 +82,19 @@
                     <h6 class="collapse-header">DETAILS</h6>
                     <a class="collapse-item" href="#">상세 정보</a>
                     <a class="collapse-item" href="#">일정 및 캘린더</a>
-                    <a class="collapse-item" href="#">채팅</a>
+                    <a class="collapse-item" id="chatList">채팅</a>
                     <a class="collapse-item" href="#">게시판</a>
                     <a class="collapse-item" href="#">파일함</a>
                 </div>
             </div>
         </li>
-
+	
+		<script>
+		document.getElementById('chatList').onclick = function(){
+			window.open('chatList.ch', 'chattingList', 'width=500,height=460');
+		}
+		</script>
+		
         <!-- Divider -->
         <hr class="sidebar-divider">
 

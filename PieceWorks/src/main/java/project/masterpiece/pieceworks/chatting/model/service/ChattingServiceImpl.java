@@ -32,8 +32,8 @@ public class ChattingServiceImpl implements ChattingService{
 	}
 
 	@Override
-	public ArrayList<ChattingList> selectChattingList(String email) {
-		return cDAO.selectChattingList(sqlSession, email);
+	public ArrayList<ChattingList> selectChattingList(Member m) {
+		return cDAO.selectChattingList(sqlSession, m);
 	}
 
 

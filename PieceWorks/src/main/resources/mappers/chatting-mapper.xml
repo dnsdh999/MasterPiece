@@ -18,7 +18,7 @@
 		<result column="CHAT_WRITER" property="chatWriter"/>
 	</resultMap>
 	
-	<select id="selectChattingList" resultMap="ChattingListSet">
+	<select id="selectChattingList" resultMap="ChattingListSet" parameterType="Member">
 		SELECT CHAT_NO, CHAT_STATUS, CHAT_TITLE, CHAT_CREATER, PROJECT_NO, CREATE_DATE, CHAT_MESSAGE, SEND_TIME, cast(send_time as DATE) as send_date, nvl(unread,0) as unread_count, chat_member, nickname AS MEMBER_NAME, REPROFILE, join_mem_count
 		FROM CHAT_JOIN 
 		JOIN (SELECT * FROM
@@ -32,7 +32,7 @@
         using (chat_no)
         where chat_no in (select chat_no from chat_join where chat_member = #{email}) and confirm_time <![CDATA[ < ]]> send_time) group by chat_no) using(chat_no)
         join (select chat_no, count(*) as join_mem_count from chat_join group by chat_no) using(chat_no)
-		WHERE chat_no in (select chat_no from chat_join where chat_member in(#{email})) and CHAT_STATUS='Y' order by send_time desc
+		WHERE chat_no in (select chat_no from chat_join where chat_member in(#{email})) and CHAT_STATUS='Y' and project_no = #{currPno} order by send_time desc
 	</select>
 	
 	<resultMap type="ChattingList" id="ChattingListSet">
