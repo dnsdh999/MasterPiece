@@ -95,4 +95,8 @@ public class ChattingDAO {
 	public int updateConfirmTime(SqlSessionTemplate sqlSession, ChattingMessage cm) {
 		return sqlSession.update("chattingMapper.updateConfirmTime", cm);
 	}
+
+	public int getPChatAlarmCount(SqlSessionTemplate sqlSession, Member m) {
+		return sqlSession.selectOne("chattingMapper.getPChatAlarmCount", m);
+	}
 }

@@ -49,4 +49,6 @@ public interface ChattingService {
 	int insertChattingMember(ArrayList<ChattingCheckRoom> list);
 
 	int updateConfirmTime(ChattingMessage cm);
+
+	int getPChatAlarmCount(Member m);
 }

@@ -116,4 +116,9 @@ public class ChattingServiceImpl implements ChattingService{
 	public int updateConfirmTime(ChattingMessage cm) {
 		return cDAO.updateConfirmTime(sqlSession, cm);
 	}
+
+	@Override
+	public int getPChatAlarmCount(Member m) {
+		return cDAO.getPChatAlarmCount(sqlSession, m);
+	}
 }
