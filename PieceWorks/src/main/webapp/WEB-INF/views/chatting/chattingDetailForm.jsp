@@ -11,7 +11,7 @@
     
   <meta name="viewport" content="width=device-width, initial-scale=1">
 	<link rel="stylesheet" href="resource/css/chatting-css.css">
-
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
   
@@ -174,14 +174,12 @@
 	}
 
 	$(document).ready(function() {
-		$('#message').keypress(function(event){
-			var keycode = (event.keyCode ? event.keyCode : event.which);
-			if(keycode == '13'){
-				send();	
-			}
-			event.stopPropagation();
-	
-		});
+		 $(".write_msg").keydown(function(key) {
+                if (key.keyCode == 13) {
+                	send();	
+                }
+            });
+
 		$('.msg_send_btn').click(function() { send(); });
 		$('#enterBtn').click(function() { connect(); });
 		$('#exitBtn').click(function() { disconnect(); });
