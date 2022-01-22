@@ -371,7 +371,7 @@ $(function(){
 	var isCreate = ${ isCreate };
 	if(isCreate == true){
 		document.getElementById("chatNumber").value = "${ chatRoomNum }";
-		var newWindow = window.open('chattingDetailForm.ch', '채팅' , 'width=400, height=500, resizable=yes, scrollbars=yes, left=200, top=100');
+		var newWindow = window.open('chattingDetailForm.ch?chatNo=${chatRoomNum}', '채팅' , 'width=400, height=500, resizable=yes, scrollbars=yes, left=200, top=100');
 		 newWindow.focus();
 		 frm.target="채팅";
 		 frm.submit();
@@ -396,7 +396,7 @@ function chatMouseLeave(me){
 function chatDeatilGo(num, me){
 	
 	document.getElementById("chatNumber").value = num;
-	 var newWindow = window.open('chattingDetailForm.ch', '채팅' , 'width=380, height=500, resizable=yes, scrollbars=yes, left=200, top=100');
+	 var newWindow = window.open('chattingDetailForm.ch?chatNo=${chatRoomNum}', '채팅' , 'width=380, height=500, resizable=yes, scrollbars=yes, left=200, top=100');
 	 newWindow.focus();
 	 frm.target="채팅";
 	 frm.submit();

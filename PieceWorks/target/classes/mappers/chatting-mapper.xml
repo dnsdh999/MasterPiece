@@ -3,7 +3,7 @@
 <mapper namespace="chattingMapper">
 	
 	<select id="selectChattingMessageList" resultMap="ChattingMessageSet">
-		select chat_message_no, chat_message, send_time, nickname, chat_no, chat_writer
+		select chat_message_no, chat_message, send_time, nickname, chat_no, chat_writer,reprofile
 		from chat_message
 			join member on(chat_writer = email)
 		where chat_no = #{chatNo} 
