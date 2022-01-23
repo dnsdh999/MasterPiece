@@ -41,11 +41,6 @@ public class CalendarController {
 	@Autowired
 	private ProjectService pService;
 
-//	@RequestMapping("fullCal.ca")
-//	public String fullCalView() {
-//		return "fullCalendar";
-//	}
-	
 	@RequestMapping("proCal.ca")
 	public String proCalView() {
 		return "calendar_p";
@@ -86,8 +81,6 @@ public class CalendarController {
 		}
 		
 		c.setAllDay(allDay);
-		
-//		System.out.println(c);
 		
 		return caService.addEvent(c);
 	}
@@ -162,13 +155,8 @@ public class CalendarController {
 	      
 	      model.addAttribute("Calendar", c);
 	      
-	      System.out.println(c);
+//	      System.out.println(c);
 	      
-//	      if(result > 0) {
-//	         return "success";
-//	      } else {
-//	         return "fail";
-//	      }
 	 }
 	   
 	
@@ -214,11 +202,6 @@ public class CalendarController {
 	     
 	    System.out.println(c);
 		
-//	    if(result > 0) {
-//	         return "success";
-//	    } else {
-//	    	return "fail";
-//	    }
 	}
 	
 	@RequestMapping("mainCalendar.com")
@@ -241,6 +224,7 @@ public class CalendarController {
 //		p.setpEndDate(fEndDate);
 //		p.setpCreater(email);
 		
+		//JSON에 담기위해 Date가 아닌 String값을 갖는 객체 추가 생성
 		MainCalProject mp = new MainCalProject();
 		mp.setpStartDate(startDate);
 		mp.setpEndDate(endDate);
@@ -267,8 +251,6 @@ public class CalendarController {
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
-		
-		
 		
 	}
 }

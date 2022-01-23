@@ -266,11 +266,11 @@
 <!-------------------------------------------------------------------- 스크립트 끝 -------------------------------------------------------------------->
 <!-- End of Main content -->
 			
+				<!-- Main Content 끝 -->
+				</div>
+				
 			<!-- Footer -->
 			<c:import url="../common/footer.jsp" />
-			
-			<!-- Main Content 끝 -->
-			</div>
 		<!-- Content Wrapper 끝 -->
 		</div>
 	<!-- Page Wrapper 끝 -->    

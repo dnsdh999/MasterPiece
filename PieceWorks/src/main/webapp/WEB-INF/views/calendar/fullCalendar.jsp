@@ -5,7 +5,7 @@
 <head>
     <meta charset="utf-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <title>FullCalendar</title>
+<!--     <title>FullCalendar</title> -->
     
     <!-- Custom fonts for this template-->
     <link href="resource/vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
@@ -177,23 +177,6 @@
 						                        </select>
 						                    </div>
 						                </div>
-						
-<!-- 						                <div class="col-lg-6"> -->
-<!-- 						                    <label for="calendar_view">등록자별</label> -->
-<!-- 						                    <div class="input-group"> -->
-<%-- <%-- 						                    <c:forEach var="c" items="${ JSONArray }"> --%> 
-<!-- <!-- 						                    <label class="checkbox-inline"> --> 
-<%-- <%-- 						                    	<input class='filter' type="checkbox" value="${ c.nickName }" checked> --%> 
-<!-- <!-- 						                    </label> --> 
-						                    
-<%-- <%-- 						                    </c:forEach> --%> 
-<%-- <%-- 						                    <c:out value="${ JSONArray }" /> --%> 
-<%-- 						                        <label class="checkbox-inline"><input class='filter' type="checkbox" value="${ loginUser.nickName }" --%>
-<%-- 						                                checked>${ loginUser.nickName }</label> --%>
- 						                        
-<!-- 						                    </div> -->
-<!-- 						                </div> -->
-						
 						            </div>
 						        </div>
 						        <!-- /.filter panel -->

@@ -116,9 +116,9 @@ var calendar = $('#calendar').fullCalendar({
 		        		pjObj.type = data[i].pStatus;
 		        		
 		        		if(data[i].pStatus == '진행전'){
-		        			pjObj.backgroundColor = '#FDAB3D';
+		        			pjObj.backgroundColor = '#f6c23e';
 		        		} else if(data[i].pStatus == '진행중'){
-		        			pjObj.backgroundColor = '#28BA37';
+		        			pjObj.backgroundColor = '#36b9cc';
 		        		} else if(data[i].pStatus == '완료') {
 		        			pjObj.backgroundColor = '#3479FF';
 		        		}

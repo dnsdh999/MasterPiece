@@ -173,13 +173,13 @@
 					var status = document.getElementById('projectStatus');
 					
 					if(status.innerHTML == '진행전') {
-						status.style.backgroundColor = '#FDAB3D';
+						status.style.backgroundColor = '#f6c23e';
 						status.style.color = 'white';
 					} else if(status.innerHTML == '진행중') {
-						status.style.backgroundColor = '#28BA37';
+						status.style.backgroundColor = '#36b9cc';
 						status.style.color = 'white';
 					} else if(status.innerHTML == '완료') {
-						status.style.backgroundColor = '#3479FF';
+						status.style.backgroundColor = '#4e73df';
 						status.style.color = 'white';
 					}
 					
@@ -204,12 +204,12 @@
 			<script>
 				function before() {
 					$('#before').mouseenter(function() {
-						$(this).css({'background':'#FDAB3D', 'color':'white', 'cursor':'pointer'});
+						$(this).css({'background':'#f6c23e', 'color':'white', 'cursor':'pointer'});
 					}).mouseout(function() {
 						$(this).css({'background':'none', 'color':'black'});
 					}).on('click', function() {
 						$('#projectStatus').text('진행전');
-						$('#projectStatus').css({'background':'#FDAB3D', 'color':'white'});
+						$('#projectStatus').css({'background':'#f6c23e', 'color':'white'});
 						$('#pStatus').val('');
 						$('#pStatus').val('진행전');
 					});
@@ -217,12 +217,12 @@
 				
 				function ing() {
 					$('#ing').mouseenter(function() {
-						$(this).css({'background':'#28BA37', 'color':'white', 'cursor':'pointer'});
+						$(this).css({'background':'#36b9cc', 'color':'white', 'cursor':'pointer'});
 					}).mouseout(function() {
 						$(this).css({'background':'none', 'color':'black'});
 					}).on('click', function() {
 						$('#projectStatus').text('진행중');
-						$('#projectStatus').css({'background':'#28BA37', 'color':'white'});
+						$('#projectStatus').css({'background':'#36b9cc', 'color':'white'});
 						$('#pStatus').val('');
 						$('#pStatus').val('진행중');
 					});

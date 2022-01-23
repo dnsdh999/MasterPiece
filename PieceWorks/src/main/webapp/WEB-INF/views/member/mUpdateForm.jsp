@@ -80,10 +80,10 @@
 									<div class="col-xs-6 profileplace" id="img">
 										<c:choose>
 											<c:when test="${ loginUser.reProfile eq null }">
-												<img class="pImg" id="profile2" name="profile" alt="프로필 사진" src="resource/img/undraw_profile.svg">
+												<img class="pImg" id="profile2" name="profile2" alt="프로필 사진" src="resource/img/undraw_profile.svg">
 											</c:when>
 											<c:otherwise>
-												<img class="pImg" id="profile2" name="profile" alt="프로필 사진" src="resource/profileFiles/${ loginUser.reProfile }">
+												<img class="pImg" id="profile2" name="profile2" alt="프로필 사진" src="resource/profileFiles/${ loginUser.reProfile }">
 											</c:otherwise>
 										</c:choose>									
 									</div>
@@ -108,7 +108,8 @@
 									<input type="text" class="form-control form-control-user" id="phone" name="phone" value="${ loginUser.phone }">
 								</div>
 								<div class="form-group">
-									<button type="submit" class="btn btn-primary btn-user btn-block">정보수정 완료</button>
+									<button type="submit" class="btn btn-primary btn-user btn-block">정보 수정 완료</button>
+									<button type="button" class="btn btn-secondary btn-user btn-block" onclick="history.back();">수정 취소</button>
 								</div>
 							</form>
 						</div>
