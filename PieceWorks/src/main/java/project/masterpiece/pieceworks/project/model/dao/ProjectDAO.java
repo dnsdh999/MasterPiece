@@ -31,4 +31,9 @@ public class ProjectDAO {
 		return sqlSession.selectOne("projectMapper.selectCalendar", projectNo);
 	}
 
+	public ArrayList<Project> getPListForMain(SqlSessionTemplate sqlSession, Project p) {
+		return (ArrayList)sqlSession.selectList("projectMapper.getPListForMain", p);
+	}
+
+
 }

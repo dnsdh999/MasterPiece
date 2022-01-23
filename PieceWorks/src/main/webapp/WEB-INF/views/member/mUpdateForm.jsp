@@ -80,10 +80,10 @@
 									<div class="col-xs-6 profileplace" id="img">
 										<c:choose>
 											<c:when test="${ loginUser.reProfile eq null }">
-												<img class="pImg" id="profile" name="profile" alt="프로필 사진" src="resource/img/undraw_profile.svg">
+												<img class="pImg" id="profile2" name="profile" alt="프로필 사진" src="resource/img/undraw_profile.svg">
 											</c:when>
 											<c:otherwise>
-												<img class="pImg" id="profile" name="profile" alt="프로필 사진" src="resource/profileFiles/${ loginUser.reProfile }">
+												<img class="pImg" id="profile2" name="profile" alt="프로필 사진" src="resource/profileFiles/${ loginUser.reProfile }">
 											</c:otherwise>
 										</c:choose>									
 									</div>
@@ -118,7 +118,7 @@
 					$(function() {
 						$("#imgArea").hide();
 						
-						$("#profile").click(function() {
+						$("#profile2").click(function() {
 							$("#profileImg").click();
 						});
 					});
@@ -128,7 +128,7 @@
 				            var reader = new FileReader();
 						}
 						reader.onload = function(e) {
-							$("#profile").attr("src", e.target.result);
+							$("#profile2").attr("src", e.target.result);
 						}
 						reader.readAsDataURL(value.files[0]);
 					}

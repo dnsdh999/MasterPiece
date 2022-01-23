@@ -194,7 +194,17 @@
 						<h3>${ p.pTitle } 상세 일정</h3>
 <!-- 						<form action="detailInsert.pr" method="post" class="row g-3"> -->
 							<div class="card-body">
-							일정 생성<a id="btn" class="btn-open-popup7" href="fullCal.ca"><i class="fas fa-plus"></i></a>
+							
+							<a href="fullCal.ca" class="btn btn-light btn-icon-split">
+	                            <span class="icon text-white-50">
+		                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-plus-lg" viewBox="0 0 16 16">
+		  								<path d="M8 0a1 1 0 0 1 1 1v6h6a1 1 0 1 1 0 2H9v6a1 1 0 1 1-2 0V9H1a1 1 0 0 1 0-2h6V1a1 1 0 0 1 1-1z"></path>
+									</svg>
+		                        </span>
+	                            <span class="text" id="chatAdd" data-toggle="modal" data-target="#chatAddModal">일정생성</span>
+                             </a>
+                                    
+<!-- 							일정 생성<a id="btn" class="btn-open-popup7" href="fullCal.ca"><i class="fas fa-plus"></i></a> -->
 								<div class="col-lg-12 mb-2">
 									<div class="card border-bottom-primary shadow h-100 py-2">
 										<div class="card-body">
@@ -305,13 +315,13 @@
 				   });
 			</script>
 <!-------------------------------------------------------------------- 스크립트 끝 -------------------------------------------------------------------->
-<!-- End of Main content -->
-			
-			<!-- Footer -->
-			<c:import url="../common/footer.jsp" />
 			
 			<!-- Main Content 끝 -->
 			</div>
+			
+			<!-- Footer -->
+			<c:import url="../common/footer.jsp" />
+		
 		<!-- Content Wrapper 끝 -->
 		</div>
 	<!-- Page Wrapper 끝 -->    

@@ -17,4 +17,7 @@ public interface ProjectService {
 
 	Calendar selectCalendar(int projectNo);
 
+	ArrayList<Project> getPListForMain(Project p);
+
+
 }

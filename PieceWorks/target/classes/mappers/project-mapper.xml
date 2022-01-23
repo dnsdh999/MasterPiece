@@ -89,4 +89,17 @@
 <!-- 		<result column="ALLDAY" property="allDay"/> -->
 <!-- 		<result column="PROJECT_NO" property="projectNo"/> -->
 <!-- 	</resultMap> -->
+
+	<select id="getPListForMain" resultMap="ProjectListSet">
+		select * 
+		from (select *
+				from project
+				join project_join using(project_no)
+				join member on(project_member=email)
+		 		where p_status like '진행%' and project_member = #{pCreater})
+		 where (p_start_date between #{pStartDate} and #{pEndDate})
+			  		or (p_end_date between #{pStartDate} and #{pEndDate})
+		 order by project_no
+		
+	</select>
 </mapper>

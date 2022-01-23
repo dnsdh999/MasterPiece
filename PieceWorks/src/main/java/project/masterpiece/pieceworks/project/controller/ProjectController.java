@@ -74,8 +74,6 @@ public class ProjectController {
 		
 		ArrayList<Project> list = pService.getPList(email);
 		
-		System.out.println(list);
-		
 		response.setContentType("application/json; charset=UTF-8");
 		
 		GsonBuilder gb = new GsonBuilder().setDateFormat("yyyy-MM-dd");

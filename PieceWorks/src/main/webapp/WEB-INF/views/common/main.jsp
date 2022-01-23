@@ -3,6 +3,18 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <html>
 <head>
+	<meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>PIECE WORKS MAIN</title>
+    
+    <!-- Custom fonts for this template-->
+    <link href="resource/vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
+    <link
+        href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i"
+        rel="stylesheet">
+
+    <!-- Custom styles for this template-->
+    <link href="resource/css/sb-admin-2.min.css" rel="stylesheet">
 	<link rel="stylesheet" href="resource/vendor/css/fullcalendar.min.css" />
     <link rel="stylesheet" href="resource/vendor/css/calbootstrap.min.css">
     <link rel="stylesheet" href='resource/vendor/css/select2.min.css' />
@@ -64,25 +76,13 @@
                                         
                                         	<!-- 캘린더 container -->
 					                        <div class="container">
-												  <!-- 일자 클릭시 메뉴오픈 -->
-											        <div id="contextMenu" class="dropdown clearfix">
-											            <ul class="dropdown-menu dropNewEvent" role="menu" aria-labelledby="dropdownMenu"
-											                style="display:block;position:static;margin-bottom:5px;">
-											                <li><a tabindex="-1" href="#">진행중</a></li>
-											                <li><a tabindex="-1" href="#">진행전</a></li>
-											                <li><a tabindex="-1" href="#">완료</a></li>
-											                <li class="divider"></li>
-											                <li><a tabindex="-1" href="#" data-role="close">Close</a></li>
-											            </ul>
-											        </div>
 											
-											        <div id="wrapper">
-											            <div id="loading"></div>
-											            <div id="calendar"></div>
-											        </div>
+										        <div id="wrapper">
+										            <div id="loading"></div>
+										            <div id="calendar"></div>
+										        </div>
 											
-											
-											        <!-- 일정 추가 MODAL -->
+												<!--  일정 추가 MODAL -->
 											        <div class="modal fade" tabindex="-1" role="dialog" id="eventModal">
 											            <div class="modal-dialog" role="document">
 											                <div class="modal-content">
@@ -236,7 +236,7 @@
 						    <script src="resource/vendor/js/ko.js"></script>
 						    <script src="resource/vendor/js/select2.min.js"></script>
 						    <script src="resource/vendor/js/bootstrap-datetimepicker.min.js"></script>
-						    <script src="resource/js/main.js"></script>
+						    <script src="resource/js/mainPjCalendar.js"></script>
 						    <script src="resource/js/addEvent.js"></script>
 						    <script src="resource/js/editEvent.js"></script>
 						    <script src="resource/js/etcSetting.js"></script>              
@@ -282,7 +282,7 @@
 								pList += '<div class="text-s font-weight-bold text-primary text-uppercase mb-1">';
 								pList += '<form action="pDetailView2.pr" method="post">';
 								pList += '<input type="hidden" name="pNo" value="' + data[i].projectNo + '">';
-								pList += '<button type="submit" value="' + data[i].projectNo + '" class="btn-link">';
+								pList += '<button type="submit" value="' + data[i].projectNo + '" class="btn-link font-weight-bold">';
 								pList += '</form>' + data[i].pTitle;
 								pList += '</div><div class="text-s mb-0 font-weight-bold text-gray-800">';
 								pList += data[i].pStartDate + " ~ " + data[i].pEndDate;
@@ -291,6 +291,12 @@
 								
 							}
 							$('#pList').append(pList);
+						} else {
+							$('#pList').html('<div class="card-body">'
+												+ '<div class="col-lg-12 mb-2">'
+												+ '<div class="row no-gutters align-items-center">'
+												+ '<a style="text-align: center">진행 중인 프로젝트가 없습니다 </a>'
+												+ '</div></div></div>');
 						}
 					},
 					error: function(data){
@@ -298,10 +304,8 @@
 					}
 				});
 			}
-			
-			
-		</script>
 		
+		</script>
 </body>
 
 </html>

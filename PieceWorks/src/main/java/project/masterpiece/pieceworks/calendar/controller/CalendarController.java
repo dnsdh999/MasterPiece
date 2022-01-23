@@ -2,6 +2,8 @@ package project.masterpiece.pieceworks.calendar.controller;
 
 
 import java.io.IOException;
+import java.sql.Date;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 
 import javax.servlet.http.HttpServletRequest;
@@ -20,22 +22,28 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
 import com.google.gson.JsonIOException;
 
 import project.masterpiece.pieceworks.calendar.model.service.CalendarService;
 import project.masterpiece.pieceworks.calendar.model.vo.Calendar;
 import project.masterpiece.pieceworks.member.model.vo.Member;
+import project.masterpiece.pieceworks.project.model.service.ProjectService;
+import project.masterpiece.pieceworks.project.model.vo.Project;
 
 @Controller
 public class CalendarController {
 	
 	@Autowired
 	private CalendarService caService;
+	
+	@Autowired
+	private ProjectService pService;
 
-//	@RequestMapping("fullCal.ca")
-//	public String fullCalView() {
-//		return "fullCalendar";
-//	}
+	@RequestMapping("fullCal.ca")
+	public String fullCalView() {
+		return "fullCalendar";
+	}
 	
 	@RequestMapping("proCal.ca")
 	public String proCalView() {
@@ -212,4 +220,45 @@ public class CalendarController {
 //	    }
 	}
 	
+	@RequestMapping("mainCalendar.com")
+	public void getProjectList(@RequestParam("startDate") String startDate,
+								@RequestParam("endDate") String endDate,
+								HttpSession session, HttpServletResponse response,
+								Model model) {
+		
+		//세션에서 email받아옴
+		Member loginUser = (Member)session.getAttribute("loginUser");
+		String email = loginUser.getEmail();
+		
+		//Stringd인 startDate와 endDate를 sql.Date로 형변환 
+		Date fStartDate = Date.valueOf(startDate);
+		Date fEndDate = Date.valueOf(endDate);
+
+		//Project에 아래 정보를 담아서 넘김(해당 날짜 사이에 있는 프로젝트만 불러오게)
+		Project p = new Project();
+		p.setpStartDate(fStartDate);
+		p.setpEndDate(fEndDate);
+		p.setpCreater(email);
+		
+		ArrayList<Project> pList = pService.getPListForMain(p);
+		System.out.println("pList : " + pList);
+		
+		response.setContentType("application/json; charset=UTF-8");
+		GsonBuilder gb = new GsonBuilder().setDateFormat("yyyy-MM-dd");
+		
+		model.addAttribute("pList", pList);
+		
+		Gson gson = gb.create();
+		
+		try {
+			gson.toJson(pList, response.getWriter());
+		} catch (JsonIOException e) {
+			e.printStackTrace();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		
+		
+		
+	}
 }

@@ -43,4 +43,10 @@ public class ProjectServiceImpl implements ProjectService {
 	public Calendar selectCalendar(int projectNo) {
 		return pDAO.selectCalendar(sqlSession, projectNo);
 	}
+
+	@Override
+	public ArrayList<Project> getPListForMain(Project p) {
+		return pDAO.getPListForMain(sqlSession, p);
+	}
+
 }
