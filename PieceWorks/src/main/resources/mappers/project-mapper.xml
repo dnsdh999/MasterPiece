@@ -35,33 +35,36 @@
 	</resultMap>
 	
 	<select id="selectProject" resultMap="ProjectListSet">
-		select project_no, project_title, project_member
+		select project_no, project_title, project_member, nickname
 		from project
 			 join project_join using(project_no)
-		where project_no = #{projectNo} and rownum = 1 
+			 join member on(project_member = email)
+		where project_no = #{projectNo}
 	</select>
 	
-<!-- 	<select id="selectCalendar" resultMap="CalendarListSet"> -->
-<!-- 		select * -->
-<!-- 		from calendar -->
-<!-- 		where project_no = #{projectNo} -->
-<!-- 	</select> -->
+	<select id="selectCalendar" resultMap="CalendarListSet">
+		select *
+		from calendar
+			 join member on(c_creator=email)
+		where project_no = #{pNo} and c_status not like '완료'
+		order by calendar_no
+	</select>
 	
-<!-- 	<resultMap type="Calendar" id="CalendarListSet"> -->
-<!-- 		<id column="CALENDAR_NO" property="calendarNo"/> -->
-<!-- 		<result column="C_CREATOR" property="cCreator"/> -->
-<!-- 		<result column="NICKNAME" property="nickName"/> -->
-<!-- 		<result column="C_START_DATE" property="cStartDate"/> -->
-<!-- 		<result column="C_END_DATE" property="cEndDate"/> -->
-<!-- 		<result column="MODIFY_DATE" property="modifyDate"/> -->
-<!-- 		<result column="C_CATEGORY" property="category"/> -->
-<!-- 		<result column="C_STATUS" property="calStatus"/> -->
-<!-- 		<result column="C_TITLE" property="calTitle"/> -->
-<!-- 		<result column="C_CONTENT" property="calContent"/> -->
-<!-- 		<result column="C_BGCOLOR" property="bgColor"/> -->
-<!-- 		<result column="ALLDAY" property="allDay"/> -->
-<!-- 		<result column="PROJECT_NO" property="projectNo"/> -->
-<!-- 	</resultMap> -->
+	<resultMap type="Calendar" id="CalendarListSet">
+		<id column="CALENDAR_NO" property="calendarNo"/>
+		<result column="C_CREATOR" property="cCreator"/>
+		<result column="NICKNAME" property="nickName"/>
+		<result column="C_START_DATE" property="cStartDate"/>
+		<result column="C_END_DATE" property="cEndDate"/>
+		<result column="MODIFY_DATE" property="modifyDate"/>
+		<result column="C_CATEGORY" property="category"/>
+		<result column="C_STATUS" property="calStatus"/>
+		<result column="C_TITLE" property="calTitle"/>
+		<result column="C_CONTENT" property="calContent"/>
+		<result column="C_BGCOLOR" property="bgColor"/>
+		<result column="ALLDAY" property="allDay"/>
+		<result column="PROJECT_NO" property="projectNo"/>
+	</resultMap>
 
 	<select id="getPListForMain" resultMap="ProjectListSet">
 		select * 
@@ -75,4 +78,28 @@
 		 order by project_no
 		
 	</select>
+	
+	<select id="getPListForMain2" resultMap="MainCalProjectListSet">
+		select * 
+		from (select *
+				from project
+				join project_join using(project_no)
+				join member on(project_member=email)
+		 		where p_status like '진행%' and project_member = #{pCreater})
+		 where (p_start_date between to_date(#{pStartDate}, 'YYYY-MM-DD') and to_date(#{pEndDate}, 'YYYY-MM-DD'))
+			  		or (p_end_date between to_date(#{pStartDate}, 'YYYY-MM-DD') and to_date(#{pEndDate}, 'YYYY-MM-DD'))
+		 order by project_no
+	</select>
+	
+	<resultMap type="MainCalProject" id="MainCalProjectListSet">
+		<id column="PROJECT_NO" property="projectNo"/>
+		<result column="PROJECT_TITLE" property="pTitle"/>
+		<result column="PROJECT_CREATER" property="pCreater"/>
+		<result column="NICKNAME" property="pNickName"/>
+		<result column="PROJECT_CONTENT" property="pContent"/>
+		<result column="P_STATUS" property="pStatus"/>
+		<result column="P_START_DATE" property="pStartDate"/>
+		<result column="P_END_DATE" property="pEndDate"/>
+		<result column="CREATE_DATE" property="createDate"/>
+	</resultMap>
 </mapper>

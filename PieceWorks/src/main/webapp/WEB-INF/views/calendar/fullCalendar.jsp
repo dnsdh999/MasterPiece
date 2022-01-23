@@ -15,14 +15,10 @@
 
     <!-- Custom styles for this template-->
     <link href="resource/css/sb-admin-2.min.css" rel="stylesheet">
-    
-<!--     <link rel=" shortcut icon" href="resource/img/favicon.ico"> -->
-
     <link rel="stylesheet" href="resource/vendor/css/fullcalendar.min.css" />
     <link rel="stylesheet" href="resource/vendor/css/calbootstrap.min.css">
     <link rel="stylesheet" href='resource/vendor/css/select2.min.css' />
     <link rel="stylesheet" href='resource/vendor/css/bootstrap-datetimepicker.min.css' />
-
     <link rel="stylesheet" href="resource/css/main.css">
     
     <!-- 얘를 수정해야 modal창 안뜨는거 + 크기 줄어드는거 해결 가능 -->
@@ -49,7 +45,8 @@
 					<!-- Begin Page Content -->
 					<div class="container-fluid">
                 	    <div class="d-sm-flex align-items-center justify-content-between mb-4">
-                    	    <h1 class="h3 mb-0 text-gray-800">프로젝트 1 일정</h1>
+                    	    <h1 class="h3 mb-0 text-gray-800">${ list[0].pTitle } 일정</h1>
+                    	    <input type="hidden" id="pNo" name="pNo" value="${ list[0].projectNo }">
                     	</div>
 
 						<div class="row">
@@ -181,21 +178,21 @@
 						                    </div>
 						                </div>
 						
-						                <div class="col-lg-6">
-						                    <label for="calendar_view">등록자별</label>
-						                    <div class="input-group">
-<%-- 						                    <c:forEach var="c" items="${ JSONArray }"> --%>
-<!-- 						                    <label class="checkbox-inline"> -->
-<%-- 						                    	<input class='filter' type="checkbox" value="${ c.nickName }" checked> --%>
-<!-- 						                    </label> -->
+<!-- 						                <div class="col-lg-6"> -->
+<!-- 						                    <label for="calendar_view">등록자별</label> -->
+<!-- 						                    <div class="input-group"> -->
+<%-- <%-- 						                    <c:forEach var="c" items="${ JSONArray }"> --%> 
+<!-- <!-- 						                    <label class="checkbox-inline"> --> 
+<%-- <%-- 						                    	<input class='filter' type="checkbox" value="${ c.nickName }" checked> --%> 
+<!-- <!-- 						                    </label> --> 
 						                    
-<%-- 						                    </c:forEach> --%>
-<%-- 						                    <c:out value="${ JSONArray }" /> --%>
-						                        <label class="checkbox-inline"><input class='filter' type="checkbox" value="${ loginUser.nickName }"
-						                                checked>${ loginUser.nickName }</label>
+<%-- <%-- 						                    </c:forEach> --%> 
+<%-- <%-- 						                    <c:out value="${ JSONArray }" /> --%> 
+<%-- 						                        <label class="checkbox-inline"><input class='filter' type="checkbox" value="${ loginUser.nickName }" --%>
+<%-- 						                                checked>${ loginUser.nickName }</label> --%>
  						                        
-						                    </div>
-						                </div>
+<!-- 						                    </div> -->
+<!-- 						                </div> -->
 						
 						            </div>
 						        </div>

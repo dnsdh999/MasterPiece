@@ -58,58 +58,60 @@ var calendar = $('#calendar').fullCalendar({
                                 }
                               },
 
-  eventRender: function (event, element, view) {
-
-    //일정에 hover시 요약
-    element.popover({
-      title: $('<div />', {
-        class: 'popoverTitleCalendar',
-        text: event.title
-      }).css({
-        'background': event.backgroundColor,
-        'color': '#ffffff'
-      }),
-      content: $('<div />', {
-          class: 'popoverInfoCalendar'
-        }).append('<p><strong>등록자:</strong> ' + event.username + '</p>')
-        .append('<p><strong>구분:</strong> ' + event.type + '</p>')
-        .append('<p><strong>시간:</strong> ' + getDisplayEventDate(event) + '</p>')
-        .append('<div class="popoverDescCalendar"><strong>설명:</strong> ' + event.description + '</div>'),
-      delay: {
-        show: "800",
-        hide: "50"
-      },
-      trigger: 'hover',
-      placement: 'top',
-      html: true,
-      container: 'body'
-    });
-
-    return filtering(event);
-
-  },
+//  eventRender: function (event, element, view) {
+//
+//    //일정에 hover시 요약
+//    element.popover({
+//      title: $('<div />', {
+//        class: 'popoverTitleCalendar',
+//        text: event.title
+//      }).css({
+//        'background': event.backgroundColor,
+//        'color': '#ffffff'
+//      }),
+//      content: $('<div />', {
+//          class: 'popoverInfoCalendar'
+//        }).append('<p><strong>등록자:</strong> ' + event.username + '</p>')
+//        .append('<p><strong>구분:</strong> ' + event.type + '</p>')
+//        .append('<p><strong>시간:</strong> ' + getDisplayEventDate(event) + '</p>')
+//        .append('<div class="popoverDescCalendar"><strong>설명:</strong> ' + event.description + '</div>'),
+//      delay: {
+//        show: "800",
+//        hide: "50"
+//      },
+//      trigger: 'hover',
+//      placement: 'top',
+//      html: true,
+//      container: 'body'
+//    });
+//
+//    return filtering(event);
+//
+//  },
 
   /* ****************
    *  프로젝트 일정 가져오기!!!!
    * ************** */
-  events: function (start, end, timezone, callback) {
-    $.ajax({
-      type: "get",
-      url: "mainCalendar.com",
-      dataType: 'JSON',
-      data: {
-        // 화면이 바뀌면 Date 객체인 start, end 가 들어옴
-        startDate : moment(start).format('YYYY-MM-DD'),
-        endDate   : moment(end).format('YYYY-MM-DD')
-      },
-      success: function (data) {
+	events: function (start, end, timezone, callback) {
+	$.ajax({
+	  type: "get",
+	  url: "mainCalendar.com",
+	  dataType: 'JSON',
+	  data: {
+	    // 화면이 바뀌면 Date 객체인 start, end 가 들어옴
+	    startDate : moment(start).format('YYYY-MM-DD'),
+	    endDate   : moment(end).format('YYYY-MM-DD')
+	  },
+	  success: function (data) {
+		  console.log('test');
 		        
-    	  		var JSONArray = new Array();
+		  		var JSONArray = new Array();
 		        if(data.length > 0){
+		        	console.log('0 : ' + data.length);
 		        	for(var i in data){
 		        		var pjObj = new Object();
 		        		pjObj.eventId = data[i].projectNo;
-//		        		pjObj.username = data[i].pCreater;
+		        		pjObj.username = data[i].pCreater;
 		        		pjObj.title = data[i].pTitle;
 		        		pjObj.type = data[i].pStatus;
 		        		
@@ -121,25 +123,32 @@ var calendar = $('#calendar').fullCalendar({
 		        			pjObj.backgroundColor = '#3479FF';
 		        		}
 		        		
+		        		console.log('1 : ' + pjObj.eventId);
+		        		console.log('2 : ' + pjObj.title);
+		        		console.log('3 : ' + pjObj.type);
+		        		
 		        		pjObj.textColor = '#ffffff';
-		        		pjObj.start = moment(data[i].pStartDate);/*.format('YYYY-MM-DD');*/
-		        		pjObj.end = moment(data[i].pEndDate);/*.add(1, 'days').format('YYYY-MM-DD');*/
-//		        		pjObj.description = data[i].pContent;
+		        		pjObj.start = moment(data[i].pStartDate).format('YYYY-MM-DD');
+		        		pjObj.end = moment(data[i].pEndDate).format('YYYY-MM-DD');
+		        		pjObj.description = data[i].pContent;
+		        		pjObj.allDay = true;
 		        		
 		        		JSONArray.push(pjObj);
+		        		
 		        	}
 		        	console.log('프로젝트 받아오기 성공!!');
 		        	console.log(pjObj);
+		        	console.log('JSONArray : ' + JSONArray);
 		        	
 		        	callback(JSONArray);
 		        }
 		      },
 	  error: function(data){
-		  console.log("MAIN : 프로젝트 정보 받아오기 실패")
+		  console.log("MAIN : 프로젝트 정보 받아오기 실패");
 	  }
 		      
-    });
-  },
+	});
+	},
 
   eventAfterAllRender: function (view) {
     if (view.name == "month") $(".fc-content").css('height', 'auto');
@@ -280,27 +289,27 @@ function getDisplayEventDate(event) {
   return displayEventDate;
 }
 
-function filtering(event) {
-  var show_username = true;
-  var show_type = true;
-
-  var username = $('input:checkbox.filter:checked').map(function () {
-    return $(this).val();
-  }).get();
-  var types = $('#type_filter').val();
-
-  show_username = username.indexOf(event.username) >= 0;
-
-  if (types && types.length > 0) {
-    if (types[0] == "all") {
-      show_type = true;
-    } else {
-      show_type = types.indexOf(event.type) >= 0;
-    }
-  }
-
-  return show_username && show_type;
-}
+//function filtering(event) {
+//  var show_username = true;
+//  var show_type = true;
+//
+//  var username = $('input:checkbox.filter:checked').map(function () {
+//    return $(this).val();
+//  }).get();
+//  var types = $('#type_filter').val();
+//
+//  show_username = username.indexOf(event.username) >= 0;
+//
+//  if (types && types.length > 0) {
+//    if (types[0] == "all") {
+//      show_type = true;
+//    } else {
+//      show_type = types.indexOf(event.type) >= 0;
+//    }
+//  }
+//
+//  return show_username && show_type;
+//}
 
 function calDateWhenResize(event) {
 

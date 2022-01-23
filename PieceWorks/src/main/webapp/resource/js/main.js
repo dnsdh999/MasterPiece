@@ -137,6 +137,7 @@ var calendar = $('#calendar').fullCalendar({
 		        		obj.description = data[i].calContent;
 		        		JSONArray.push(obj);
 		        	}
+  					console.log(JSONArray);
 		        	callback(JSONArray);
 		        }
 		      },
@@ -146,6 +147,7 @@ var calendar = $('#calendar').fullCalendar({
 		      
     });
   },
+  
 
   eventAfterAllRender: function (view) {
     if (view.name == "month") $(".fc-content").css('height', 'auto');
@@ -287,15 +289,15 @@ function getDisplayEventDate(event) {
 }
 
 function filtering(event) {
-  var show_username = true;
+//  var show_username = true;
   var show_type = true;
 
-  var username = $('input:checkbox.filter:checked').map(function () {
-    return $(this).val();
-  }).get();
+//  var username = $('input:checkbox.filter:checked').map(function () {
+//    return $(this).val();
+//  }).get();
   var types = $('#type_filter').val();
 
-  show_username = username.indexOf(event.username) >= 0;
+//  show_username = username.indexOf(event.username) >= 0;
 
   if (types && types.length > 0) {
     if (types[0] == "all") {
@@ -305,7 +307,7 @@ function filtering(event) {
     }
   }
 
-  return show_username && show_type;
+  return /*show_username && */show_type;
 }
 
 function calDateWhenResize(event) {

@@ -83,112 +83,112 @@
 										        </div>
 											
 												<!--  일정 추가 MODAL -->
-											        <div class="modal fade" tabindex="-1" role="dialog" id="eventModal">
-											            <div class="modal-dialog" role="document">
-											                <div class="modal-content">
-											                    <div class="modal-header">
-											                        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
-											                                aria-hidden="true">&times;</span></button>
-											                        <h4 class="modal-title"></h4>
-											                    </div>
-											                    <div class="modal-body">
-																	<input type="hidden" id="eventId">
-											                        <div class="row">
-											                            <div class="col-xs-12">
-											                                <label class="col-xs-4" for="edit-allDay">하루종일</label>
-											                                <input class='allDayNewEvent' id="edit-allDay" type="checkbox"/>
-											                            </div>
-											                        </div>
-											                        <div class="row">
-											                            <div class="col-xs-12">
-											                                <label class="col-xs-4" for="creator">작성자</label>
-											                                <input class="inputModal" id="nickName" value="${ loginUser.nickName }" readonly/>
-											                                <input type="hidden" id="email" value="${ loginUser.email }"/>
-											                            </div>
-											                        </div>
+<!-- 											        <div class="modal fade" tabindex="-1" role="dialog" id="eventModal"> -->
+<!-- 											            <div class="modal-dialog" role="document"> -->
+<!-- 											                <div class="modal-content"> -->
+<!-- 											                    <div class="modal-header"> -->
+<!-- 											                        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span -->
+<!-- 											                                aria-hidden="true">&times;</span></button> -->
+<!-- 											                        <h4 class="modal-title"></h4> -->
+<!-- 											                    </div> -->
+<!-- 											                    <div class="modal-body"> -->
+<!-- 																	<input type="hidden" id="eventId"> -->
+<!-- 											                        <div class="row"> -->
+<!-- 											                            <div class="col-xs-12"> -->
+<!-- 											                                <label class="col-xs-4" for="edit-allDay">하루종일</label> -->
+<!-- 											                                <input class='allDayNewEvent' id="edit-allDay" type="checkbox"/> -->
+<!-- 											                            </div> -->
+<!-- 											                        </div> -->
+<!-- 											                        <div class="row"> -->
+<!-- 											                            <div class="col-xs-12"> -->
+<!-- 											                                <label class="col-xs-4" for="creator">작성자</label> -->
+<%-- 											                                <input class="inputModal" id="nickName" value="${ loginUser.nickName }" readonly/> --%>
+<%-- 											                                <input type="hidden" id="email" value="${ loginUser.email }"/> --%>
+<!-- 											                            </div> -->
+<!-- 											                        </div> -->
 											
-											                        <div class="row">
-											                            <div class="col-xs-12">
-											                                <label class="col-xs-4" for="edit-title">일정명</label>
-											                                <input class="inputModal" type="text" name="edit-title" id="edit-title"
-											                                    required="required" />
-											                            </div>
-											                        </div>
-											                        <div class="row">
-											                            <div class="col-xs-12">
-											                                <label class="col-xs-4" for="edit-start">시작</label>
-											                                <input class="inputModal" type="text" name="edit-start" id="edit-start" />
-											                            </div>
-											                        </div>
-											                        <div class="row">
-											                            <div class="col-xs-12">
-											                                <label class="col-xs-4" for="edit-end">끝</label>
-											                                <input class="inputModal" type="text" name="edit-end" id="edit-end" />
-											                            </div>
-											                        </div>
-											                        <div class="row">
-											                            <div class="col-xs-12">
-											                                <label class="col-xs-4" for="edit-type">구분</label>
-											                                <select class="inputModal" type="text" name="edit-type" id="edit-type">
-											                                    <option value="진행전">진행전</option>
-											                                    <option value="진행중">진행중</option>
-											                                    <option value="완료">완료</option>
-											                                </select>
-											                            </div>
-											                        </div>
-											                        <div class="row">
-											                            <div class="col-xs-12">
-											                                <label class="col-xs-4" for="edit-color">색상</label>
-											                                <select class="inputModal" name="color" id="edit-color">
-											                                    <option value="#e74a3b" style="color:#e74a3b;">빨간색</option>
-											                                    <option value="#4e73df" style="color:#4e73df;">파란색</option>
-											                                    <option value="#858796" style="color:#858796;">회색</option>
-											                                    <option value="#1cc88a" style="color:#1cc88a;">초록색</option>
-											                                    <option value="#36b9cc" style="color:#36b9cc;">민트색</option>
-											                                    <option value="#f6c23e" style="color:#f6c23e;">노란색</option>
-											                                    <option value="#495057" style="color:#495057;">검정색</option>
-											                                </select>
-											                            </div>
-											                        </div>
-											                        <div class="row">
-											                            <div class="col-xs-12">
-											                                <label class="col-xs-4" for="edit-desc">설명</label>
-											                                <textarea rows="4" cols="50" class="inputModal" name="edit-desc"
-											                                    id="edit-desc"></textarea>
-											                            </div>
-											                        </div>
-											                    </div>
-											                    <div class="modal-footer modalBtnContainer-addEvent">
-											                        <button type="button" class="btn btn-default" data-dismiss="modal">취소</button>
-											                        <button type="button" class="btn btn-primary" id="save-event">저장</button>
-											                    </div>
-											                    <div class="modal-footer modalBtnContainer-modifyEvent">
-											                        <button type="button" class="btn btn-default" data-dismiss="modal">닫기</button>
-											                        <button type="button" class="btn btn-danger" id="deleteEvent">삭제</button>
-											                        <button type="button" class="btn btn-primary" id="updateEvent">저장</button>
-											                    </div>
-											                </div><!-- /.modal-content -->
-											            </div><!-- /.modal-dialog -->
-											        </div><!-- /.modal -->
+<!-- 											                        <div class="row"> -->
+<!-- 											                            <div class="col-xs-12"> -->
+<!-- 											                                <label class="col-xs-4" for="edit-title">일정명</label> -->
+<!-- 											                                <input class="inputModal" type="text" name="edit-title" id="edit-title" -->
+<!-- 											                                    required="required" /> -->
+<!-- 											                            </div> -->
+<!-- 											                        </div> -->
+<!-- 											                        <div class="row"> -->
+<!-- 											                            <div class="col-xs-12"> -->
+<!-- 											                                <label class="col-xs-4" for="edit-start">시작</label> -->
+<!-- 											                                <input class="inputModal" type="text" name="edit-start" id="edit-start" /> -->
+<!-- 											                            </div> -->
+<!-- 											                        </div> -->
+<!-- 											                        <div class="row"> -->
+<!-- 											                            <div class="col-xs-12"> -->
+<!-- 											                                <label class="col-xs-4" for="edit-end">끝</label> -->
+<!-- 											                                <input class="inputModal" type="text" name="edit-end" id="edit-end" /> -->
+<!-- 											                            </div> -->
+<!-- 											                        </div> -->
+<!-- 											                        <div class="row"> -->
+<!-- 											                            <div class="col-xs-12"> -->
+<!-- 											                                <label class="col-xs-4" for="edit-type">구분</label> -->
+<!-- 											                                <select class="inputModal" type="text" name="edit-type" id="edit-type"> -->
+<!-- 											                                    <option value="진행전">진행전</option> -->
+<!-- 											                                    <option value="진행중">진행중</option> -->
+<!-- 											                                    <option value="완료">완료</option> -->
+<!-- 											                                </select> -->
+<!-- 											                            </div> -->
+<!-- 											                        </div> -->
+<!-- 											                        <div class="row"> -->
+<!-- 											                            <div class="col-xs-12"> -->
+<!-- 											                                <label class="col-xs-4" for="edit-color">색상</label> -->
+<!-- 											                                <select class="inputModal" name="color" id="edit-color"> -->
+<!-- 											                                    <option value="#e74a3b" style="color:#e74a3b;">빨간색</option> -->
+<!-- 											                                    <option value="#4e73df" style="color:#4e73df;">파란색</option> -->
+<!-- 											                                    <option value="#858796" style="color:#858796;">회색</option> -->
+<!-- 											                                    <option value="#1cc88a" style="color:#1cc88a;">초록색</option> -->
+<!-- 											                                    <option value="#36b9cc" style="color:#36b9cc;">민트색</option> -->
+<!-- 											                                    <option value="#f6c23e" style="color:#f6c23e;">노란색</option> -->
+<!-- 											                                    <option value="#495057" style="color:#495057;">검정색</option> -->
+<!-- 											                                </select> -->
+<!-- 											                            </div> -->
+<!-- 											                        </div> -->
+<!-- 											                        <div class="row"> -->
+<!-- 											                            <div class="col-xs-12"> -->
+<!-- 											                                <label class="col-xs-4" for="edit-desc">설명</label> -->
+<!-- 											                                <textarea rows="4" cols="50" class="inputModal" name="edit-desc" -->
+<!-- 											                                    id="edit-desc"></textarea> -->
+<!-- 											                            </div> -->
+<!-- 											                        </div> -->
+<!-- 											                    </div> -->
+<!-- 											                    <div class="modal-footer modalBtnContainer-addEvent"> -->
+<!-- 											                        <button type="button" class="btn btn-default" data-dismiss="modal">취소</button> -->
+<!-- 											                        <button type="button" class="btn btn-primary" id="save-event">저장</button> -->
+<!-- 											                    </div> -->
+<!-- 											                    <div class="modal-footer modalBtnContainer-modifyEvent"> -->
+<!-- 											                        <button type="button" class="btn btn-default" data-dismiss="modal">닫기</button> -->
+<!-- 											                        <button type="button" class="btn btn-danger" id="deleteEvent">삭제</button> -->
+<!-- 											                        <button type="button" class="btn btn-primary" id="updateEvent">저장</button> -->
+<!-- 											                    </div> -->
+<!-- 											                </div>/.modal-content -->
+<!-- 											            </div>/.modal-dialog -->
+<!-- 											        </div>/.modal -->
 											
-											        <div class="panel panel-default">
+<!-- 											        <div class="panel panel-default"> -->
 											
-											            <div class="panel-heading">
-											                <h3 class="panel-title">필터</h3>
-											            </div>
+<!-- 											            <div class="panel-heading"> -->
+<!-- 											                <h3 class="panel-title">필터</h3> -->
+<!-- 											            </div> -->
 											
-											            <div class="panel-body">
+<!-- 											            <div class="panel-body"> -->
 											
-											                <div class="col-lg-6">
-											                    <label for="calendar_view">등록자별</label>
-											                    <div class="input-group">
-											                        <label class="checkbox-inline"><input class='filter' type="checkbox" value="${ loginUser.nickName }"
-											                                checked>${ loginUser.nickName }</label>
-											                    </div>
-											                </div>
+<!-- 											                <div class="col-lg-6"> -->
+<!-- 											                    <label for="calendar_view">등록자별</label> -->
+<!-- 											                    <div class="input-group"> -->
+<%-- 											                        <label class="checkbox-inline"><input class='filter' type="checkbox" value="${ loginUser.nickName }" --%>
+<%-- 											                                checked>${ loginUser.nickName }</label> --%>
+<!-- 											                    </div> -->
+<!-- 											                </div> -->
 											
-											            </div>
-											        </div>
+<!-- 											            </div> -->
+<!-- 											        </div> -->
 											        <!-- /필터 부분. 추후 삭제 및 js 랜더 지우기(js따로만들어야함) -->
 											
 											</div>
