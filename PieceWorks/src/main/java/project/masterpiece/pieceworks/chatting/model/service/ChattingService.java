@@ -16,7 +16,7 @@ public interface ChattingService {
 
 	ArrayList<ChattingMessage> selectChattingMessageList(ChattingMessage c);
 
-	ArrayList<ChattingList> selectChattingList(String email);
+	ArrayList<ChattingList> selectChattingList(Member m);
 
 	int insertChatting(ChattingMessage chatMessage);
 
@@ -49,4 +49,8 @@ public interface ChattingService {
 	int insertChattingMember(ArrayList<ChattingCheckRoom> list);
 
 	int updateConfirmTime(ChattingMessage cm);
+
+	int getPChatAlarmCount(Member m);
+
+	String selectProjectName(int projectNum);
 }

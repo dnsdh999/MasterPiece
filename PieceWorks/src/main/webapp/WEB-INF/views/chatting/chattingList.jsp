@@ -11,8 +11,8 @@
     <meta name="description" content="">
     <meta name="author" content="">
 
-    <title>ChattingForm</title>
-
+    <title>${ projectName } 채팅</title>
+    <link rel="icon" href="resource/img/favicon.png">
     <!-- Custom fonts for this template-->
     <link href="resource/vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
     <link
@@ -24,12 +24,18 @@
     
   <meta name="viewport" content="width=device-width, initial-scale=1">
 	<link rel="stylesheet" href="resource/css/chatting-css.css">
-
+	<link rel="preconnect" href="https://fonts.gstatic.com">
+	<link href="https://fonts.googleapis.com/css2?family=Roboto:wght@100&display=swap" rel="stylesheet">
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
  <script src="https://cdn.jsdelivr.net/npm/sockjs-client@1/dist/sockjs.min.js"></script>
 </head>
 <style>
+@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@100&display=swap');
+body {
+	font-family: 'Roboto', sans-serif;
+}
 	.topchatbar{
 		display: flex;
 		max-width : 50%;
@@ -121,7 +127,45 @@
 		padding-left:20px;
 	}
 	
+	.rounded-circle{
+	height:55.63px;
+	width:55.63px;
+	}
 	
+	.chat_img{
+	width:55.63px;
+	height:55.63px;
+	}
+	
+	.twoprofile{
+	border-radius: 19px;
+	-moz-border-radius: 19px;
+	-khtml-border-radius: 19px;
+	-webkit-border-radius: 19px;
+	}
+	
+	
+	
+	.recent_heading{
+		color:#152FB0;
+		font-size:18px;
+		margin-bottom:10px;
+	}
+	
+	#exampleModalLabel{
+		color:#152FB0;
+		margin-top:10px;
+		margin-left:10px;
+		
+	}
+	
+	#clbutton.close{
+	margin-top:-43px;
+	}
+	
+	.chat_list{
+		width:556px;
+	}
 </style>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/lodash.js/3.2.0/lodash.js"></script>
 <script src="http://code.jquery.com/jquery-latest.js"></script>
@@ -136,12 +180,12 @@ function getChattingList(){
 			console.log(data);
 			
 			$chatList = $("#wholeChatList");
-		    $chatList.html("");
+		    $chatList.html("<table id='tb'>");
 		    
 			if(data.length>0){
 				for(var i in data){
 					$li = $([
-						'<div class="chat_list"  ondblclick="chatDeatilGo('+ data[i].chatNo + ')">'
+						'<tr><td><div class="chat_list" onmouseover="chatMouseOver(this);" onmouseout="chatMouseLeave(this);" ondblclick="chatDeatilGo('+ data[i].chatNo + ', this)">'
                         ,'<div class="chat_people">'
                         ,'    <div class="chat_img"></div>'
                         ,'        <div class="chat_ib">'
@@ -157,15 +201,111 @@ function getChattingList(){
                         ,'			<div class="deleteRoom"><div>'	
                         ,'    	</span></span></h5>'
                         ,'		<p class="chatmeg"></p>'		
-                        ,'</div></div></div>'
+                        ,'</div></div></div></td></tr>'
                     ].join(''));   
                   
-					$li.find(".chat_list").attr("onclick", 'chatDetailGo(' + data[i].chatNo + ')');
-
-                	if(data[i].joinMember.length > 2){
-                		$li.find(".chat_img").html('<img src="https://ptetutorials.com/images/user-profile.png" alt="sunil">');
-                	}else{
-                		$li.find(".chat_img").html('<img src="https://mblogthumb-phinf.pstatic.net/20151212_254/julielove450_1449914547821gAtcQ_PNG/20151212_1850201.png?type=w2" alt="sunil">');
+					
+					if(data[i].joinMember.length > 4){
+						var chatimghtml = '';
+                		var count = 0;
+                		
+                		for(var j in data[i].joinMember){
+                			if("${ loginUser.email }" != data[i].joinMember[j].chatMember){
+                				if(data[i].joinMember[j].reProfile == null){
+                					if(count == 0){
+                						chatimghtml += '<img class="twoprofile" style="position:absolute; width:28px; height:28px;" src="resource/img/undraw_profile.svg" alt="sunil">';
+                					}else if(count == 1){
+                						chatimghtml += '<img class="twoprofile" style="position:absolute; margin-left:30px; width:28px; height:28px;" src="resource/img/undraw_profile.svg" alt="sunil">';
+                					}else if(count == 2){
+                						chatimghtml += '<img class="twoprofile" style="position:absolute; margin-top:30px; width:28px; height:28px;" src="resource/img/undraw_profile.svg" alt="sunil">';
+                					}else{
+                						chatimghtml += '<img class="twoprofile" style="position:absolute; margin-left:30px; margin-top:30px; width:28px; height:28px;" src="resource/img/undraw_profile.svg" alt="sunil">';
+                						break;
+                					}
+                				}else{
+                					if(count == 0){
+                						chatimghtml += '<img class="twoprofile" style="position:absolute; width:28px; height:28px;" src="resource/profileFiles/' + data[i].joinMember[j].reProfile + '">';
+                					}else if(count == 1){
+                						chatimghtml += '<img class="twoprofile" style="position:absolute;  margin-left:30px; width:28px; height:28px;" src="resource/profileFiles/' + data[i].joinMember[j].reProfile + '">';
+                					}else if(count == 2){
+                						chatimghtml += '<img class="twoprofile" style="position:absolute; margin-top:30px; width:28px; height:28px;" src="resource/profileFiles/' + data[i].joinMember[j].reProfile + '">';
+                					}else{
+                						chatimghtml += '<img class="twoprofile" style="position:absolute;  margin-left:30px; margin-top:30px; width:28px; height:28px;" src="resource/profileFiles/' + data[i].joinMember[j].reProfile + '">';
+                						break;
+                					}
+                				}
+                				count++;
+                			}
+                		}
+ 
+                		$li.find(".chat_img").html(chatimghtml);
+					}
+					if(data[i].joinMember.length == 4){
+						var chatimghtml = '';
+                		var count = 0;
+                		
+                		for(var j in data[i].joinMember){
+                			if("${ loginUser.email }" != data[i].joinMember[j].chatMember){
+                				if(data[i].joinMember[j].reProfile == null){
+                					if(count == 0){
+                						chatimghtml += '<img class="twoprofile" style="position:absolute; margin-left:12px; width:32px; height:32px;" src="resource/img/undraw_profile.svg" alt="sunil">';
+                					}else if(count == 1){
+                						chatimghtml += '<img class="twoprofile" style="position:absolute; margin-top:25px; width:32px; height:32px;" src="resource/img/undraw_profile.svg" alt="sunil">';
+                					}else{
+                						chatimghtml += '<img class="twoprofile" style="position:absolute; margin-left:25px; margin-top:25px; width:32px; height:32px;" src="resource/img/undraw_profile.svg" alt="sunil">';
+                					}
+                				}else{
+                					if(count == 0){
+                						chatimghtml += '<img class="twoprofile" style="margin-left:12px; position:absolute; width:32px; height:32px;" src="resource/profileFiles/' + data[i].joinMember[j].reProfile + '">';
+                					}else if(count == 1){
+                						chatimghtml += '<img class="twoprofile" style="position:absolute;  margin-top:25px; width:32px; height:32px;" src="resource/profileFiles/' + data[i].joinMember[j].reProfile + '">';
+                					}else{
+                						chatimghtml += '<img class="twoprofile" style="position:absolute; margin-left:25px; margin-top:25px; width:32px; height:32px;" src="resource/profileFiles/' + data[i].joinMember[j].reProfile + '">';
+                					}
+                				}
+                				count++;
+                			}
+                		}
+ 
+                		$li.find(".chat_img").html(chatimghtml);
+					}
+					
+                	if(data[i].joinMember.length == 3){
+                		var chatimghtml = '';
+                		var count = 0;
+                		
+                		for(var j in data[i].joinMember){
+                			if("${ loginUser.email }" != data[i].joinMember[j].chatMember){
+                				if(data[i].joinMember[j].reProfile == null){
+                					if(count == 0){
+                						chatimghtml += '<img class="twoprofile" style="position:absolute; width:40px; height:40px;" src="resource/img/undraw_profile.svg" alt="sunil">';
+                					}else{
+                						chatimghtml += '<img class="twoprofile" style="position:absolute; margin-top:20px; margin-left:20px; width:40px; height:40px;" src="resource/img/undraw_profile.svg" alt="sunil">';
+                					}
+                				}else{
+                					if(count == 0){
+                						chatimghtml += '<img class="twoprofile" style=" position:absolute; width:40px; height:40px;" src="resource/profileFiles/' + data[i].joinMember[j].reProfile + '">';
+                					}else{
+                						chatimghtml += '<img class="twoprofile" style="position:absolute; margin-top:20px; margin-left:20px; width:40px; height:40px;" src="resource/profileFiles/' + data[i].joinMember[j].reProfile + '">';
+                					}
+                				}
+                				count++;
+                			}
+                		}
+ 
+                		$li.find(".chat_img").html(chatimghtml);
+                	}else if(data[i].joinMember.length == 2){
+                		for(var j in data[i].joinMember){
+                			if("${ loginUser.email }" != data[i].joinMember[j].chatMember){
+                				if(data[i].joinMember[j].reProfile == null){
+                					$li.find(".chat_img").html('<img class="twoprofile" src="resource/img/undraw_profile.svg" alt="sunil">');
+                					break;
+                				}else{
+                					$li.find(".chat_img").html('<img class="img-profile rounded-circle twoprofile" alt="sunil" src="resource/profileFiles/' + data[i].joinMember[j].reProfile + '">');
+                					break;
+                				}
+                			}
+                		}
                 	}
                 	
                 	var chatMemStr = "";
@@ -173,15 +313,25 @@ function getChattingList(){
                 		for(var j in data[i].joinMember){
                 			if("${ loginUser.email }" != data[i].joinMember[j].chatMember){
                 				chatMemStr += data[i].joinMember[j].memberName + " ";
-                			}
+                				if(chatMemStr.length >= 20){
+                					chatMemStr = chatMemStr.substring(0,20) + '...';
+                					break;
+                				}
+                				}
                 		}
+                		
                 		
                 		if(data[i].joinMember.length == 1 && "${loginUser.email}" == data[i].joinMember[0].chatMember){
                 			chatMemStr = "대화 상대 없음";
                 		}
                 		$li.find(".chatTitle").text(chatMemStr);
                 	}else{
-                		$li.find(".chatTitle").text(data[i].chatTitle);
+                		if(data[i].chatTitle.length > 20){
+                			$li.find(".chatTitle").text(data[i].chatTitle.substring(0,20) + '...');
+                			
+                		}else{
+                			$li.find(".chatTitle").text(data[i].chatTitle);
+                		}
                 	}
                 	
                 	if(data[i].unreadCount > 0){
@@ -214,6 +364,7 @@ function getChattingList(){
                     $li.find(".chatmeg").text(data[i].chatMessage);
                     
                     $chatList.append($li);
+                    $chatList.append('</table>');
 				}
 
 				
@@ -235,24 +386,37 @@ $(function(){
 	var isCreate = ${ isCreate };
 	if(isCreate == true){
 		document.getElementById("chatNumber").value = "${ chatRoomNum }";
-		var newWindow = window.open('chattingDetailForm.ch', '채팅' , 'width=400, height=500, resizable=yes, scrollbars=yes, left=200, top=100');
+		var newWindow = window.open('chattingDetailForm.ch?chatNo=${chatRoomNum}', '채팅' , 'width=400, height=500, resizable=yes, scrollbars=yes, left=200, top=100');
 		 newWindow.focus();
 		 frm.target="채팅";
 		 frm.submit();
 	}
+
+
+	
 	setInterval(function(){
 		getChattingList();
 	}, 5000);
 });
 
+function chatMouseOver(me){
+	me.style.backgroundColor = "#D2D6EB";
+	me.childNodes[0].childNodes[3].lastChild.style.color = "black";
+}
+function chatMouseLeave(me){
+	me.style.backgroundColor = "#F5F5F5";
+	me.childNodes[0].childNodes[3].lastChild.style.color = "gray";
+}
 
-function chatDeatilGo(num){
+function chatDeatilGo(num, me){
+	
 	document.getElementById("chatNumber").value = num;
-	 var newWindow = window.open('chattingDetailForm.ch', '채팅' , 'width=380, height=500, resizable=yes, scrollbars=yes, left=200, top=100');
+	 var newWindow = window.open('chattingDetailForm.ch?chatNo=${chatRoomNum}', '채팅' , 'width=380, height=500, resizable=yes, scrollbars=yes, left=200, top=100');
 	 newWindow.focus();
 	 frm.target="채팅";
 	 frm.submit();
 }
+
 
 function modifyRoomName(num, title){
 	if(title == 'undefined'){
@@ -310,14 +474,14 @@ function deleteRoomClick(){
 	<div class="inbox_people">
 	  <div class="headind_srch">
 		<div class="recent_heading">
-		  <h4>채팅</h4>
+		  <b>${ projectName }</b> 채팅
 		</div>
 		<div class="srch_bar">
 		  <div class="stylish-input-group">
 <!-- 			 <input type="text" class="search-bar"  placeholder="Search" > -->
 			<div class="chatadd">
 						<div class="my-2"></div>
-                                    <a href="#" class="btn btn-success btn-icon-split">
+                                    <a href="#" class="btn btn-primary btn-icon-split">
                                         <span class="icon text-white-50">
                                           	 <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-plus-lg" viewBox="0 0 16 16">
   <path d="M8 0a1 1 0 0 1 1 1v6h6a1 1 0 1 1 0 2H9v6a1 1 0 1 1-2 0V9H1a1 1 0 0 1 0-2h6V1a1 1 0 0 1 1-1z"/>
@@ -367,8 +531,8 @@ function deleteRoomClick(){
 	            <div class="modal-content">
 	                <div class="modal-header">
 	                    <h5 class="modal-title" id="exampleModalLabel">채팅방 만들기</h5>
-	                    <button class="close" type="button" data-dismiss="modal" aria-label="Close">
-	                        <span aria-hidden="true">×</span>
+	                    <button class="close" type="button" data-dismiss="modal" aria-label="Close" id="clbutton">
+	                        <span aria-hidden="true" id="clspan">×</span>
 	                    </button>
 	                </div>
 	                <div class="modal-body">
@@ -377,18 +541,22 @@ function deleteRoomClick(){
 	                                aria-label="Search" aria-describedby="basic-addon2">
 	                        </div>
 	                        
-	                        <div class="dropdown-divider"></div>
+	                         <div class="dropdown-divider"></div>
 	                        <c:forEach var="m" items="${ mArr }">
-	                        <div>
+	                        <c:if test="${ loginUser.email ne m.email}">
+	                       
+	                        <div class="PMNicks">
+	                        
 					<input type="checkbox" name="checkChat" value="${ m.email }" class="projectmem">
 					<input type="hidden" value="${ m.nickName }" name="memname">
-						<svg
-						 xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-person-circle" viewBox="0 0 16 16">
-			  <path d="M11 6a3 3 0 1 1-6 0 3 3 0 0 1 6 0z"/>
-			  <path fill-rule="evenodd" d="M0 8a8 8 0 1 1 16 0A8 8 0 0 1 0 8zm8-7a7 7 0 0 0-5.468 11.37C3.242 11.226 4.805 10 8 10s4.757 1.225 5.468 2.37A7 7 0 0 0 8 1z"/>
-			</svg>
-					${ m.nickName }</div>
-					<div class="dropdown-divider"></div>
+					<c:if test="${ m.reProfile ne null}">
+					<img class="twoprofile" style="margin-left:5px; width:36px; height:36px;" src="resource/profileFiles/${ m.reProfile }">
+					</c:if>
+					<c:if test="${ m.reProfile eq null}">
+					<img class="twoprofile" style="margin-left:5px; width:36px; height:36px;" src="resource/img/undraw_profile.svg" alt="sunil">
+					</c:if>
+                    ${ m.nickName }<div class="dropdown-divider"></div></div></c:if>
+                   	
 					</c:forEach>
 				
 				<div class="chatBottom" align="right"><input class="chatAllBottom" type="checkbox" name="allCheck">전체선택 </div>
@@ -421,6 +589,9 @@ function deleteRoomClick(){
 	                			chk_id.push(id);
 	                		});
 	                		
+                            memberName.push('${loginUser.nickName}');
+                            chk_id.push('${loginUser.email}');
+                            
 	                		var roomName = document.getElementById("chatRoomName").value;
 	                		document.getElementById("chk_id").value = chk_id;
 	                		
@@ -439,7 +610,7 @@ function deleteRoomClick(){
 	            	
 	            		function sendMessage() {
 	            			// 내 메시지 서버로 보내기
-	            			
+	            			console.log('보내기');
 	            			var message = '${ loginUser.nickName }님이 회원님을 채팅방에 초대했습니다.';
 	            			var emails = document.getElementById("chk_id").value;
 	            			
@@ -447,7 +618,7 @@ function deleteRoomClick(){
 	            					"alarmContent" : message,
 	            					"recipient" : emails,
 	            					"alarmType" : 1,
-	            					"projectNo" : 1000
+	            					"projectNo" : '${loginUser.currPno}'
 	            	            };
 	            			
 	            	        var jsonData = JSON.stringify(data);

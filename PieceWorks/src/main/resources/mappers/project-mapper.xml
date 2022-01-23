@@ -38,7 +38,7 @@
 		select project_no, project_title, project_member
 		from project
 			 join project_join using(project_no)
-		where project_no = #{projectNo}
+		where project_no = #{projectNo} and rownum = 1 
 	</select>
 	
 <!-- 	<select id="selectCalendar" resultMap="CalendarListSet"> -->

@@ -9,23 +9,12 @@
     	padding-top:500px;
     	}
     	
-    	.navbar-expand{
-    	position: relative;
-    	z-index: 99;
-    	}
     	
-    	.navbar-nav{
-    	position: relative;
-    	z-index: 98;
-    	}
-    	
-    	.nav-item{
-    	position: relative;
-    	z-index: 97;
-    	}
 	</style>
+	
+	<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
 	<nav class="navbar navbar-expand navbar-light bg-white topbar mb-4 static-top shadow">
-<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous"><script src="https://cdn.jsdelivr.net/npm/sockjs-client@1/dist/sockjs.min.js"></script>
+ <script src="https://cdn.jsdelivr.net/npm/sockjs-client@1/dist/sockjs.min.js"></script>
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
  <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.10.2/dist/umd/popper.min.js" integrity="sha384-7+zCNj/IqJ95wo16oMtfsKbZ9ccEh31eOz1HGyDuCQ6wgnyJNSYdrPa03rtR1zdB" crossorigin="anonymous"></script>
@@ -100,6 +89,7 @@
 		function clicktoggle(){
 			$.ajax({
 				url:'getAlarmList.al',
+				data:{projectNo:'${loginUser.currPno}'},
 				dataType:'json',
 				success:function(data){
 					console.log(data);
@@ -139,7 +129,7 @@
 		function getAlarmCount(){
 			$.ajax({
 				url:'getAlarmCount.al',
-				data:{projectNo:'${project.projectNo}'},
+				data:{projectNo:'${loginUser.currPno}'},
 				success:function(data){
 					console.log(data);
 					if(data.trim() > 0){
@@ -263,7 +253,6 @@
 	</ul>
 	
 	</nav>
-	
 	<!-- End of Topbar -->
 
 

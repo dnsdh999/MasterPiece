@@ -12,11 +12,14 @@ public class Member {
 	private String m_status;
 	private String originProfile;	// 프로필 원본 파일
 	private String reProfile;		// 등록된 프로필 파일
+	private int currPno;
 	
 	public Member() {}
 
+	
+
 	public Member(String email, String pwd, String name, String nickName, String phone, Date enroll_date,
-			String m_status, String originProfile, String reProfile) {
+			String m_status, String originProfile, String reProfile, int currPno) {
 		super();
 		this.email = email;
 		this.pwd = pwd;
@@ -27,7 +30,22 @@ public class Member {
 		this.m_status = m_status;
 		this.originProfile = originProfile;
 		this.reProfile = reProfile;
+		this.currPno = currPno;
 	}
+
+
+
+	public int getCurrPno() {
+		return currPno;
+	}
+
+
+
+	public void setCurrPno(int currPno) {
+		this.currPno = currPno;
+	}
+
+
 
 	public String getEmail() {
 		return email;
@@ -101,10 +119,14 @@ public class Member {
 		this.reProfile = reProfile;
 	}
 
+
+
 	@Override
 	public String toString() {
 		return "Member [email=" + email + ", pwd=" + pwd + ", name=" + name + ", nickName=" + nickName + ", phone="
 				+ phone + ", enroll_date=" + enroll_date + ", m_status=" + m_status + ", originProfile=" + originProfile
-				+ ", reProfile=" + reProfile + "]";
+				+ ", reProfile=" + reProfile + ", currPno=" + currPno + "]";
 	}
+
+	
 }

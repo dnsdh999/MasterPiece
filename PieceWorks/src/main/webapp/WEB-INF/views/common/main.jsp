@@ -7,7 +7,6 @@
     <link rel="stylesheet" href="resource/vendor/css/calbootstrap.min.css">
     <link rel="stylesheet" href='resource/vendor/css/select2.min.css' />
     <link rel="stylesheet" href='resource/vendor/css/bootstrap-datetimepicker.min.css' />
-
     <link rel="stylesheet" href="resource/css/main.css">
     
     <!-- 얘를 수정해야 modal창 안뜨는거 + 크기 줄어드는거 해결 가능 -->
@@ -303,11 +302,6 @@
 			
 		</script>
 		
-		<script>
-			function detailView(data){
-				var
-			}
-		</script>
 </body>
 
 </html>

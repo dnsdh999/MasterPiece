@@ -11,7 +11,7 @@
     
   <meta name="viewport" content="width=device-width, initial-scale=1">
 	<link rel="stylesheet" href="resource/css/chatting-css.css">
-
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
   
@@ -65,15 +65,19 @@
 		.chatAddMember{
 			margin-left: 10px;
 		}
+		.pImg { 
+		width: 15px;	
+		height: 15px; 
+		border-radius: 100px;
+	}
 	</style>
 	<script type="text/javascript">
-	var name;
+	var name = "${loginUser.nickName}";
 	var wsocket;
-	var userId = "${userId}";
+	var userId = "${loginUser.email}";
 	
 	$(document).ready(function() {
 		updateConfirmTime();
-		name = prompt("이름입력");
 		connect();
 		var chatAreaHeight = $(".msg_history").height();
 		var maxScroll = $(".msgArea").height() - chatAreaHeight;
@@ -87,7 +91,7 @@
 
 	function connect() {
 		wsocket = new WebSocket(
-				"ws://localhost:9280/pieceworks/chat-ws.ch");
+				"ws://localhost:9580/pieceworks/chat-ws.ch");
 		wsocket.onopen = onOpen;
 		wsocket.onmessage = onMessage;
 		wsocket.onclose = onClose;
@@ -108,7 +112,7 @@
 				"sendTime":Now,
 				"nickName":name,
 				"chatNo":"${chatNo}",
-				"chatWriter": "${userId}"
+				"chatWriter":"${loginUser.email}"
 		};
 		let jsonData = JSON.stringify(userData);
 		wsocket.send(jsonData);
@@ -130,6 +134,7 @@
 	}
 	
 	function send() {
+		updateConfirmTime();
 		var msg = $(".write_msg").val();
 		var Now = new Date();
 		var NowTime = Now.getFullYear();
@@ -144,7 +149,7 @@
 				"sendTime":Now,
 				"nickName":name,
 				"chatNo":"${chatNo}",
-				"chatWriter": "${userId}"
+				"chatWriter": "${loginUser.email}"
 		};
 		let jsonData = JSON.stringify(userData);
 		wsocket.send(jsonData);
@@ -170,14 +175,12 @@
 	}
 
 	$(document).ready(function() {
-		$('#message').keypress(function(event){
-			var keycode = (event.keyCode ? event.keyCode : event.which);
-			if(keycode == '13'){
-				send();	
-			}
-			event.stopPropagation();
-	
-		});
+		 $(".write_msg").keydown(function(key) {
+                if (key.keyCode == 13) {
+                	send();	
+                }
+            });
+
 		$('.msg_send_btn').click(function() { send(); });
 		$('#enterBtn').click(function() { connect(); });
 		$('#exitBtn').click(function() { disconnect(); });
@@ -220,7 +223,7 @@
 	  <div class="msgArea">
 	  <c:forEach var="c" items="${list }">
 	 	 <c:choose>
-		  	<c:when test="${c.chatWriter eq userId}">
+		  	<c:when test="${c.chatWriter eq loginUser.email}">
 		  		<div class="outgoing_msg">
 				  <div class="sent_msg">
 					<p>${c.chatMessage }</p>
@@ -229,7 +232,17 @@
 		  	</c:when>
 		  	<c:otherwise>
 		  	<div class="incoming_msg">
-		<div class="incoming_msg_img"> <img src="https://ptetutorials.com/images/user-profile.png" alt="sunil"> </div>
+		<div class="incoming_msg_img">
+		 <c:choose>
+			<c:when test="${c.reprofile == null}">
+				 <img class="pImg" id="profile" name="profile" alt="프로필 사진" src="resource/img/undraw_profile.svg">
+			 </c:when>
+			 <c:otherwise>
+					<img class="pImg" id="profile" name="profile" alt="프로필 사진" src="resource/profileFiles/${c.reprofile }">
+		
+			 </c:otherwise>
+		</c:choose>
+		  </div>
 		  <div class="received_msg">
 			<div class="received_withd_msg"><p id="nickNameText">${c.nickName }</p>
 			  <p>${c.chatMessage }</p>
@@ -320,7 +333,7 @@ $('#addMember').click(function(){
 		userEmail +=$(this).val();
 	});
 	console.log(userEmail);
-	location.href="addChatRoomMember.ch?userEmail="+userEmail + "&chatNo="+${chatNo} +"&userId="+'${userId}';
+	location.href="addChatRoomMember.ch?userEmail="+userEmail + "&chatNo="+${chatNo} +"&userId="+'${loginUser.email}';
 });
 </script>
 </html>

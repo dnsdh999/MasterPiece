@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 
 import project.masterpiece.pieceworks.alarm.model.dao.AlarmDAO;
 import project.masterpiece.pieceworks.alarm.model.vo.Alarm;
+import project.masterpiece.pieceworks.member.model.vo.Member;
 
 @Service("aService")
 public class AlarmServiceImpl implements AlarmService{
@@ -40,5 +41,25 @@ public class AlarmServiceImpl implements AlarmService{
 	@Override
 	public int insertAlarm(Alarm a) {
 		return aDAO.insertAlarm(sqlSession, a);
+	}
+
+	@Override
+	public int getProjectAlarmCount(Member m) {
+		return aDAO.getProjectAlarmCount(sqlSession, m);
+	}
+
+	@Override
+	public ArrayList<Alarm> getProjectAlarmList(Member m) {
+		return aDAO.getProjectAlarmList(sqlSession, m);
+	}
+
+	@Override
+	public ArrayList<Alarm> getPAListForPage(Member m) {
+		return aDAO.getPAListForPage(sqlSession, m);
+	}
+
+	@Override
+	public int updateAllAlarmStatus(Member m) {
+		return aDAO.updateAllAlarmStatus(sqlSession, m);
 	}
 }

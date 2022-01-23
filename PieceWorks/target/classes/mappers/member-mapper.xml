@@ -3,7 +3,7 @@
 <mapper namespace="memberMapper">
 	<insert id="insertMember">
 		insert into member
-		values (#{email}, #{pwd}, #{name}, #{nickName}, #{phone}, sysdate, default, null, null)
+		values (#{email}, #{pwd}, #{name}, #{nickName}, #{phone}, sysdate, default, null, null, 0)
 	</insert>
 	
   	<select id="memberLogin" resultMap="memberResultSet">
@@ -21,10 +21,17 @@
   		<result column="M_STATUS" property="m_status"/>
   		<result column="ORIGINPROFILE" property="originProfile" />
   		<result column="REPROFILE" property="reProfile"/>
+  		<result column="CURR_PNO" property="currPno"/>
   	</resultMap>
   
-  	<select id="selectProjectMemList" resultMap="memberResultSet">
-  		select project_member as email, nickname
+  	<resultMap type="Member" id="projectMemResultSet">
+  		<id column="EMAIL" property="email"/>
+  		<result column="NICKNAME" property="nickName"/>
+  		<result column="REPROFILE" property="reProfile"/>
+  	</resultMap>
+  
+  	<select id="selectProjectMemList" resultMap="projectMemResultSet">
+  		select project_member as email, nickname, reprofile
   		from project_join join member on (email = project_member)
   		where project_no = #{projectNum} order by nickname
   	</select>

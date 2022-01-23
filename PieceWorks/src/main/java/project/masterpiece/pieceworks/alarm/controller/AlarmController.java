@@ -31,15 +31,18 @@ public class AlarmController {
 	
 	@RequestMapping("getAlarmCount.al")
 	public void getAlarmCount(HttpServletRequest request, HttpServletResponse response, Model model
-							 ,@RequestParam("projectNo") String projectNo) {
+							 ,@RequestParam("projectNo") int projectNo) {
 		int count = 0;
 		
 		String userEmail = ((Member)request.getSession().getAttribute("loginUser")).getEmail();
 		
-		if(projectNo.equals("")) {
+		if(projectNo == 0) {
 			count = aService.getAllAlarmCount(userEmail);
 		}else {
-			
+			Member m = new Member();
+			m.setEmail(userEmail);
+			m.setCurrPno(projectNo);
+			count = aService.getProjectAlarmCount(m);
 		}
 		
 		try {
@@ -54,18 +57,21 @@ public class AlarmController {
 	}
 	
 	@RequestMapping("getAlarmList.al")
-	public void getAlarmList(HttpServletRequest request, HttpServletResponse response, Model model) {
+	public void getAlarmList(HttpServletRequest request, HttpServletResponse response, Model model
+							,@RequestParam("projectNo") int projectNo) {
 		String email = ((Member)request.getSession().getAttribute("loginUser")).getEmail();
 		
-		String project = null; //프로젝트 구현시 추가
 		
 		ArrayList<Alarm> list = new ArrayList<Alarm>();
 		
-		if(project == null) {
+		if(projectNo == 0) {
 			list = aService.getAllAlarmList(email);
-		}//else {
-			//list = aService.getProjectAlarmList(email, project);
-		//}
+		}else {
+			Member m = new Member();
+			m.setCurrPno(projectNo);
+			m.setEmail(email);
+			list = aService.getProjectAlarmList(m);
+		}
 		
 		if(list != null) {
 			response.setContentType("application/json; charset=UTF-8");
@@ -88,12 +94,17 @@ public class AlarmController {
 	@RequestMapping("allAlarmList.al")
 	public String allAlarmList(HttpServletRequest request, Model model) {
 		String email = ((Member)request.getSession().getAttribute("loginUser")).getEmail();
-		String project = null;
+		int currPno = ((Member)request.getSession().getAttribute("loginUser")).getCurrPno();
 		
 		ArrayList<Alarm> list = new ArrayList<Alarm>();
 		
-		if(project == null) {
+		if(currPno == 0) {
 			list = aService.getAlarmListForPage(email);
+		}else {
+			Member m = new Member();
+			m.setCurrPno(currPno);
+			m.setEmail(email);
+			list = aService.getPAListForPage(m);
 		}
 		
 		if(list != null) {
@@ -104,6 +115,8 @@ public class AlarmController {
 		
 		return "alarmList";
 	}
+	
+	
 	
 	@RequestMapping("updateAlarmStatus.al")
 	public String updateAlarmStatus(@RequestParam("alarmNo") String alarmNo, HttpServletRequest request, Model model ) {
@@ -116,5 +129,22 @@ public class AlarmController {
 			throw new AlarmException("채팅목록 불러오기 실패");
 		}
 		
+	}
+	
+	@RequestMapping("updateAllAlarmStatus.al")
+	public String updateAllAlarmStatus(HttpServletRequest request, Model model) {
+		String email = ((Member)request.getSession().getAttribute("loginUser")).getEmail();
+		int currPno = ((Member)request.getSession().getAttribute("loginUser")).getCurrPno();
+		
+		Member m = new Member();
+		m.setCurrPno(currPno);
+		m.setEmail(email);
+		
+		int result = aService.updateAllAlarmStatus(m);
+		if(result > 0) {
+			return "redirect:allAlarmList.al";
+		}else {
+			throw new AlarmException("채팅목록 불러오기 실패");
+		}
 	}
 }

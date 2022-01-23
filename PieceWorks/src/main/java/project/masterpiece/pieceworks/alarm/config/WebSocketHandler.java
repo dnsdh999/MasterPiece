@@ -42,7 +42,6 @@ public class WebSocketHandler extends TextWebSocketHandler implements Initializi
 		hashSessions.put(email, session);
 		
 		i++;
-        System.out.println(session.getId() + " 메시지 : " + i + "메시지"); 
 	}
 	
 	@Override
@@ -55,13 +54,21 @@ public class WebSocketHandler extends TextWebSocketHandler implements Initializi
 		String[] recipientArr = a.getRecipient().split(",");
 		List<String> recipientList = Arrays.asList(recipientArr);
 		
-		//로그인해서 세션에 들어와있는 사람들과 받은 recipient를 비교해서
+        String email = getEmail(session);
+		
 		int result = 0;
 		for(String s : recipientList) {
-			a.setRecipient(s);
-			result += aService.insertAlarm(a);
+            if(!s.equals(email)) {
+                a.setRecipient(s);
+    			result += aService.insertAlarm(a);
+            }
 		}
 		
+		result = result + 1;
+		System.out.println("알림받는사람들 크기 : " + recipientList.size());
+		System.out.println("리져트 크기 : " + result);
+		//로그인해서 세션에 들어와있는 사람들과 받은 recipient를 비교해서
+
 		if(recipientList.size() == result) {
 			hashSessions.forEach((key, value)->{
 				if(recipientList.contains(key)) {
@@ -89,6 +96,13 @@ public class WebSocketHandler extends TextWebSocketHandler implements Initializi
 		Member m = (Member)httpSession.get("loginUser");
 		String email = m.getEmail();
 		return email;
+	}
+	
+	public int getCurrentPno(WebSocketSession session) {
+		Map<String, Object> httpSession = session.getAttributes();
+		Member m = (Member)httpSession.get("loginUser");
+		int currPno = m.getCurrPno();
+		return currPno;
 	}
 	
 	@Override
