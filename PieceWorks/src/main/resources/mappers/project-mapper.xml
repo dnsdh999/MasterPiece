@@ -35,31 +35,34 @@
 	</resultMap>
 	
 	<select id="selectProject" resultMap="ProjectListSet">
-		select project_no, project_title, project_member
+		select project_no, project_title, project_member, nickname
 		from project
 			 join project_join using(project_no)
-		where project_no = #{projectNo} and rownum = 1 
+			 join member on(project_member = email)
+		where project_no = #{projectNo}
 	</select>
 	
-<!-- 	<select id="selectCalendar" resultMap="CalendarListSet"> -->
-<!-- 		select * -->
-<!-- 		from calendar -->
-<!-- 		where project_no = #{projectNo} -->
-<!-- 	</select> -->
+	<select id="selectCalendar" resultMap="CalendarListSet">
+		select *
+		from calendar
+			 join member on(c_creator=email)
+		where project_no = #{pNo} and c_status not like '완료'
+		order by calendar_no
+	</select>
 	
-<!-- 	<resultMap type="Calendar" id="CalendarListSet"> -->
-<!-- 		<id column="CALENDAR_NO" property="calendarNo"/> -->
-<!-- 		<result column="C_CREATOR" property="cCreator"/> -->
-<!-- 		<result column="NICKNAME" property="nickName"/> -->
-<!-- 		<result column="C_START_DATE" property="cStartDate"/> -->
-<!-- 		<result column="C_END_DATE" property="cEndDate"/> -->
-<!-- 		<result column="MODIFY_DATE" property="modifyDate"/> -->
-<!-- 		<result column="C_CATEGORY" property="category"/> -->
-<!-- 		<result column="C_STATUS" property="calStatus"/> -->
-<!-- 		<result column="C_TITLE" property="calTitle"/> -->
-<!-- 		<result column="C_CONTENT" property="calContent"/> -->
-<!-- 		<result column="C_BGCOLOR" property="bgColor"/> -->
-<!-- 		<result column="ALLDAY" property="allDay"/> -->
-<!-- 		<result column="PROJECT_NO" property="projectNo"/> -->
-<!-- 	</resultMap> -->
+	<resultMap type="Calendar" id="CalendarListSet">
+		<id column="CALENDAR_NO" property="calendarNo"/>
+		<result column="C_CREATOR" property="cCreator"/>
+		<result column="NICKNAME" property="nickName"/>
+		<result column="C_START_DATE" property="cStartDate"/>
+		<result column="C_END_DATE" property="cEndDate"/>
+		<result column="MODIFY_DATE" property="modifyDate"/>
+		<result column="C_CATEGORY" property="category"/>
+		<result column="C_STATUS" property="calStatus"/>
+		<result column="C_TITLE" property="calTitle"/>
+		<result column="C_CONTENT" property="calContent"/>
+		<result column="C_BGCOLOR" property="bgColor"/>
+		<result column="ALLDAY" property="allDay"/>
+		<result column="PROJECT_NO" property="projectNo"/>
+	</resultMap>
 </mapper>

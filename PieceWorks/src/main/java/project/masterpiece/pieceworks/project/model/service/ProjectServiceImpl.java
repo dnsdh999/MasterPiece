@@ -35,12 +35,13 @@ public class ProjectServiceImpl implements ProjectService {
 	}
 
 	@Override
-	public Project selectProject(int projectNo) {
+	public ArrayList<Project> selectProject(int projectNo) {
 		return pDAO.selectProject(sqlSession, projectNo);
 	}
 
 	@Override
-	public Calendar selectCalendar(int projectNo) {
-		return pDAO.selectCalendar(sqlSession, projectNo);
+	public ArrayList<Calendar> selectCalendar(int pNo) {
+		return pDAO.selectCalendar(sqlSession, pNo);
 	}
+
 }

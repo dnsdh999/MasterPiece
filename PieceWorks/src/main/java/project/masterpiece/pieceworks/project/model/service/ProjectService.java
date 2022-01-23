@@ -13,8 +13,9 @@ public interface ProjectService {
 
 	int insertPrJoin(Project p);
 
-	Project selectProject(int projectNo);
+	ArrayList<Project> selectProject(int projectNo);
 
-	Calendar selectCalendar(int projectNo);
+	ArrayList<Calendar> selectCalendar(int pNo);
+
 
 }

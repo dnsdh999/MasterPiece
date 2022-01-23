@@ -23,12 +23,12 @@ public class ProjectDAO {
 		return sqlSession.insert("projectMapper.insertPrJoin", p);
 	}
 
-	public Project selectProject(SqlSessionTemplate sqlSession, int projectNo) {
-		return sqlSession.selectOne("projectMapper.selectProject", projectNo);
+	public ArrayList<Project> selectProject(SqlSessionTemplate sqlSession, int projectNo) {
+		return (ArrayList)sqlSession.selectList("projectMapper.selectProject", projectNo);
 	}
 
-	public Calendar selectCalendar(SqlSessionTemplate sqlSession, int projectNo) {
-		return sqlSession.selectOne("projectMapper.selectCalendar", projectNo);
+	public ArrayList<Calendar> selectCalendar(SqlSessionTemplate sqlSession, int pNo) {
+		return (ArrayList)sqlSession.selectList("projectMapper.selectCalendar", pNo);
 	}
 
 }
