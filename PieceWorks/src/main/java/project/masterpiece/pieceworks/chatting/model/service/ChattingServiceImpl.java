@@ -32,8 +32,8 @@ public class ChattingServiceImpl implements ChattingService{
 	}
 
 	@Override
-	public ArrayList<ChattingList> selectChattingList(String email) {
-		return cDAO.selectChattingList(sqlSession, email);
+	public ArrayList<ChattingList> selectChattingList(Member m) {
+		return cDAO.selectChattingList(sqlSession, m);
 	}
 
 
@@ -115,5 +115,15 @@ public class ChattingServiceImpl implements ChattingService{
 	@Override
 	public int updateConfirmTime(ChattingMessage cm) {
 		return cDAO.updateConfirmTime(sqlSession, cm);
+	}
+
+	@Override
+	public int getPChatAlarmCount(Member m) {
+		return cDAO.getPChatAlarmCount(sqlSession, m);
+	}
+
+	@Override
+	public String selectProjectName(int projectNum) {
+		return cDAO.selectProjectName(sqlSession, projectNum);
 	}
 }

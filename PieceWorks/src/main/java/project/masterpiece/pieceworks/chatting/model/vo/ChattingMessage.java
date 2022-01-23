@@ -9,7 +9,7 @@ public class ChattingMessage {
 	private String nickName;
 	private int chatNo;
 	private String chatWriter;
-	private String anotherUserId;
+	private String reprofile;
 	public ChattingMessage() {
 		super();
 	}
@@ -17,7 +17,7 @@ public class ChattingMessage {
 	
 	
 	public ChattingMessage(int chatMessageNo, String chatMessage, String sendTime, String nickName, int chatNo,
-			String chatWriter , String anotherUserId ) {
+			String chatWriter , String reprofile ) {
 		super();
 		this.chatMessageNo = chatMessageNo;
 		this.chatMessage = chatMessage;
@@ -25,7 +25,7 @@ public class ChattingMessage {
 		this.nickName = nickName;
 		this.chatNo = chatNo;
 		this.chatWriter = chatWriter;
-		 this.anotherUserId = anotherUserId; 
+		 this.reprofile = reprofile; 
 	}
 
 
@@ -73,14 +73,16 @@ public class ChattingMessage {
 	}
 
 
-	
-	  public String getAnotherUserId() { return anotherUserId; }
-	  
-	  
-	  
-	  public void setAnotherUserId(String anotherUserId) { this.anotherUserId =
-	  anotherUserId; }
-	 
+
+	public String getReprofile() {
+		return reprofile;
+	}
+
+
+
+	public void setReprofile(String reprofile) {
+		this.reprofile = reprofile;
+	}
 
 
 
@@ -88,8 +90,13 @@ public class ChattingMessage {
 	public String toString() {
 		return "ChattingMessage [chatMessageNo=" + chatMessageNo + ", chatMessage=" + chatMessage + ", sendTime="
 				+ sendTime + ", nickName=" + nickName + ", chatNo=" + chatNo + ", chatWriter=" + chatWriter
-				+  ", anotherUserId=" + anotherUserId +  "]";
+				+ ", reprofile=" + reprofile + "]";
 	}
+
+
+	
+	  
+	
 
 
 

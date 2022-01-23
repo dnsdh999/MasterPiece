@@ -89,6 +89,7 @@
 		function clicktoggle(){
 			$.ajax({
 				url:'getAlarmList.al',
+				data:{projectNo:'${loginUser.currPno}'},
 				dataType:'json',
 				success:function(data){
 					console.log(data);
@@ -128,7 +129,7 @@
 		function getAlarmCount(){
 			$.ajax({
 				url:'getAlarmCount.al',
-				data:{projectNo:'${project.projectNo}'},
+				data:{projectNo:'${loginUser.currPno}'},
 				success:function(data){
 					console.log(data);
 					if(data.trim() > 0){
@@ -252,7 +253,6 @@
 	</ul>
 	
 	</nav>
-	
 	<!-- End of Topbar -->
 
 

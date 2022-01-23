@@ -6,6 +6,7 @@ import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.stereotype.Repository;
 
 import project.masterpiece.pieceworks.alarm.model.vo.Alarm;
+import project.masterpiece.pieceworks.member.model.vo.Member;
 
 @Repository("aDAO")
 public class AlarmDAO {
@@ -28,6 +29,22 @@ public class AlarmDAO {
 
 	public int insertAlarm(SqlSessionTemplate sqlSession, Alarm a) {
 		return sqlSession.insert("alarmMapper.insertAlarm", a);
+	}
+
+	public int getProjectAlarmCount(SqlSessionTemplate sqlSession, Member m) {
+		return sqlSession.selectOne("alarmMapper.getProjectAlarmCount", m);
+	}
+
+	public ArrayList<Alarm> getProjectAlarmList(SqlSessionTemplate sqlSession, Member m) {
+		return (ArrayList)sqlSession.selectList("alarmMapper.getProjectAlarmList", m);
+	}
+
+	public ArrayList<Alarm> getPAListForPage(SqlSessionTemplate sqlSession, Member m) {
+		return (ArrayList)sqlSession.selectList("alarmMapper.getPAListForPage", m);
+	}
+
+	public int updateAllAlarmStatus(SqlSessionTemplate sqlSession, Member m) {
+		return sqlSession.update("alarmMapper.updateAllAlarmStatus", m);
 	}
 
 }

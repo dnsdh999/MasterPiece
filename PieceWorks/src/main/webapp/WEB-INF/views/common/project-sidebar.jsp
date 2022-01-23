@@ -16,7 +16,24 @@
     <link
         href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i"
         rel="stylesheet">
-
+  
+	<style>
+	.unreadMessage{
+	color:white;
+	border-radius:10px;
+	text-align:center;
+	background-color:red;
+	display:inline-block;
+	margin-left:8px;
+	padding-left:4px;
+	padding-right:3px;
+	padding-top:1px;
+	}
+	
+	.umControl{
+	display:inline-block;
+	}
+	</style>
     <!-- Custom styles for this template-->
 <!--     <link href="resource/css/sb-admin-2.min.css" rel="stylesheet"> -->
 </head>
@@ -82,13 +99,47 @@
                     <h6 class="collapse-header">DETAILS</h6>
                     <a class="collapse-item" href="#">상세 정보</a>
                     <a class="collapse-item" href="#">일정 및 캘린더</a>
-                    <a class="collapse-item" href="#">채팅</a>
+                    <a class="collapse-item" id="chatList">채팅<div class="umControl" id="umControl"><div id="unreadMessage" class="unreadMessage"></div></div></a>
                     <a class="collapse-item" href="#">게시판</a>
                     <a class="collapse-item" href="#">파일함</a>
                 </div>
             </div>
         </li>
+	
+		<script>
+		$(function(){
+			getPChatAlarmCount();
+			
+			setInterval(function(){
+				getPChatAlarmCount();
+			}, 5000);
+		});
 
+		
+		document.getElementById('chatList').onclick = function(){
+			window.open('chatList.ch', 'chattingList', 'width=500,height=560');
+		}
+		
+		function getPChatAlarmCount(){
+			$.ajax({
+				url:'getPChatAlarmCount.ch',
+				data:{projectNo:'${loginUser.currPno}'},
+				success:function(data){
+					console.log(data);
+					if(data.trim() > 0){
+						document.getElementById('unreadMessage').innerHTML = data;
+					}else{
+						document.getElementById('umControl').innerHTML = '';
+					}
+				},
+				error:function(data){
+					console.log(data);
+				}
+			});
+		}
+		
+		</script>
+		
         <!-- Divider -->
         <hr class="sidebar-divider">
 

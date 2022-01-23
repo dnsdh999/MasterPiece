@@ -25,8 +25,8 @@ public class ChattingDAO {
 		return (ArrayList)sqlSession.selectList("chattingMapper.selectChattingMessageList",c);
 	}
 
-	public ArrayList<ChattingList> selectChattingList(SqlSessionTemplate sqlSession, String email) {
-		return (ArrayList)sqlSession.selectList("chattingMapper.selectChattingList", email);
+	public ArrayList<ChattingList> selectChattingList(SqlSessionTemplate sqlSession, Member m) {
+		return (ArrayList)sqlSession.selectList("chattingMapper.selectChattingList", m);
 	}
 
 	
@@ -94,5 +94,13 @@ public class ChattingDAO {
 
 	public int updateConfirmTime(SqlSessionTemplate sqlSession, ChattingMessage cm) {
 		return sqlSession.update("chattingMapper.updateConfirmTime", cm);
+	}
+
+	public int getPChatAlarmCount(SqlSessionTemplate sqlSession, Member m) {
+		return sqlSession.selectOne("chattingMapper.getPChatAlarmCount", m);
+	}
+
+	public String selectProjectName(SqlSessionTemplate sqlSession, int projectNum) {
+		return sqlSession.selectOne("chattingMapper.selectProjectName", projectNum);
 	}
 }

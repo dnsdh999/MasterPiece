@@ -101,8 +101,10 @@ public class ProjectController {
 	
 	// 프로젝트 상세 페이지 이동
 	@RequestMapping("pDetailView2.pr")
-	public String pDetailView2(@RequestParam("pNo") int projectNo, Model model) {
+	public String pDetailView2(@RequestParam("pNo") int projectNo, HttpSession session, Model model) {
 		System.out.println(projectNo);
+		Member loginUser = (Member)session.getAttribute("loginUser");
+		loginUser.setCurrPno(projectNo);
 		
 		Project p = pService.selectProject(projectNo);
 		

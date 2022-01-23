@@ -12,6 +12,7 @@ import java.util.HashMap;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -56,7 +57,9 @@ public class ChattingController {
 
 
 	@RequestMapping("chatList.ch")
-	public String chatList(Model model) {
+	public String chatList(HttpSession session, Model model) {
+		Member loginUser = (Member)session.getAttribute("loginUser");
+		
 		java.util.Date date = new java.util.Date();
         SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd");
         String formattedDate = simpleDateFormat.format(date);
@@ -67,27 +70,36 @@ public class ChattingController {
          int day = Integer.parseInt(dateArr[2]);
          
          sqlDate = new java.sql.Date(new GregorianCalendar(year,month,day).getTimeInMillis());
-         int projectNum = 1000;
+         int projectNum = loginUser.getCurrPno();
          ArrayList<Member> mArr = new ArrayList<Member>();
          
          mArr = cService.selectProjectMemList(projectNum);
-        
+         
+         String projectName = cService.selectProjectName(projectNum);
+         
          model.addAttribute("isCreate", isCreate);
          model.addAttribute("chatRoomNum", chatRoomNum);
          model.addAttribute("mArr", mArr);
-         isCreate = false;	chatRoomNum = 0;
+         model.addAttribute("projectName", projectName);
+        
+        isCreate = false;	chatRoomNum = 0;
          model.addAttribute("today", sqlDate);
          
          
          return "chattingList";
 	}
 	
+
 	@RequestMapping("getChatList.ch")
 	public void getChatList(HttpServletRequest request, HttpServletResponse response, Model model) {
-		String email = ((Member)request.getSession().getAttribute("loginUser")).getEmail();
+		Member loginUser = (Member)request.getSession().getAttribute("loginUser");
+		
+		Member m = new Member();
+		m.setCurrPno(loginUser.getCurrPno());
+		m.setEmail(loginUser.getEmail());
 		
 		ArrayList<ChattingList> list = new ArrayList<ChattingList>();
-		list = cService.selectChattingList(email);
+		list = cService.selectChattingList(m);
 		
 		if(list != null) {
 			response.setContentType("application/json; charset=UTF-8");
@@ -115,8 +127,8 @@ public class ChattingController {
 										Model model) {
 		
 		String userEmail = ((Member)request.getSession().getAttribute("loginUser")).getEmail();
-		
-		int projectNo = 1000;	//프로젝트 구현되고 수정할 부분
+		int currPno = ((Member)request.getSession().getAttribute("loginUser")).getCurrPno();
+		int projectNo = currPno;	//프로젝트 구현되고 수정할 부분
 		System.out.println(memberNames);
 		ChattingInvite ci = new ChattingInvite(userEmail, roomName, projectNo);
 		int result = cService.insertChatRoom(ci);
@@ -260,6 +272,30 @@ public class ChattingController {
 		}
 	}
 	
+	@RequestMapping("getPChatAlarmCount.ch")
+	public void getPChatAlarmCount(HttpServletRequest request, HttpServletResponse response, Model model,
+								@RequestParam("projectNo") int projectNo) {
+		int count = 0;
+		
+		String userEmail = ((Member)request.getSession().getAttribute("loginUser")).getEmail();
+		
+		
+		Member m = new Member();
+		m.setEmail(userEmail);
+		m.setCurrPno(projectNo);
+		count = cService.getPChatAlarmCount(m);
+		
+		
+		try {
+			PrintWriter out = response.getWriter();
+			
+			out.println(count);
+			
+			out.close();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+	}
 	
 	@RequestMapping("chattingDetailForm.ch")
 	public ModelAndView chattingDetailForm(@ModelAttribute ChattingMessage c,ModelAndView mv) {
