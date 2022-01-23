@@ -127,6 +127,9 @@
 				success:function(data){
 					console.log(data);
 					if(data.trim() > 0){
+						if(document.getElementById('umControl').innerHTML == ''){
+							document.getElementById('umControl').innerHTML = '<div id="unreadMessage" class="unreadMessage"></div>';
+						}
 						document.getElementById('unreadMessage').innerHTML = data;
 					}else{
 						document.getElementById('umControl').innerHTML = '';

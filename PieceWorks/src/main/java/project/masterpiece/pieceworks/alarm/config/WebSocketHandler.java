@@ -42,7 +42,6 @@ public class WebSocketHandler extends TextWebSocketHandler implements Initializi
 		hashSessions.put(email, session);
 		
 		i++;
-        System.out.println(session.getId() + " 메시지 : " + i + "메시지"); 
 	}
 	
 	@Override
@@ -66,7 +65,8 @@ public class WebSocketHandler extends TextWebSocketHandler implements Initializi
 		}
 		
 		result = result + 1;
-		
+		System.out.println("알림받는사람들 크기 : " + recipientList.size());
+		System.out.println("리져트 크기 : " + result);
 		//로그인해서 세션에 들어와있는 사람들과 받은 recipient를 비교해서
 
 		if(recipientList.size() == result) {
