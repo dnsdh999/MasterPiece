@@ -183,7 +183,7 @@
 		    toast += "<small class='text-muted'>just now</small><button type='button' class='ml-2 mb-1 close' data-dismiss='toast' aria-label='Close'>";
 		    toast += "</button><button type='button' class='btn-close' data-bs-dismiss='toast' aria-label='Close'></button>";
 		    toast += "</div> <div class='toast-body'>" + msgContent + "</div></div>";
-		    $("#msgStack").append(toast);   // msgStack div에 생성한 toast 추가
+		    $("#msgStack").append(toast); 
 		    $(".toast").toast({"animation": true, "autohide": false});
 		    $('.toast').toast('show');
 		    

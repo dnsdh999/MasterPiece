@@ -99,6 +99,7 @@
                     <h6 class="collapse-header">DETAILS</h6>
                     <a class="collapse-item" href="#">상세 정보</a>
                     <a class="collapse-item" href="#">일정 및 캘린더</a>
+                    <a class="collapse-item" id="prjinvite">초대하기</a>
                     <a class="collapse-item" id="chatList">채팅<div class="umControl" id="umControl"><div id="unreadMessage" class="unreadMessage"></div></div></a>
                     <a class="collapse-item" href="#">게시판</a>
                     <a class="collapse-item" href="#">파일함</a>
@@ -139,6 +140,10 @@
 					console.log(data);
 				}
 			});
+		}
+		
+		document.getElementById('prjinvite').onclick = function(){
+			window.open('invitePrj.pr', '초대하기', 'width=500,height=260');
 		}
 		
 		</script>

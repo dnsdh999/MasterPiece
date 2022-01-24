@@ -171,8 +171,7 @@ body {
 <script src="http://code.jquery.com/jquery-latest.js"></script>
 <script>
 function getChattingList(){
-	
-	
+
 	$.ajax({
 		url:'getChatList.ch',
 		dataType:'json',
@@ -391,7 +390,6 @@ $(function(){
 		 frm.target="채팅";
 		 frm.submit();
 	}
-
 
 	
 	setInterval(function(){
