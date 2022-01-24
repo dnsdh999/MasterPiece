@@ -102,4 +102,28 @@
 		<result column="P_END_DATE" property="pEndDate"/>
 		<result column="CREATE_DATE" property="createDate"/>
 	</resultMap>
+	
+	<select id="memberProjectList" resultType="Member">
+		 select email,name,nickname,reprofile
+        from project_join
+        join member on(project_member = email)
+        where project_no = #{projectNo}
+		</select>
+		<select id="notMemberProjectList" resultType="Member">
+		select email,name,nickname,reprofile
+        from member
+        join project_join on(project_member = email)
+        where project_no != #{projectNo} 
+		</select>
+		<select id="emailSearch" resultType="Member">
+		select email,name,nickname,reprofile
+        from member
+        join project_join on(project_member = email)
+        where project_no != #{projectNo}  and
+        email like '%'||#{email}||'%'
+		</select>
+		<insert id="addProjectMember">
+		insert into project_join
+		values(#{projectNo},#{pMember})
+		</insert>
 </mapper>

@@ -177,6 +177,24 @@
 						                        </select>
 						                    </div>
 						                </div>
+						
+<!-- 						                <div class="col-lg-6"> -->
+<!-- 						                    <label for="calendar_view">등록자별</label> -->
+<!-- 						                    <div class="input-group"> -->
+<%-- 						                    <c:forEach var="c" items="${ list }"> --%>
+<!-- 						                    <label class="checkbox-inline"> -->
+<%-- 						                    	<input class='filter' type="checkbox" <c:out value='${ c.pNickName }'/> checked> --%>
+<!-- 						                    </label> -->
+<%-- 												<c:out value="${ c.pNickName }"/> --%>
+						                    
+<%-- 						                    </c:forEach> --%>
+<%-- 						                    <c:out value="${ JSONArray }" /> --%>
+<%-- 						                        <label class="checkbox-inline"><input class='filter' type="checkbox" value="${ loginUser.nickName }" --%>
+<%-- 						                                checked>${ loginUser.nickName }</label> --%>
+ 						                        
+<!-- 						                    </div> -->
+<!-- 						                </div> -->
+						
 						            </div>
 						        </div>
 						        <!-- /.filter panel -->

@@ -150,6 +150,8 @@
 		let pCheck = /^(?=.*[A-Za-z])(?=.*\d)(?=.*[$@$!%*#?&])[A-Za-z\d$@$!%*#?&]{8,}$/;
 		// [휴대전화] 하이픈 없이 숫자만 
 		let phCheck = /^\d{2,3}\d{3,4}\d{4}$/; 
+		// [이메일]
+		let eCheck = /^([0-9a-zA-Z_\.-]+)@([0-9a-zA-Z_-]+)(\.[0-9a-zA-Z_-]+){1,2}$/;
 		
 		// 이메일
 		function emailCheck() {
@@ -161,8 +163,12 @@
 						if(data == "NoDup") {
 							console.log(data);
 							email = false;
-							$("#emailGuide").css({"color":"red","margin-left":"10px"}).text("❌ 중복된 이메일입니다.");
-						} else if(data == "Dup") {
+							$("#emailGuide").css({"color":"red", "margin-left":"10px"}).text("❌ 중복된 이메일입니다.");
+						} else if(!eCheck.test($email.val())) {
+							console.log(data);
+							email = false;
+							$("#emailGuide").css({"color":"red", "margin-left":"10px"}).text("❌ 올바른 이메일 형식이 아닙니다.");
+						} else if(data == "Dup" && eCheck.test($email.val())) {
 							console.log(data);
 							email = true;
 							$("#emailGuide").css({"color":"green", "margin-left":"10px"}).text("✔ 사용 가능한 이메일입니다.");

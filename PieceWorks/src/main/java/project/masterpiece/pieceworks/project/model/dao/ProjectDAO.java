@@ -1,12 +1,15 @@
 package project.masterpiece.pieceworks.project.model.dao;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.stereotype.Repository;
 
 import project.masterpiece.pieceworks.calendar.model.vo.Calendar;
 import project.masterpiece.pieceworks.project.model.vo.MainCalProject;
+import project.masterpiece.pieceworks.member.model.vo.Member;
+import project.masterpiece.pieceworks.project.model.vo.JoinProject;
 import project.masterpiece.pieceworks.project.model.vo.Project;
 
 @Repository("pDAO")
@@ -41,4 +44,19 @@ public class ProjectDAO {
 	}
 
 
+	public ArrayList<Member> memberProjectList(SqlSessionTemplate sqlSession, int projectNo) {
+		return (ArrayList)sqlSession.selectList("projectMapper.memberProjectList",projectNo);
+	}
+
+	public ArrayList<Member> notMemberProjectList(SqlSessionTemplate sqlSession, int projectNo) {
+		return (ArrayList)sqlSession.selectList("projectMapper.notMemberProjectList",projectNo);
+	}
+
+	public ArrayList<Member> emailSearch(SqlSessionTemplate sqlSession, HashMap<String, Object> map) {
+		return (ArrayList)sqlSession.selectList("projectMapper.emailSearch",map);
+	}
+
+	public int addProjectMember(SqlSessionTemplate sqlSession, ArrayList<JoinProject> list1) {
+		return sqlSession.insert("projectMapper.addProjectMember",list1);
+	}
 }

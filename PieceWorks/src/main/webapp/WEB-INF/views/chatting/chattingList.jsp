@@ -151,6 +151,21 @@ body {
 		font-size:18px;
 		margin-bottom:10px;
 	}
+	
+	#exampleModalLabel{
+		color:#152FB0;
+		margin-top:10px;
+		margin-left:10px;
+		
+	}
+	
+	#clbutton.close{
+	margin-top:-43px;
+	}
+	
+	.chat_list{
+		width:556px;
+	}
 </style>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/lodash.js/3.2.0/lodash.js"></script>
 <script src="http://code.jquery.com/jquery-latest.js"></script>
@@ -516,8 +531,8 @@ function deleteRoomClick(){
 	            <div class="modal-content">
 	                <div class="modal-header">
 	                    <h5 class="modal-title" id="exampleModalLabel">채팅방 만들기</h5>
-	                    <button class="close" type="button" data-dismiss="modal" aria-label="Close">
-	                        <span aria-hidden="true">×</span>
+	                    <button class="close" type="button" data-dismiss="modal" aria-label="Close" id="clbutton">
+	                        <span aria-hidden="true" id="clspan">×</span>
 	                    </button>
 	                </div>
 	                <div class="modal-body">
@@ -595,7 +610,7 @@ function deleteRoomClick(){
 	            	
 	            		function sendMessage() {
 	            			// 내 메시지 서버로 보내기
-	            			
+	            			console.log('보내기');
 	            			var message = '${ loginUser.nickName }님이 회원님을 채팅방에 초대했습니다.';
 	            			var emails = document.getElementById("chk_id").value;
 	            			

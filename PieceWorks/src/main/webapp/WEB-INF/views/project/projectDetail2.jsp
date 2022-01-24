@@ -152,10 +152,9 @@
 	<!-- 										</div> -->
 	<!-- 									</div> -->
 									</div>
-									<div id="done">
-										
-									</div>
+									<div id="done"></div>
 								</div>
+								<div id="done"></div>
 							</div>
 						</form>
 					</div>
@@ -266,11 +265,12 @@
 <!-------------------------------------------------------------------- 스크립트 끝 -------------------------------------------------------------------->
 <!-- End of Main content -->
 			
-				<!-- Main Content 끝 -->
-				</div>
-				
+			<!-- Main Content 끝 -->
+			</div>
+			
 			<!-- Footer -->
 			<c:import url="../common/footer.jsp" />
+		
 		<!-- Content Wrapper 끝 -->
 		</div>
 	<!-- Page Wrapper 끝 -->    

@@ -134,6 +134,7 @@
 	}
 	
 	function send() {
+		updateConfirmTime();
 		var msg = $(".write_msg").val();
 		var Now = new Date();
 		var NowTime = Now.getFullYear();
