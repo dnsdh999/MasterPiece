@@ -27,8 +27,7 @@ public class WebSocketHandler extends TextWebSocketHandler implements Initializi
 	
 	private final ObjectMapper objectMapper = new ObjectMapper();
 	
-	private static int i;
-
+	
 	@Autowired
 	private AlarmService aService;
 	
@@ -40,8 +39,7 @@ public class WebSocketHandler extends TextWebSocketHandler implements Initializi
 		String email = getEmail(session);
 		
 		hashSessions.put(email, session);
-		
-		i++;
+
 	}
 	
 	@Override
@@ -86,7 +84,7 @@ public class WebSocketHandler extends TextWebSocketHandler implements Initializi
 	
 	@Override
 	public void afterConnectionClosed(WebSocketSession session, CloseStatus status) throws Exception {
-		i--;
+
 		String email = getEmail(session);
 		hashSessions.remove(email);
 	}
