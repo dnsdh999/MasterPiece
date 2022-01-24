@@ -1,5 +1,6 @@
 var draggedEventIsAllDay;
 var activeInactiveWeekends = true;
+var projectNo = $('#projectNo').val();
 
 var calendar = $('#calendar').fullCalendar({
 
@@ -100,7 +101,8 @@ var calendar = $('#calendar').fullCalendar({
       data: {
         // 화면이 바뀌면 Date 객체인 start, end 가 들어옴
         startDate : moment(start).format('YYYY-MM-DD'),
-        endDate   : moment(end).format('YYYY-MM-DD')
+        endDate   : moment(end).format('YYYY-MM-DD'),
+        projectNo : projectNo
       },
       success: function (data) {
 //		        var fixedDate = data.map(function (array) {
@@ -135,6 +137,7 @@ var calendar = $('#calendar').fullCalendar({
 		        			obj.end = moment(data[i].cEndDate).format('YYYY-MM-DD HH:mm');
 		        		}
 		        		obj.description = data[i].calContent;
+		        		obj.projectNo = data[i].projectNo;
 		        		JSONArray.push(obj);
 		        	}
   					console.log(JSONArray);

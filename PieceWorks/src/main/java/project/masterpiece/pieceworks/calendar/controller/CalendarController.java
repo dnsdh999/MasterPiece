@@ -48,7 +48,8 @@ public class CalendarController {
 	
 	@RequestMapping(value="addEvent.ca", produces="application/json; charset=UTF-8")
 	@ResponseBody
-	public int addEvent(@RequestParam("eventData") String eventData, HttpServletRequest request) throws Exception {
+	public int addEvent(@RequestParam("eventData") String eventData, 
+						HttpServletRequest request) throws Exception {
 		
 		HttpSession session = request.getSession();
 		Member loginUser = (Member)session.getAttribute("loginUser");
@@ -63,6 +64,8 @@ public class CalendarController {
 		String bgColor = (String)jObj.get("backgroundColor");
 		Boolean allDayCheck = (Boolean)jObj.get("allDay");
 		String allDay = "";
+//		String projectNo = (String) jObj.get("projectNo");
+		String projectNo = Integer.toString(loginUser.getCurrPno());
 		
 		Calendar c = new Calendar();
 		c.setcCreator(loginUser.getEmail());
@@ -72,6 +75,7 @@ public class CalendarController {
 		c.setCategory(type);
 		c.setCalContent(description);
 		c.setBgColor(bgColor);
+		c.setProjectNo(projectNo);
 
 		
 		if(allDayCheck == true) {
@@ -82,12 +86,16 @@ public class CalendarController {
 		
 		c.setAllDay(allDay);
 		
+		System.out.println("controller : " + c);
+		
 		return caService.addEvent(c);
+		
 	}
 	
 	@RequestMapping("eventList.ca")
 	public void getEventList(@RequestParam("startDate") String startDate,
 							   @RequestParam("endDate") String endDate,
+							   @RequestParam("projectNo") String projectNo,
 							   Model model,
 							   HttpServletResponse response) {
 		
@@ -95,6 +103,7 @@ public class CalendarController {
 		
 		c.setcStartDate(startDate);
 		c.setcEndDate(endDate);
+		c.setProjectNo(projectNo);
 		
 		ArrayList<Calendar> pList = caService.callProcedure(); //이벤트 리스트 가져오기 전에 프로시저 실행(end_date가 오늘날짜보다 전인것은 완료처리)
 		
@@ -138,6 +147,7 @@ public class CalendarController {
 	      } else {
 	         allDay = "N";
 	      }
+	      String projectNo = Integer.toString(loginUser.getCurrPno());
 	      
 	      Calendar c = new Calendar();
 	      
@@ -150,6 +160,7 @@ public class CalendarController {
 	      c.setCalContent(description);
 	      c.setBgColor(bgColor);
 	      c.setAllDay(allDay);
+	      c.setProjectNo(projectNo);
 	      
 	      int result = caService.editEvent(c);
 	      
@@ -183,6 +194,7 @@ public class CalendarController {
 		} else {
 			allDay = "N";
 		}
+	    String projectNo = Integer.toString(loginUser.getCurrPno());
 	    
 	    Calendar c = new Calendar();
 	    
@@ -195,12 +207,13 @@ public class CalendarController {
 	    c.setCalContent(description);
 	    c.setBgColor(bgColor);
 	    c.setAllDay(allDay);
+	    c.setProjectNo(projectNo);
 	    
 	    int result = caService.deleteEvent(c);
 	      
 	    model.addAttribute("Calendar", c);
 	     
-	    System.out.println(c);
+//	    System.out.println(c);
 		
 	}
 	

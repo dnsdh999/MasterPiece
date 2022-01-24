@@ -52,15 +52,15 @@
         <hr class="sidebar-divider my-0">
 
         <!-- Nav Item - Dashboard -->
-        <li class="nav-item active">
-            <a class="nav-link" href="index.jsp">
-                <i class="fas fa-fw fa-tachometer-alt"></i>
-                <span>Dashboard(Index.jsp)</span></a>
-        </li>
+<!--         <li class="nav-item active"> -->
+<!--             <a class="nav-link" href="index.jsp"> -->
+<!--                 <i class="fas fa-fw fa-tachometer-alt"></i> -->
+<!--                 <span>Dashboard(Index.jsp)</span></a> -->
+<!--         </li> -->
         <li class="nav-item active">
             <a class="nav-link" href="main.com">
                 <i class="fas fa-fw fa-tachometer-alt"></i>
-                <span>MAIN(임시)</span></a>
+                <span>MAIN</span></a>
         </li>
 
         <!-- Divider -->
@@ -97,7 +97,7 @@
                 data-parent="#accordionSidebar">
                 <div class="bg-white py-2 collapse-inner rounded">
                     <h6 class="collapse-header">DETAILS</h6>
-                    <a class="collapse-item" href="#">상세 정보</a>
+<!--                     <a class="collapse-item" href="#">상세 정보</a> -->
                     <a class="collapse-item" href="#">일정 및 캘린더</a>
                     <a class="collapse-item" id="chatList">채팅<div class="umControl" id="umControl"><div id="unreadMessage" class="unreadMessage"></div></div></a>
                     <a class="collapse-item" href="#">게시판</a>

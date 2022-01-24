@@ -46,7 +46,7 @@
 		select *
 		from calendar
 			 join member on(c_creator=email)
-		where project_no = #{pNo} and c_status not like '완료'
+		where project_no = #{pNo} and c_category like '진행%' and c_status = 'Y'
 		order by calendar_no
 	</select>
 	
@@ -104,26 +104,28 @@
 	</resultMap>
 	
 	<select id="memberProjectList" resultType="Member">
-		 select email,name,nickname,reprofile
+		select email,name,nickname,reprofile
         from project_join
-        join member on(project_member = email)
+        	join member on(project_member = email)
         where project_no = #{projectNo}
-		</select>
-		<select id="notMemberProjectList" resultType="Member">
+	</select>
+	
+	<select id="notMemberProjectList" resultType="Member">
 		select email,name,nickname,reprofile
         from member
-        join project_join on(project_member = email)
+       		join project_join on(project_member = email)
         where project_no != #{projectNo} 
-		</select>
-		<select id="emailSearch" resultType="Member">
+	</select>
+	
+	<select id="emailSearch" resultType="Member">
 		select email,name,nickname,reprofile
         from member
-        join project_join on(project_member = email)
-        where project_no != #{projectNo}  and
-        email like '%'||#{email}||'%'
-		</select>
-		<insert id="addProjectMember">
+       		 join project_join on(project_member = email)
+        where project_no != #{projectNo} and email like '%'||#{email}||'%'
+	</select>
+	
+	<insert id="addProjectMember">
 		insert into project_join
 		values(#{projectNo},#{pMember})
-		</insert>
+	</insert>
 </mapper>

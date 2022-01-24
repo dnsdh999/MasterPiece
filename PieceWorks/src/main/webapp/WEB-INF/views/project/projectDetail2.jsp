@@ -128,32 +128,18 @@
 				<div id="detail-content" >
 					<div id="projectDetail" class="container text-gray-800">
 						<h3>${ list[0].pTitle } 상세 일정</h3>
-						<form action="fullCal.ca">
+						<form action="fullCal.ca" method="post">
 						<input type="hidden" id="pNo" name="pNo" value="${ list[0].projectNo }">
 						
 							<div class="card-body">
-							일정 생성<button id="btn" class="btn-open-popup7"><i class="fas fa-plus"></i></button>
+							일정 생성 & 일정 수정<button type="submit" id="btn" class="btn-open-popup7"><i class="fas fa-plus"></i></button>
 								<div id="listContainer">
 									<div id="detailList">
 										<input type="checkbox" id="checkAll" onclick="checkAll();">전체 선택
 										<input type="hidden" id="result">
-	<!-- 									<div class="card border-bottom-primary shadow h-100 py-2"> -->
-	<!-- 										<div class="card-body"> -->
-	<!-- 											<div class="row no-gutters align-items-center"> -->
-	<!-- 												<div class="col mr-2"> -->
-	<!-- 													<div class="text-s font-weight-bold text-primary text-uppercase mb-1"> -->
-	<!-- 													<input type="checkbox" value="title"> 제목 -->
-	<!-- 													</div> -->
-	<!-- 													<div class="text-s mb-0 font-weight-bold text-gray-800"> -->
-	<!-- 													내용 -->
-	<!-- 													</div> -->
-	<!-- 												</div> -->
-	<!-- 											</div> -->
-	<!-- 										</div> -->
-	<!-- 									</div> -->
 									</div>
-									<div id="done"></div>
-								</div>
+								<div id="done"></div>
+							</div>
 								<div id="done"></div>
 							</div>
 						</form>
