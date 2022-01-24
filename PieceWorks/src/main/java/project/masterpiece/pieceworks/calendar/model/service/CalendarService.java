@@ -4,6 +4,7 @@ import java.sql.Date;
 import java.util.ArrayList;
 
 import project.masterpiece.pieceworks.calendar.model.vo.Calendar;
+import project.masterpiece.pieceworks.project.model.vo.MainCalProject;
 
 public interface CalendarService {
 
@@ -16,6 +17,10 @@ public interface CalendarService {
 	int deleteEvent(Calendar c);
 
 	ArrayList<Calendar> callProcedure();
+
+	ArrayList<MainCalProject> callProcedureForMain1();
+
+	ArrayList<MainCalProject> callProcedureForMain2();
 	
 
 }

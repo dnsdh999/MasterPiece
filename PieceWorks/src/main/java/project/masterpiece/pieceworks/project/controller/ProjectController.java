@@ -150,10 +150,30 @@ public class ProjectController {
 		}
 	}
 	
+	// 프로젝트 상세 페이지 이동2
+		@RequestMapping("pDetailViewBack.pr")
+		public String pDetailViewBack(Model model, HttpSession session) {
+			
+			Member loginUser = (Member) session.getAttribute("loginUser");
+			int projectNo = loginUser.getCurrPno();
+
+			ArrayList<Project> list = pService.selectProject(projectNo);
+
+			if(list != null) {
+				model.addAttribute("list", list);
+				return "projectDetail2";
+			} else {
+				throw new ProjectException("프로젝트 상세 내역으로 되돌아 가기에 실패하였습니다.");
+			}
+		}
+	
 	// 프로젝트 캘린더로 이동
 	@RequestMapping("fullCal.ca")
-	public String fullCalView(@RequestParam("pNo") int pNo, Model model) {
-		System.out.println(pNo);
+	public String fullCalView(/*@RequestParam("pNo") int pNo,*/HttpSession session, Model model) {
+
+		Member loginUser = (Member)session.getAttribute("loginUser");
+		int pNo = loginUser.getCurrPno();
+		System.out.println("calendar pNo : " + pNo);
 		ArrayList<Project> list = pService.selectProject(pNo);
 
 		if(list != null) {

@@ -18,7 +18,7 @@
 		from project
 			 join project_join using(project_no)
 			 join member on(project_member=email)
-		where p_status like '진행%' and project_member = #{email}
+		where project_member = #{email}
 		order by project_no
 	</select>
 	
@@ -35,7 +35,7 @@
 	</resultMap>
 	
 	<select id="selectProject" resultMap="ProjectListSet">
-		select project_no, project_title, project_member, nickname
+		select project_no, project_content, project_title, project_member, nickname
 		from project
 			 join project_join using(project_no)
 			 join member on(project_member = email)
@@ -85,7 +85,7 @@
 				from project
 				join project_join using(project_no)
 				join member on(project_member=email)
-		 		where p_status like '진행%' and project_member = #{pCreater})
+		 		where project_member = #{pCreater})
 		 where (p_start_date between to_date(#{pStartDate}, 'YYYY-MM-DD') and to_date(#{pEndDate}, 'YYYY-MM-DD'))
 			  		or (p_end_date between to_date(#{pStartDate}, 'YYYY-MM-DD') and to_date(#{pEndDate}, 'YYYY-MM-DD'))
 		 order by project_no

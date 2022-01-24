@@ -306,9 +306,16 @@
 					<!-- Begin Page Content -->
 					<div class="container-fluid">
                 	    <div class="d-sm-flex align-items-center justify-content-between mb-4">
-                    	    <h1 class="h3 mb-0 text-gray-800">${ list[0].pTitle } 일정</h1>
+                    	    <h1 class="h3 mb-0 text-gray-800">${ list[0].pTitle } 상세 일정</h1>
+                    	    <a href="pDetailViewBack.pr" class="btn btn-light btn-icon-split">
+								<span class="icon text-gray-600">
+									<i class="fas fa-arrow-left"></i>
+								</span>
+								<span class="text">상세 내역으로</span>
+							</a>
 <%--                     	    <input type="hidden" id="pNo" name="pNo" value="${ list[0].projectNo }"> --%>
                     	</div>
+                    	<br>
 
 						<div class="row">
                        	     <div class="container">
@@ -439,23 +446,6 @@
 						                        </select>
 						                    </div>
 						                </div>
-						
-<!-- 						                <div class="col-lg-6"> -->
-<!-- 						                    <label for="calendar_view">등록자별</label> -->
-<!-- 						                    <div class="input-group"> -->
-<%-- 						                    <c:forEach var="c" items="${ list }"> --%>
-<!-- 						                    <label class="checkbox-inline"> -->
-<%-- 						                    	<input class='filter' type="checkbox" <c:out value='${ c.pNickName }'/> checked> --%>
-<!-- 						                    </label> -->
-<%-- 												<c:out value="${ c.pNickName }"/> --%>
-						                    
-<%-- 						                    </c:forEach> --%>
-<%-- 						                    <c:out value="${ JSONArray }" /> --%>
-<%-- 						                        <label class="checkbox-inline"><input class='filter' type="checkbox" value="${ loginUser.nickName }" --%>
-<%-- 						                                checked>${ loginUser.nickName }</label> --%>
- 						                        
-<!-- 						                    </div> -->
-<!-- 						                </div> -->
 						
 						            </div>
 						        </div>

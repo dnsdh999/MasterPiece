@@ -25,15 +25,13 @@
     <link rel="stylesheet" href="resource/vendor/css/calbootstrap.min.css"> 
 </head>
 <style>
-		#msgStack{
+	#msgStack{
 		position: fixed;
     	right: 40px; bottom: 40px;
     	padding-top:500px;
-    	}
+    }
     	
-    	
-	</style>
-<style>
+
 	.btn-link {
 	    border: none;
 	    outline: none;
@@ -45,6 +43,12 @@
 	    font-family: inherit;
 	    font-size: inherit;
 	}
+	
+	#no-projects {
+		text-align: center;
+		align-content: center;
+	}
+	
 </style>
 <body id="page-top">
 
@@ -341,6 +345,7 @@
                 	    <div class="d-sm-flex align-items-center justify-content-between mb-4">
                     	    <h1 class="h3 mb-0 text-gray-800">MAIN PAGE</h1>
                     	</div>
+                    	<br>
 
 						<div class="row">
 						
@@ -377,7 +382,7 @@
                             <div class="card shadow mb-4">
                                 <!-- Card Header - Dropdown -->
                                 <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
-                                    <h5 class="m-0 font-weight-bold text-primary">프로젝트 목록</h5>
+                                    <h5 class="m-0 font-weight-bold text-primary">참여 중인 프로젝트 목록</h5>
                                 </div>
                                 <!-- Card Body -->
                                 <div id="pList"></div>
@@ -444,7 +449,14 @@
 								console.log(i);
 								pList += '<div class="card-body">';
 								pList += '<div class="col-lg-12 mb-2">';
-								pList += '<div class="card border-bottom-primary shadow h-100 py-2">';
+								
+								if(data[i].pStatus == '진행중'){
+									pList += '<div class="card border-bottom-info shadow h-100 py-2">';
+								} else if(data[i].pStatus == '진행전'){
+									pList += '<div class="card border-bottom-warning shadow h-100 py-2">';
+								} else {
+									pList += '<div class="card border-bottom-secondary shadow h-100 py-2">';
+								}
 								pList += '<div class="card-body">';
 								pList += '<div class="row no-gutters align-items-center">';
 								pList += '<div class="col mr-2">';
@@ -463,8 +475,8 @@
 						} else {
 							$('#pList').html('<div class="card-body">'
 												+ '<div class="col-lg-12 mb-2">'
-												+ '<div class="row no-gutters align-items-center">'
-												+ '<a style="text-align: center">진행 중인 프로젝트가 없습니다 </a>'
+												+ '<div id="no-projects">'
+												+ '<a>진행 중인 프로젝트가 없습니다 </a>'
 												+ '</div></div></div>');
 						}
 					},

@@ -86,7 +86,7 @@ public class CalendarController {
 		
 		c.setAllDay(allDay);
 		
-		System.out.println("controller : " + c);
+//		System.out.println("controller : " + c);
 		
 		return caService.addEvent(c);
 		
@@ -105,7 +105,8 @@ public class CalendarController {
 		c.setcEndDate(endDate);
 		c.setProjectNo(projectNo);
 		
-		ArrayList<Calendar> pList = caService.callProcedure(); //이벤트 리스트 가져오기 전에 프로시저 실행(end_date가 오늘날짜보다 전인것은 완료처리)
+		//이벤트 리스트 가져오기 전에 프로시저 실행(end_date가 오늘날짜보다 전인것은 완료처리)
+		ArrayList<Calendar> pList = caService.callProcedure(); 
 		
 		ArrayList<Calendar> list = caService.getEventList(c);
 		
@@ -227,37 +228,27 @@ public class CalendarController {
 		Member loginUser = (Member)session.getAttribute("loginUser");
 		String email = loginUser.getEmail();
 		
-		//String인 startDate와 endDate를 sql.Date로 형변환 
-//		Date fStartDate = Date.valueOf(startDate);
-//		Date fEndDate = Date.valueOf(endDate);
-
-		//Project에 아래 정보를 담아서 넘김(해당 날짜 사이에 있는 프로젝트만 불러오게)
-//		Project p = new Project();
-//		p.setpStartDate(fStartDate);
-//		p.setpEndDate(fEndDate);
-//		p.setpCreater(email);
-		
-		//JSON에 담기위해 Date가 아닌 String값을 갖는 객체 추가 생성
+		//JSON에 담기위해 시작일, 종료일의 자료형이 String인 객체 추가 생성
 		MainCalProject mp = new MainCalProject();
 		mp.setpStartDate(startDate);
 		mp.setpEndDate(endDate);
 		mp.setpCreater(email);
 		
-//		ArrayList<Project> pList = pService.getPListForMain(p);
+		//이벤트 리스트 가져오기 전에 프로시저 실행(오늘날짜 기준으로 진행중 또는 완료 처리)
+		ArrayList<MainCalProject> pListStart = caService.callProcedureForMain1(); 
+		ArrayList<MainCalProject> pListEnd = caService.callProcedureForMain2(); 
+		
 		ArrayList<MainCalProject> pList2= pService.getPListForMain2(mp);
-//		System.out.println("pList : " + pList);
 		System.out.println("pList2 : " + pList2);
 		
 		response.setContentType("application/json; charset=UTF-8");
 		GsonBuilder gb = new GsonBuilder().setDateFormat("yyyy-MM-dd");
 		
-//		model.addAttribute("pList", pList);
 		model.addAttribute("pList2", pList2);
 		
 		Gson gson = gb.create();
 		
 		try {
-//			gson.toJson(pList, response.getWriter());
 			gson.toJson(pList2, response.getWriter());
 		} catch (JsonIOException e) {
 			e.printStackTrace();

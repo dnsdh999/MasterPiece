@@ -80,5 +80,12 @@
 		{call UPDATE_ALL_EVENTS}
 	</select>
 	
+	<select id="callProcedureForMain1" statementType="CALLABLE">
+		{call UPDATE_START_PROJECT}
+	</select>
+	
+	<select id="callProcedureForMain2" statementType="CALLABLE">
+		{call UPDATE_END_PROJECT}
+	</select>
 
 </mapper>

@@ -107,7 +107,6 @@ var calendar = $('#calendar').fullCalendar({
 		        
 		  		var JSONArray = new Array();
 		        if(data.length > 0){
-		        	console.log('0 : ' + data.length);
 		        	for(var i in data){
 		        		var pjObj = new Object();
 		        		pjObj.eventId = data[i].projectNo;
@@ -120,25 +119,21 @@ var calendar = $('#calendar').fullCalendar({
 		        		} else if(data[i].pStatus == '진행중'){
 		        			pjObj.backgroundColor = '#36b9cc';
 		        		} else if(data[i].pStatus == '완료') {
-		        			pjObj.backgroundColor = '#3479FF';
+		        			pjObj.backgroundColor = '#858796';
 		        		}
-		        		
-		        		console.log('1 : ' + pjObj.eventId);
-		        		console.log('2 : ' + pjObj.title);
-		        		console.log('3 : ' + pjObj.type);
 		        		
 		        		pjObj.textColor = '#ffffff';
 		        		pjObj.start = moment(data[i].pStartDate).format('YYYY-MM-DD');
-		        		pjObj.end = moment(data[i].pEndDate).format('YYYY-MM-DD');
+		        		//화면에 제대로 표시되기 위해 +1일 함
+		        		pjObj.end = moment(data[i].pEndDate).add(1, 'days').format('YYYY-MM-DD');
 		        		pjObj.description = data[i].pContent;
 		        		pjObj.allDay = true;
 		        		
+		        		console.log("end date ; " + pjObj.end);
 		        		JSONArray.push(pjObj);
 		        		
 		        	}
 		        	console.log('프로젝트 받아오기 성공!!');
-		        	console.log(pjObj);
-		        	console.log('JSONArray : ' + JSONArray);
 		        	
 		        	callback(JSONArray);
 		        }
