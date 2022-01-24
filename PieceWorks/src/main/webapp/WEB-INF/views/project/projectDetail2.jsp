@@ -364,7 +364,7 @@
 					var projectNo = "${projectNo}";
 					console.log(email);
 					$.ajax({
-						url:'emailSearch.pr',
+						url:'emailSearch',
 						data:{email:email,projectNo:projectNo},
 						success:function(data){
 							console.log(data);
