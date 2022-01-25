@@ -103,7 +103,6 @@ var calendar = $('#calendar').fullCalendar({
 	    endDate   : moment(end).format('YYYY-MM-DD')
 	  },
 	  success: function (data) {
-		  console.log('test');
 		        
 		  		var JSONArray = new Array();
 		        if(data.length > 0){

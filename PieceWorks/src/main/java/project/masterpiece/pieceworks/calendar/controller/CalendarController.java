@@ -239,13 +239,12 @@ public class CalendarController {
 		ArrayList<MainCalProject> pListEnd = caService.callProcedureForMain2(); 
 		
 		ArrayList<MainCalProject> pList2= pService.getPListForMain2(mp);
-		System.out.println("pList2 : " + pList2);
+//		System.out.println("pList2 : " + pList2);
 		
 		response.setContentType("application/json; charset=UTF-8");
-		GsonBuilder gb = new GsonBuilder().setDateFormat("yyyy-MM-dd");
-		
 		model.addAttribute("pList2", pList2);
 		
+		GsonBuilder gb = new GsonBuilder().setDateFormat("yyyy-MM-dd");
 		Gson gson = gb.create();
 		
 		try {
