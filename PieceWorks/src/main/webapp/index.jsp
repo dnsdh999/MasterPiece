@@ -22,37 +22,16 @@
 
 
 </head>
-<<<<<<< HEAD
-<body onload="gologin();">
-
-<p>메인페이지</p>
-<p><button onclick="location.href='chattest.ch'">실시간 채팅 테스트</button></p>
-<p><button onclick="location.href='chatForm.ch'">채팅폼</button></p>
-<p><button id="chatList">채팅리스트</button></p>
-<p><button onclick="location.href='common.com'">Common Form</button></p>
-<p><button onclick="location.href='project.com'">Project Sidebar</button></p>
-<p><button id="chattingDetailForm">chattingDetailForm</button></p>
-<p><button onclick="location.href='loginView.me'">Login</button></p>
-<p><button onclick="location.href='pDetailView.pr'">Project Detail</button></p>
-<p><button onclick="location.href='pUpdateView.pr'">Project Update</button></p>
-<p><button onclick="loaction.href='inviteMember.pr'" id="inviteMember">InviteMember</button>
-
 <style>
 	.col-lg-6{
 		max-width: 100%;
 	}
-
-
     .user-input{
         width: 50%;
         margin: 0 auto;
     }
-
-
-
 </style>
 <body class="bg-gradient-primary"> <!-- onload="alert('로그인 후 서비스 이용이 가능합니다.')" -->
-
 
     <div class="container">
 
