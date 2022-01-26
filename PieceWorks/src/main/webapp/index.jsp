@@ -7,7 +7,7 @@
 <title>Insert title here</title>
  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
 </head>
-<body>
+<body onload="gologin();">
 
 <p>메인페이지</p>
 <p><button onclick="location.href='chattest.ch'">실시간 채팅 테스트</button></p>
@@ -30,6 +30,10 @@ document.getElementById('chatList').onclick = function(){
 $('#inviteMember').on('click', function() {
 	window.open('inviteMember.pr', 'inviteMember', 'width=400, height=400');
 });
+
+function gologin(){
+	location.href='loginView.me';
+}
 </script>
 
 

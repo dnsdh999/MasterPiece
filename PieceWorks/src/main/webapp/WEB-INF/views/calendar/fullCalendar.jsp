@@ -49,8 +49,7 @@
 					<!-- Begin Page Content -->
 					<div class="container-fluid">
                 	    <div class="d-sm-flex align-items-center justify-content-between mb-4">
-                    	    <h1 class="h3 mb-0 text-gray-800">${ list[0].pTitle } 일정</h1>
-                    	    <input type="hidden" id="pNo" name="pNo" value="${ list[0].projectNo }">
+                    	    <h1 class="h3 mb-0 text-gray-800">프로젝트 1 일정</h1>
                     	</div>
 
 						<div class="row">
@@ -182,22 +181,21 @@
 						                    </div>
 						                </div>
 						
-<!-- 						                <div class="col-lg-6"> -->
-<!-- 						                    <label for="calendar_view">등록자별</label> -->
-<!-- 						                    <div class="input-group"> -->
-<%-- 						                    <c:forEach var="c" items="${ list }"> --%>
+						                <div class="col-lg-6">
+						                    <label for="calendar_view">등록자별</label>
+						                    <div class="input-group">
+<%-- 						                    <c:forEach var="c" items="${ JSONArray }"> --%>
 <!-- 						                    <label class="checkbox-inline"> -->
-<%-- 						                    	<input class='filter' type="checkbox" <c:out value='${ c.pNickName }'/> checked> --%>
+<%-- 						                    	<input class='filter' type="checkbox" value="${ c.nickName }" checked> --%>
 <!-- 						                    </label> -->
-<%-- 												<c:out value="${ c.pNickName }"/> --%>
 						                    
 <%-- 						                    </c:forEach> --%>
 <%-- 						                    <c:out value="${ JSONArray }" /> --%>
-<%-- 						                        <label class="checkbox-inline"><input class='filter' type="checkbox" value="${ loginUser.nickName }" --%>
-<%-- 						                                checked>${ loginUser.nickName }</label> --%>
+						                        <label class="checkbox-inline"><input class='filter' type="checkbox" value="${ loginUser.nickName }"
+						                                checked>${ loginUser.nickName }</label>
  						                        
-<!-- 						                    </div> -->
-<!-- 						                </div> -->
+						                    </div>
+						                </div>
 						
 						            </div>
 						        </div>

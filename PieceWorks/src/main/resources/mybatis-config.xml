@@ -13,8 +13,6 @@
 		<typeAlias type="project.masterpiece.pieceworks.calendar.model.vo.Calendar" alias="Calendar"/>
 		<typeAlias type="project.masterpiece.pieceworks.alarm.model.vo.Alarm" alias="Alarm"/>
 		<typeAlias type="project.masterpiece.pieceworks.project.model.vo.Project" alias="Project"/>
-		<typeAlias type="project.masterpiece.pieceworks.project.model.vo.JoinProject" alias="JoinProject"/>
-		
 		
 	</typeAliases>
 	<mappers>

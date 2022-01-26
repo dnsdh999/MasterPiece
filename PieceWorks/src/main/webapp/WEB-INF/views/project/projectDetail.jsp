@@ -7,7 +7,6 @@
 <meta charset="UTF-8">
 <title>프로젝트</title>
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-
 <!-- <script src="${ contextPath }/resources/js/jquery-3.6.0.min.js"></script>  -->
 
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
@@ -106,11 +105,6 @@
 		top: 5px; 
 		display: inline-block;
 	}
-	.pImg { 
-		width: 32px;	
-		height: 32px; 
-		border-radius: 100px;
-	}
 </style>
 
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -200,32 +194,15 @@
 								<h6 class="m-0 font-weight-bold text-primary">참여자 목록</h6>
 							</div>
 							<div class="card-body">
-							<c:forEach var="p" items="${list }">
-								<c:choose>
-									<c:when test="${p==null }">
-										<div class="text-gray-900 p-3">참여자가 없습니다.</div>
-									</c:when>
-									<c:otherwise>
-										<div class="text-gray-900 p-3">
-											<div class="psImg">
-											<c:choose>
-												<c:when test="${p.reProfile == null}">
-													 <img class="pImg" id="profile" name="profile" alt="프로필 사진" src="resource/img/undraw_profile.svg">
-												 </c:when>
-												 <c:otherwise>
-														<img class="pImg" id="profile" name="profile" alt="프로필 사진" src="resource/profileFiles/${p.reProfile }">
-												 </c:otherwise>
-											</c:choose>
-											</div>
-											<div class="psName">${p.nickName }</div>
-										</div>
-									</c:otherwise>
-								</c:choose>
-							</c:forEach>
+								<div class="text-gray-900 p-3">참여자가 없습니다.</div>
+								<div class="text-gray-900 p-3">
+									<div class="psImg">
+										<img src="icon.png" width="25" height="25">
+									</div>
+									<div class="psName">강건강</div></div>
 								<div class="text-gray-900 p-3">
 									<div class="d-grid gap-2 col-12 d-md-block" align="center">
-										<button type="button" class="btn btn-dark" id="invite" data-toggle="modal" data-target="#projectMemberAddModal">초대하기</button>
-										
+										<button type="button" class="btn btn-dark" id="invite">초대하기</button>
 									</div>
 								</div>
 							</div>
@@ -233,107 +210,7 @@
 					</div>
 				</div>
 			</div>
-			<!-- 초대하기 model -->
-			 <div class="modal fade" id="projectMemberAddModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
-	        aria-hidden="true">
-	        <div class="modal-dialog" role="document">
-	            <div class="modal-content">
-	                <div class="modal-header">
-	                    <h5 class="modal-title" id="exampleModalLabel">프로젝트 초대하기</h5>
-	                    <button class="close" type="button" data-dismiss="modal" aria-label="Close">
-	                        <span aria-hidden="true">×</span>
-	                    </button>
-							
-	                        
-	                         <div class="dropdown-divider"></div>
-	                </div>
-	                
-	                 <div class="modal-body">
-	                 <div class="input-group">
-	                            <input type="text" id="emailSearch" class="form-control bg-light border-0 small" placeholder="이메일검색 ..."
-	                                aria-label="Search" aria-describedby="basic-addon2">
-	                        </div>
-	                        <div id="addMemberList">
-	                 <c:forEach var="p" items="${notMemberlist }">
-	              		   <div class="text-gray-900 p-3">
-	              		   <input type="checkbox" name="userEmail" value="${p.email }">
-								<div class="psImg">
-								<c:choose>
-									<c:when test="${p.reProfile == null}">
-										 <img class="pImg" id="profile" name="profile" alt="프로필 사진" src="resource/img/undraw_profile.svg">
-									 </c:when>
-									 <c:otherwise>
-											<img class="pImg" id="profile" name="profile" alt="프로필 사진" src="resource/profileFiles/${p.reProfile }">
-									 </c:otherwise>
-								</c:choose>
-								</div>
-								<div class="psName">${p.email }</div>
-							</div>
-	                 </c:forEach>
-					</div>
-					</div>
-	                <div class="chatBottom" align="right"><input class="chatAllBottom" type="checkbox" name="allCheck">전체선택 </div>
-				<script type="text/javascript">
-					$('.chatAllBottom').click(function(){
-						
-						if($('.chatAllBottom').prop("checked")){
-							$('input[type=checkbox]').prop('checked',true);
-						}else{
-							$('input[type=checkbox]').prop('checked',false);
-						}
-					});	
-					
-					$('#emailSearch').keyup(function(){
-						var email = $('#emailSearch').val();
-						var projectNo = "${projectNo}";
-						console.log(email);
-						$.ajax({
-							url:'emailSearch',
-							data:{email:email,projectNo:projectNo},
-							success:function(data){
-								console.log(data);
-								$('#addMemberList').empty();
-								 for ( var i in data) {
-									$('#addMemberList').append("<div class='text-gray-900 p-3'><input type='checkbox' name='userEmail' value="+data[i].email+"> <div class='psImg'>"
-											+(data[i].reProfile==null?"<img class='pImg' id='profile' name='profile' alt='프로필 사진' src='resource/img/undraw_profile.svg'>"
-													: "<img class='pImg' id='profile' name='profile' alt='프로필 사진' src='resource/profileFiles/"+data[i].reProfile+"'>")+
-											"</div> <div class='psName'>"+data[i].email+"</div></div>");
-								} 
-							},
-							error:function(data){
-								console.log(data);
-							}
-						});
-					});
-				</script>
-					<div class="modal-footer">
-	                    <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancel</button>
-	                    <span  id="addMember" class="btn btn-primary">초대하기</span>
-	                </div>
-	            </div>
-	        </div>
-	    </div>
-	    <script type="text/javascript">
-	    	$('#addMember').click(function(){
-	    		var projectNo = "${projectNo}";
-	    		var email = [];
-	    		$("input[name=userEmail]:checked").each(function(){
-	    			var a = $(this).val();
-	    			email.push(a);
-	    		});
-	    		console.log(email);
-	    		$.ajax({
-	    			url:'addProjectMember',
-	    			data:{email:email,projectNo:projectNo},
-	    			success:function(data){
-	    				console.log(data);
-	    			},
-	    			error:function(data){
-	    				console.log(data);
-	    			}
-	    		})
-	    	});
-	    </script>
+
 			<script>
 				$(function() {		
 					var status = document.getElementById('projectStatus');
@@ -420,7 +297,6 @@
 					});
 				}
 			</script>
-			
 <!-------------------------------------------------------------------- 컨텐츠 영역 -------------------------------------------------------------------->
 <!-- End of Main content -->
 			
