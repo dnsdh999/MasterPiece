@@ -58,6 +58,11 @@
 <!--                 <span>Dashboard(Index.jsp)</span></a> -->
 <!--         </li> -->
         <li class="nav-item active">
+            <a class="nav-link" href="index.jsp">
+                <i class="fas fa-fw fa-tachometer-alt"></i>
+                <span>Dashboard</span></a>
+        </li>
+        <li class="nav-item active">
             <a class="nav-link" href="main.com">
                 <i class="fas fa-fw fa-tachometer-alt"></i>
                 <span>MAIN</span></a>
@@ -99,6 +104,9 @@
                     <h6 class="collapse-header">DETAILS</h6>
                     <a class="collapse-item" href="pDetailViewBack.pr">상세 내역 및 일정</a>
                     <a class="collapse-item" href="fullCal.ca">캘린더</a>
+                    <a class="collapse-item" href="#">상세 정보</a>
+                    <a class="collapse-item" href="#">일정 및 캘린더</a>
+                    <a class="collapse-item" id="prjinvite">초대하기</a>
                     <a class="collapse-item" id="chatList">채팅<div class="umControl" id="umControl"><div id="unreadMessage" class="unreadMessage"></div></div></a>
                     <a class="collapse-item" href="boardList.bo">게시판</a>
                     <a class="collapse-item" href="fileList.bo">파일함</a>
@@ -139,6 +147,10 @@
 					console.log(data);
 				}
 			});
+		}
+		
+		document.getElementById('prjinvite').onclick = function(){
+			window.open('invitePrj.pr', '초대하기', 'width=500,height=260');
 		}
 		
 		</script>

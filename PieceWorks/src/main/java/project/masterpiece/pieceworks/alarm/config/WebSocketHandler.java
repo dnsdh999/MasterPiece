@@ -5,6 +5,8 @@ import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Timer;
+import java.util.TimerTask;
 
 import org.springframework.beans.factory.InitializingBean;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -27,11 +29,11 @@ public class WebSocketHandler extends TextWebSocketHandler implements Initializi
 	
 	private final ObjectMapper objectMapper = new ObjectMapper();
 	
-	private static int i;
-
+	
+	
 	@Autowired
 	private AlarmService aService;
-	
+	private Timer timer;
 	
 	
 	@Override
@@ -41,7 +43,6 @@ public class WebSocketHandler extends TextWebSocketHandler implements Initializi
 		
 		hashSessions.put(email, session);
 		
-		i++;
 	}
 	
 	@Override
@@ -51,44 +52,57 @@ public class WebSocketHandler extends TextWebSocketHandler implements Initializi
 		
 		Alarm a = objectMapper.readValue(msg, Alarm.class);
 		
-		String[] recipientArr = a.getRecipient().split(",");
-		List<String> recipientList = Arrays.asList(recipientArr);
-		
-        String email = getEmail(session);
-		
-		int result = 0;
-		for(String s : recipientList) {
-            if(!s.equals(email)) {
-                a.setRecipient(s);
-    			result += aService.insertAlarm(a);
-            }
-		}
-		
-		result = result + 1;
-		System.out.println("알림받는사람들 크기 : " + recipientList.size());
-		System.out.println("리져트 크기 : " + result);
-		//로그인해서 세션에 들어와있는 사람들과 받은 recipient를 비교해서
-
-		if(recipientList.size() == result) {
+		if(a.getAlarmContent().equals("연결이 풀리지않게")) {
 			hashSessions.forEach((key, value)->{
-				if(recipientList.contains(key)) {
 					try {
 						value.sendMessage(message);
 					} catch (IOException e) {
 						e.printStackTrace();
 					}
-				}
 			});
 		}else {
-			throw new AlarmException("실패하였습니다.");
+			String[] recipientArr = a.getRecipient().split(",");
+			List<String> recipientList = Arrays.asList(recipientArr);
+			
+	        String email = getEmail(session);
+			
+			int result = 0;
+			for(String s : recipientList) {
+	            if(!s.equals(email)) {
+	                a.setRecipient(s);
+	    			result += aService.insertAlarm(a);
+	            }
+			}
+			
+			result = result + 1;
+			System.out.println("알림받는사람들 크기 : " + recipientList.size());
+			System.out.println("리져트 크기 : " + result);
+			//로그인해서 세션에 들어와있는 사람들과 받은 recipient를 비교해서
+
+			if(recipientList.size() == result) {
+				hashSessions.forEach((key, value)->{
+					if(recipientList.contains(key)) {
+						try {
+							value.sendMessage(message);
+						} catch (IOException e) {
+							e.printStackTrace();
+						}
+					}
+				});
+			}else {
+				throw new AlarmException("실패하였습니다.");
+			}
 		}
+		
+		
 	}
 	
 	@Override
 	public void afterConnectionClosed(WebSocketSession session, CloseStatus status) throws Exception {
-		i--;
+
 		String email = getEmail(session);
 		hashSessions.remove(email);
+		timer.cancel();
 	}
 
 	public String getEmail(WebSocketSession session) {

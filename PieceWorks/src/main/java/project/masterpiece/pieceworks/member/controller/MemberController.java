@@ -133,7 +133,7 @@ public class MemberController {
 		
 		System.out.println(originProfile);
 		System.out.println(reProfile);
-		System.out.println(renamePath);
+		
 		return reProfile;	
 	}
 	
@@ -178,7 +178,7 @@ public class MemberController {
 	
 	@RequestMapping("mdelete.me")
 	public String deleteMember(@RequestParam("email")String email, SessionStatus session){
-		
+	
 		int result = mService.deleteMember(email);
 		
 		if(result > 0) {
@@ -229,7 +229,7 @@ public class MemberController {
 							+ "<h3>안녕하십니까!<h3>"
 							+ "<h3>PIECE WORKS입니다.<h3><br>"
 							+ "<div style='text-align:center;'>요청하신 인증번호는 <b>"+ random +"</b>입니다.</div>"
-							+ "진행 중인 화면으로 돌아가 인증번호를 입력해 주세요.<br>"
+							+ "진행 중인 화면으로 돌아가 인증번호를 입력해주세요.<br>"
 							+ "<br><hr style='width: 50%;'><br>"
 							+ "PIECE WORKS를 이용해 주셔서 감사합니다.</div>";
 		String from = "wjddms0700@gmail.com";

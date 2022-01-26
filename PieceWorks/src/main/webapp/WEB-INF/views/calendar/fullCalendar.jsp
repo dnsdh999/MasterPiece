@@ -314,6 +314,7 @@
 								<span class="text">상세 내역으로</span>
 							</a>
 <%--                     	    <input type="hidden" id="pNo" name="pNo" value="${ list[0].projectNo }"> --%>
+                    	    <h1 class="h3 mb-0 text-gray-800">프로젝트 1 일정</h1>
                     	</div>
                     	<br>
 
@@ -447,6 +448,21 @@
 						                    </div>
 						                </div>
 						
+						                <div class="col-lg-6">
+						                    <label for="calendar_view">등록자별</label>
+						                    <div class="input-group">
+<%-- 						                    <c:forEach var="c" items="${ JSONArray }"> --%>
+<!-- 						                    <label class="checkbox-inline"> -->
+<%-- 						                    	<input class='filter' type="checkbox" value="${ c.nickName }" checked> --%>
+<!-- 						                    </label> -->
+						                    
+<%-- 						                    </c:forEach> --%>
+<%-- 						                    <c:out value="${ JSONArray }" /> --%>
+						                        <label class="checkbox-inline"><input class='filter' type="checkbox" value="${ loginUser.nickName }"
+						                                checked>${ loginUser.nickName }</label>
+ 						                        
+						                    </div>
+						                </div>
 						            </div>
 						        </div>
 						        <!-- /.filter panel -->

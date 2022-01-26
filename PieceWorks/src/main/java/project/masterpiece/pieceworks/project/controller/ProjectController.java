@@ -125,12 +125,6 @@ public class ProjectController {
 		}
 	}
 	
-	// 멤버 초대 페이지 이동
-	@RequestMapping("invite.pr")
-	public String inviteView() {
-		return "inviteMember";  
-	}
-	
 	// 프로젝트 상세 페이지 이동
 	@RequestMapping("pDetailView2.pr")
 	public String pDetailView2(@RequestParam("pNo") int projectNo, Model model,
@@ -148,6 +142,20 @@ public class ProjectController {
 		} else {
 			throw new ProjectException("프로젝트 상세 조회에 실패하였습니다.");
 		}
+	public String pDetailView2(@RequestParam("pNo") int projectNo, HttpSession session, Model model) {
+		System.out.println(projectNo);
+	    
+		Member loginUser = (Member)session.getAttribute("loginUser");
+	    loginUser.setCurrPno(projectNo);
+	      
+	    ArrayList<Project> list = pService.selectProject(projectNo);
+	      
+	    if(list != null) {
+	    	model.addAttribute("list", list);
+	        return "projectDetail2";
+	    } else {
+	    	throw new ProjectException("프로젝트 상세 조회에 실패하였습니다.");
+	    }
 	}
 	
 	// 프로젝트 상세 페이지 이동2
@@ -215,52 +223,56 @@ public class ProjectController {
 	public void finishedDetail(@RequestParam("chkBox") int cNo) {
 		System.out.println(cNo);
 	}
+	
 	//프로젝트 상세페이지 유저 검색
-		@RequestMapping("emailSearch")
-		public void emailSearch(@RequestParam("email") String email,@RequestParam("projectNo") int projectNo, HttpServletResponse response, Model model) {
-			
-			HashMap<String, Object> map = new HashMap<String, Object>();
-			map.put("email", email);
-			map.put("projectNo", projectNo);
-			ArrayList<Member> list = new ArrayList<Member>();
-			if(email!=null) {
+	@RequestMapping("emailSearch")
+	public void emailSearch(@RequestParam("email") String email, @RequestParam("projectNo") int projectNo, HttpServletResponse response, Model model) {
+		
+		HashMap<String, Object> map = new HashMap<String, Object>();
+		map.put("email", email);
+		map.put("projectNo", projectNo);
+		
+		ArrayList<Member> list = new ArrayList<Member>();
+		
+		if(email!=null) {
 			list = pService.emailSearch(map);
-			
-			
 			model.addAttribute("list", list);
-			}else {
-				list = pService.MemberProjectList(projectNo);
-			}
-			
-			response.setContentType("application/json; charset=UTF-8");
-				
-			Gson gson = new Gson();
-			try {
-				gson.toJson(list, response.getWriter());
-			} catch (JsonIOException e) {
-				e.printStackTrace();
-			} catch (IOException e) {
-				e.printStackTrace();
-			}
+		} else {
+			list = pService.MemberProjectList(projectNo);
 		}
 		
+		response.setContentType("application/json; charset=UTF-8");
+			
+		Gson gson = new Gson();
 		
-		@RequestMapping("addProjectMember")
-		public ModelAndView addProjectMember(@RequestParam("email") String[] email,@RequestParam("projectNo") int projectNo,ModelAndView mv) {
-			System.out.println(email);
-			System.out.println(projectNo);
-			ArrayList<JoinProject> list1 = new ArrayList<JoinProject>();
-			JoinProject j = new JoinProject();
-			for (String s : email) {
-				j.setpMember(s);
-				j.setProjectNo(projectNo);
-				list1.add(j);
-			}
+		try {
+			gson.toJson(list, response.getWriter());
+		} catch (JsonIOException e) {
+			e.printStackTrace();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+	}
+		
+	@RequestMapping("addProjectMember")
+	public ModelAndView addProjectMember(@RequestParam("email") String[] email,@RequestParam("projectNo") int projectNo,ModelAndView mv) {
+		
+		System.out.println(email);
+		System.out.println(projectNo);
+		
+		ArrayList<JoinProject> list1 = new ArrayList<JoinProject>();
+		JoinProject j = new JoinProject();
+		
+		for (String s : email) {
+			j.setpMember(s);
+			j.setProjectNo(projectNo);
+			list1.add(j);
+		}
 			
-			
-			int result = pService.addProjectMember(list1);
-			if(result >0) {
-				 mv.setViewName("redirect:pDetailView.pr"); 
+		int result = pService.addProjectMember(list1);
+		
+		if(result >0) {
+			mv.setViewName("redirect:pDetailView.pr"); 
 			/*	ArrayList<Member> list = new ArrayList<Member>();
 				list = pService.MemberProjectList(projectNo);
 				ArrayList<Member> memberlist = new ArrayList<Member>();
@@ -278,12 +290,11 @@ public class ProjectController {
 					e.printStackTrace();
 				}*/
 				
-			}else {
-				throw new ProjectException("프로젝트 초대에 실패하였습니다.");
-			}
-			
-			return mv;
+		} else {
+			throw new ProjectException("프로젝트 초대에 실패하였습니다.");
 		}
+		
+		return mv;
+	}
 	
 }
-

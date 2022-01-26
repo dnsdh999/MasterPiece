@@ -1,6 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -62,13 +61,13 @@
 	<!-- Page Wrapper -->
 	<div id="wrapper">
 		<!-- SIDEBAR -->
-		<c:import url="../common/main-sidebar.jsp" />       
+		<%@include file="../common/main-sidebar.jsp" %>       
 		<!-- Content Wrapper -->
         <div id="content-wrapper" class="d-flex flex-column">
 			<!-- Main Content -->
             <div id="content">
 				<!-- TOPBAR -->
-				<c:import url="../common/topbar.jsp" />
+				<%@include file="../common/topbar.jsp" %>
 <!-------------------------------------------------------------------- 컨텐츠 영역 -------------------------------------------------------------------->
 				<div class="container" id="myInfo">			
 					<div class="col-lg-8 my-5 mx-auto">
@@ -81,10 +80,10 @@
 									<div class="col-xs-6 profileplace" id="img">
 										<c:choose>
 											<c:when test="${ loginUser.reProfile eq null }">
-												<img class="pImg" id="pImg" name="profile" alt="프로필 사진" src="resource/img/undraw_profile.svg">
+												<img class="pImg" id="profile" name="profile" alt="프로필 사진" src="resource/img/undraw_profile.svg">
 											</c:when>
 											<c:otherwise>
-												<img class="pImg" id="pImg" name="profile" alt="프로필 사진" src="resource/profileFiles/${ loginUser.reProfile }">
+												<img class="pImg" id="profile" name="profile" alt="프로필 사진" src="resource/profileFiles/${ loginUser.reProfile }">
 											</c:otherwise>
 										</c:choose>									
 									</div>
@@ -120,7 +119,7 @@
 					$(function() {
 						$("#imgArea").hide();
 						
-						$("#pImg").click(function() {
+						$("#profile").click(function() {
 							$("#profileImg").click();
 						});
 					});
@@ -130,7 +129,7 @@
 				            var reader = new FileReader();
 						}
 						reader.onload = function(e) {
-							$("#pImg").attr("src", e.target.result);
+							$("#profile").attr("src", e.target.result);
 						}
 						reader.readAsDataURL(value.files[0]);
 					}

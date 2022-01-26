@@ -134,6 +134,9 @@
 				success:function(data){
 					console.log(data);
 					if(data.trim() > 0){
+						if(document.getElementById('alarmCounterControl').innerHTML == ''){
+							document.getElementById('alarmCounterControl').innerHTML = '<span class="badge badge-danger badge-counter" id="alertCount"></span>';
+						}
 						document.getElementById('alertCount').innerHTML = data;
 					}else{
 						document.getElementById('alarmCounterControl').innerHTML = '';
@@ -176,18 +179,22 @@
 			var msgContent = msgData.alarmContent;
 			
 			console.log(msgContent);
-			
-			$("#msgStack").html('');
-			
-		    let toast = "<div class='toast' role='alert' aria-live='assertive' aria-atomic='true'>";
-		    toast += "<div class='toast-header'><i class='fas fa-bell mr-2'></i><strong class='mr-auto'>알림</strong>";
-		    toast += "<small class='text-muted'>just now</small><button type='button' class='ml-2 mb-1 close' data-dismiss='toast' aria-label='Close'>";
-		    toast += "</button><button type='button' class='btn-close' data-bs-dismiss='toast' aria-label='Close'></button>";
-		    toast += "</div> <div class='toast-body'>" + msgContent + "</div></div>";
-		    $("#msgStack").append(toast);   // msgStack div에 생성한 toast 추가
-		    $(".toast").toast({"animation": true, "autohide": false});
-		    $('.toast').toast('show');
-		    
+			console.log(msgData);
+			if(msgData != 7){
+				if(msgContent != '연결이 풀리지않게'){
+				
+				$("#msgStack").html('');
+				
+			    let toast = "<div class='toast' role='alert' aria-live='assertive' aria-atomic='true'>";
+			    toast += "<div class='toast-header'><i class='fas fa-bell mr-2'></i><strong class='mr-auto'>알림</strong>";
+			    toast += "<small class='text-muted'>just now</small><button type='button' class='ml-2 mb-1 close' data-dismiss='toast' aria-label='Close'>";
+			    toast += "</button><button type='button' class='btn-close' data-bs-dismiss='toast' aria-label='Close'></button>";
+			    toast += "</div> <div class='toast-body'>" + msgContent + "</div></div>";
+			    $("#msgStack").append(toast);   // msgStack div에 생성한 toast 추가
+			    $(".toast").toast({"animation": true, "autohide": false});
+			    $('.toast').toast('show');
+				}
+			}
 		}
 		
 		
@@ -254,6 +261,7 @@
 	</ul>
 	
 	</nav>
+	
 	<!-- End of Topbar -->
 
 
