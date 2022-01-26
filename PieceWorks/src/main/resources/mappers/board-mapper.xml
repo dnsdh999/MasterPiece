@@ -1,0 +1,152 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="boardMapper">
+
+	<select id="getListCount" resultType="_int">
+		select count(*)
+		from board
+		where b_status = 'Y' and project_no = #{projectNo}
+		order by board_No desc
+	</select>
+	
+	<select id="selectList" resultMap="boardResultSet">
+		select *
+		from board
+			 join member on(board_writer = email)
+		where b_status ='Y' and project_no = #{projectNo}
+		order by board_date desc
+	</select>
+	
+	<resultMap type="Board" id="boardResultSet">
+		<id column="BOARD_NO" property="boardNo"/>
+		<result column="BOARD_TITLE" property="boardTitle"/>
+		<result column="BOARD_CONTENT" property="boardContent"/>
+		<result column="BOARD_DATE" property="boardDate"/>
+		<result column="BOARD_WRITER" property="boardWriter"/>
+		<result column="NICKNAME" property="nickName"/>
+		<result column="PROJECT_NO" property="projectNo"/>
+		<result column="B_STATUS" property="bStatus"/>
+		<result column="BOARD_COUNT" property="boardCount"/>
+	</resultMap>
+	
+	<insert id="insertBoard" parameterType="hashmap" useGeneratedKeys="true" keyProperty="idx">
+		insert into Board
+		values(seq_bno.nextval, #{boardTitle}, #{boardContent}, sysdate, #{boardWriter}, #{boardCount}, default, default)
+	</insert>
+	
+	<update id="addReadCount"> 
+		update board 
+		set board_count = board_count + 1
+		where board_No = #{boardNo}
+	</update>
+	
+	
+	<select id="selectBoard" resultMap="boardResultSet">
+		select *
+		from board
+			 join member on (email = board_writer)	 
+		where board_No = #{boardNo} and b_status = 'Y'
+		order by board_date desc
+	</select>
+	
+	<update id="updateBoard">
+		update board
+		set board_title = #{boardTitle}, board_date = sysdate, board_content = #{boardContent}
+		where board_No = #{boardNo} 
+	</update>
+	
+	<update id="deleteBoard">
+		update board
+		set b_status = 'N'
+		where board_No = #{boardNo}
+	
+	</update>
+	
+	<!-- 댓글 -->
+	<insert id="insertReply">
+		insert into Reply
+		values(seq_rno.nextval, #{replyCont}, #{replyWriter}, #{boardNo}, sysdate, default)
+	</insert>
+	
+	<select id="getReplyList" resultMap="replyResultSet">
+		select *
+		from reply
+			join member on(reply_writer = email)
+		where board_no = #{boardNo} and re_status = 'Y'
+		order by reply_no desc
+	</select>
+	
+	<resultMap type="Reply" id="replyResultSet">
+		<id column="REPLY_NO" property="replyNo"/>
+		<result column="REPLY_CONT" property="replyCont"/>
+		<result column="reply_Writer" property="replyWriter"/>
+		<result column="NICKNAME" property="nickName"/>
+		<result column="BOARD_NO" property="boardNo"/>
+		<result column="REPLY_DATE" property="replyDate"/>
+		<result column="RE_STATUS" property="reStatus"/>
+	</resultMap>
+	
+	
+	<!-- 파일함 -->
+	<resultMap type="FileBox" id="fileBoxResulSet">
+		<id column="FILE_NO" property="fileNo"/>
+		<result column="FILE_PATH" property="filePath"/>
+		<result column="FILE_SIZE" property="fileSize"/>
+		<result column="F_ORIGIN_NAME" property="fOriginName"/>
+		<result column="F_CHANGE_NAME" property="fChangeName"/>
+		<result column="F_UPLOAD_DATE" property="fUploadDate"/>
+		<result column="F_STATUS" property="fStatus"/>
+		<result column="BOARD_NO" property="boardNo"/>
+		
+	</resultMap>
+
+	<insert id="insertFile" >
+		insert into FileBox
+		values(seq_fno.nextval, #{filePath}, #{fileSize}, #{fOriginName}, #{fChangeName}, sysdate, default, seq_bno.currval)
+	</insert> 
+	
+	<select id="selectFileBox" resultMap="fileBoxResulSet">
+		select *
+		from fileBox
+		where board_no = #{boardNo} and f_status = 'Y'
+	</select>
+	
+	<update id="deleteFile" >
+		update fileBox
+		set f_status = 'N'
+		where file_no in
+		<foreach item="f" open="(" close=")" separator="," collection="array">
+			 #{f}
+		</foreach>
+	</update>
+
+
+	<!-- 파일 -->
+	
+	
+	<insert id="updateFile"><!-- 수정에서 파일 추가할경우 -->
+		insert into FileBox
+		values(seq_fno.nextval, #{filePath}, #{fileSize}, #{fOriginName}, #{fChangeName}, sysdate, default, #{boardNo})
+	</insert>
+	
+	
+	<select id="getFileCount" resultType="_int">
+		select count(*)
+		from fileBox
+			 join board using(board_no)
+    		 join project using(project_no)
+		where f_status = 'Y' and project_no = #{projectNo}
+	</select>
+	
+	<!-- 파일함 파일조회 -->
+	<select id="selectFile" resultMap="fileBoxResulSet"> 
+		select file_no, file_path, file_size, f_origin_name, f_change_name, f_upload_date, f_status, board_no, email
+		from fileBox 
+			 join board using(board_no) 
+			 join project using(project_no) 
+			 join member on (board_writer = email) 
+		where b_status = 'Y' and project_no = #{projectNo} 
+		</select>
+	
+
+</mapper>

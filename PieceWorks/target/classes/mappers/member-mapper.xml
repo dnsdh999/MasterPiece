@@ -76,4 +76,16 @@
   		set pwd = #{pwd}
   		where email = #{email}
   	</update>
+  	
+  	
+  	<!--  댓글 작성   -->
+	<select id="selectReplyWriter" resultMap="memberResultSet">
+		select * 
+		from member 
+		where email in 
+		<foreach collection="array" open="(" close=")" separator="," item="e"> 
+			#{e} 
+		</foreach>
+	</select>
+  	
 </mapper>

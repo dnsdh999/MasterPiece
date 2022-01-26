@@ -15,6 +15,9 @@
 		<typeAlias type="project.masterpiece.pieceworks.project.model.vo.Project" alias="Project"/>
 		<typeAlias type="project.masterpiece.pieceworks.project.model.vo.MainCalProject" alias="MainCalProject"/>
 		<typeAlias type="project.masterpiece.pieceworks.project.model.vo.JoinProject" alias="JoinProject"/>
+		<typeAlias type="project.masterpiece.pieceworks.board.model.vo.Board" alias="Board"/>
+		<typeAlias type="project.masterpiece.pieceworks.board.model.vo.Reply" alias="Reply"/>
+		<typeAlias type="project.masterpiece.pieceworks.common.FileBox" alias="FileBox"/>
 		
 	</typeAliases>
 	<mappers>
@@ -23,5 +26,7 @@
 		<mapper resource="mappers/calendar-mapper.xml"/>
 		<mapper resource="mappers/alarm-mapper.xml"/>
 		<mapper resource="mappers/project-mapper.xml" />
+		<mapper resource="mappers/board-mapper.xml"/>
+		<mapper resource="mappers/fileBox-mapper.xml"/>
 	</mappers>
 </configuration>

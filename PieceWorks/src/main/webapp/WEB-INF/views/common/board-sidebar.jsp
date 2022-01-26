@@ -16,26 +16,9 @@
     <link
         href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i"
         rel="stylesheet">
-  
-	<style>
-	.unreadMessage{
-	color:white;
-	border-radius:10px;
-	text-align:center;
-	background-color:red;
-	display:inline-block;
-	margin-left:8px;
-	padding-left:4px;
-	padding-right:3px;
-	padding-top:1px;
-	}
-	
-	.umControl{
-	display:inline-block;
-	}
-	</style>
+
     <!-- Custom styles for this template-->
-<!--     <link href="resource/css/sb-admin-2.min.css" rel="stylesheet"> -->
+    <link href="resource/css/sb-admin-2.min.css" rel="stylesheet">
 </head>
 
 
@@ -96,53 +79,17 @@
             <div id="collapseUtilities" class="collapse" aria-labelledby="headingUtilities"
                 data-parent="#accordionSidebar">
                 <div class="bg-white py-2 collapse-inner rounded">
-                    <h6 class="collapse-header">DETAILS</h6>
-                    <a class="collapse-item" href="pDetailViewBack.pr">상세 내역 및 일정</a>
-                    <a class="collapse-item" href="fullCal.ca">캘린더</a>
+                    <h6 class="collapse-header">MY PROJECTS</h6>
+<!--                     <a class="collapse-item" href="pInsertView.pr">새 프로젝트 생성</a> -->
+					<a class="collapse-item" href="pDetailViewBack.pr">상세 내역 및 일정</a>	
+					<a class="collapse-item" href="fullCal.ca">캘린더</a>
                     <a class="collapse-item" id="chatList">채팅<div class="umControl" id="umControl"><div id="unreadMessage" class="unreadMessage"></div></div></a>
                     <a class="collapse-item" href="boardList.bo">게시판</a>
                     <a class="collapse-item" href="fileList.bo">파일함</a>
                 </div>
             </div>
         </li>
-	
-		<script>
-		$(function(){
-			getPChatAlarmCount();
-			
-			setInterval(function(){
-				getPChatAlarmCount();
-			}, 5000);
-		});
 
-		
-		document.getElementById('chatList').onclick = function(){
-			window.open('chatList.ch', 'chattingList', 'width=500,height=560');
-		}
-		
-		function getPChatAlarmCount(){
-			$.ajax({
-				url:'getPChatAlarmCount.ch',
-				data:{projectNo:'${loginUser.currPno}'},
-				success:function(data){
-					console.log(data);
-					if(data.trim() > 0){
-						if(document.getElementById('umControl').innerHTML == ''){
-							document.getElementById('umControl').innerHTML = '<div id="unreadMessage" class="unreadMessage"></div>';
-						}
-						document.getElementById('unreadMessage').innerHTML = data;
-					}else{
-						document.getElementById('umControl').innerHTML = '';
-					}
-				},
-				error:function(data){
-					console.log(data);
-				}
-			});
-		}
-		
-		</script>
-		
         <!-- Divider -->
         <hr class="sidebar-divider">
 
