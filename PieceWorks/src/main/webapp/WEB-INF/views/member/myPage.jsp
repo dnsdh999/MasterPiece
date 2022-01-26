@@ -106,7 +106,7 @@
 									<input type="text" class="form-control form-control-user" id="phone" name="phone" value="${ loginUser.phone }" readonly>
 								</div>
 								<div class="form-group">
-									<button type="submit" class="btn btn-primary btn-user btn-block">정보수정</button>
+									<button type="submit" class="btn btn-primary btn-user btn-block">정보 수정</button>
 									<c:url var="mdelete" value="mdelete.me">
 										<c:param name="email" value="${ loginUser.email }"/>
 									</c:url>
