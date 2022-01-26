@@ -66,7 +66,7 @@
   	</select>
   	
   	<select id="searchPwd" resultMap="memberResultSet">
-  		select *
+  		select name, email
   		from member
   		where name = #{name} and email = #{email} and m_status = 'Y'
   	</select>
