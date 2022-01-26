@@ -38,12 +38,12 @@
         <li class="nav-item active">
             <a class="nav-link" href="index.jsp">
                 <i class="fas fa-fw fa-tachometer-alt"></i>
-                <span>Dashboard(Index.jsp)</span></a>
+                <span>Dashboard</span></a>
         </li>
         <li class="nav-item active">
             <a class="nav-link" href="main.com">
                 <i class="fas fa-fw fa-tachometer-alt"></i>
-                <span>MAIN(임시)</span></a>
+                <span>MAIN</span></a>
         </li>
 
         <!-- Divider -->

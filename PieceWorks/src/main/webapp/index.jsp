@@ -26,12 +26,10 @@
 	.col-lg-6{
 		max-width: 100%;
 	}
-
     .user-input{
         width: 50%;
         margin: 0 auto;
     }
-
 </style>
 <body class="bg-gradient-primary"> <!-- onload="alert('로그인 후 서비스 이용이 가능합니다.')" -->
 

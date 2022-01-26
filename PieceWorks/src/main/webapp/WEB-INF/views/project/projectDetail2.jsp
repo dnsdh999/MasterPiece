@@ -32,7 +32,6 @@
   		margin-bottom: 20px; 
   		float: left;  
   	} 
-
 	#projectTitle, 
 	#projectWriter, 
 	#projectContent, 
@@ -45,7 +44,6 @@
 	/* #projectTitle, #projectWriter, #projectContent, #startDate, #endDate {width: 40%;} */
 	
 	.row1 {width: 70%;}
-
 	.psImg {
 		eight: 30px; 
 		display: inline-block; 
@@ -333,7 +331,6 @@
 					$("input[name='checkSelect']:checked").each(function(i) {
 				        chkBoxValues.push($(this).val());
 				    });
-
 					var chkBox = chkBoxValues[0];
 					
 					console.log(chkBox);

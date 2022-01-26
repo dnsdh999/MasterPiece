@@ -380,6 +380,8 @@ function getChattingList(){
 	});
 }
 
+var controlvar = 0;
+
 $(function(){
 	getChattingList();
 	var isCreate = ${ isCreate };
@@ -388,12 +390,16 @@ $(function(){
 		var newWindow = window.open('chattingDetailForm.ch?chatNo=${chatRoomNum}', '채팅' , 'width=400, height=500, resizable=yes, scrollbars=yes, left=200, top=100');
 		 newWindow.focus();
 		 frm.target="채팅";
-		 frm.submit();
+		
+		frm.submit();
+
+		 
 	}
 
 	
 	setInterval(function(){
 		getChattingList();
+		sendMessage();
 	}, 5000);
 });
 
@@ -595,9 +601,13 @@ function deleteRoomClick(){
 	                		
 	                		var yesorno = confirm("입력한 정보로 채팅방을 생성하시겠습니까?");
 	                		if(yesorno == true){
-	                			location.href="chattingInvite.ch?emails="+chk_id+"&roomName="+roomName+"&memberNames="+memberName;
-	                			alert("채팅방이 생성되었습니다.");
+	                			controlvar = 1;
 	                			sendMessage();
+	       						setTimeout(function(){
+	       							location.href="chattingInvite.ch?emails="+chk_id+"&roomName="+roomName+"&memberNames="+memberName;
+		                			alert("채팅방이 생성되었습니다.");
+	       						}, 1500);
+	       						controlvar = 0;
 	                		}
 	                	}
 	                	
@@ -608,19 +618,25 @@ function deleteRoomClick(){
 	            	
 	            		function sendMessage() {
 	            			// 내 메시지 서버로 보내기
-	            			console.log('보내기');
 	            			var message = '${ loginUser.nickName }님이 회원님을 채팅방에 초대했습니다.';
 	            			var emails = document.getElementById("chk_id").value;
 	            			
+	            			if(controlvar == 0){
 	            			var data = {
-	            					"alarmContent" : message,
-	            					"recipient" : emails,
+	            					"alarmContent" : '연결이 풀리지않게',
 	            					"alarmType" : 1,
 	            					"projectNo" : '${loginUser.currPno}'
 	            	            };
-	            			
+	            			}else{
+	            				var data = {
+		            					"alarmContent" : message,
+		            					"recipient" : emails,
+		            					"alarmType" : 1,
+		            					"projectNo" : '${loginUser.currPno}'
+		            	            };
+	            			}
 	            	        var jsonData = JSON.stringify(data);
-	            	        
+	            	        console.log(jsonData);
 	            	       
 	            	        sock.send(jsonData);
 	            		}
