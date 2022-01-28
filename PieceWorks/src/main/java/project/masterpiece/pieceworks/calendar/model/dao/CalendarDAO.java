@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import project.masterpiece.pieceworks.calendar.model.vo.Calendar;
+import project.masterpiece.pieceworks.project.model.vo.MainCalProject;
 
 @Repository
 public class CalendarDAO {
@@ -34,5 +35,13 @@ public class CalendarDAO {
 
 	public ArrayList<Calendar> callProcedure() {
 		return sqlSession.selectOne("calendarMapper.callProcedure");
+	}
+
+	public ArrayList<MainCalProject> callProcedureForMain1() {
+		return sqlSession.selectOne("calendarMapper.callProcedureForMain1");
+	}
+
+	public ArrayList<MainCalProject> callProcedureForMain2() {
+		return sqlSession.selectOne("calendarMapper.callProcedureForMain2");
 	}
 }

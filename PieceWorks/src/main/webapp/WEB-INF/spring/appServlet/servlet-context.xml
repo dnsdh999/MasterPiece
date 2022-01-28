@@ -29,11 +29,9 @@ xmlns:websocket="http://www.springframework.org/schema/websocket"
 
     <websocket:handlers>
         <websocket:mapping handler="echoHandler" path="/chat-ws.ch"/>
-      
     </websocket:handlers>
-     <beans:bean id="echoHandler" class="project.masterpiece.pieceworks.chatting.controller.ChatWebSocketHandler"/>
-	
-	
+
+    <beans:bean id="echoHandler" class="project.masterpiece.pieceworks.chatting.controller.ChatWebSocketHandler"/>
 		<context:component-scan base-package="project.masterpiece.pieceworks" />
 	
 	

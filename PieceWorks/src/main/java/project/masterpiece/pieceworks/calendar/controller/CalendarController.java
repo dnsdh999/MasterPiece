@@ -2,6 +2,8 @@ package project.masterpiece.pieceworks.calendar.controller;
 
 
 import java.io.IOException;
+import java.sql.Date;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 
 import javax.servlet.http.HttpServletRequest;
@@ -20,23 +22,25 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
 import com.google.gson.JsonIOException;
 
 import project.masterpiece.pieceworks.calendar.model.service.CalendarService;
 import project.masterpiece.pieceworks.calendar.model.vo.Calendar;
 import project.masterpiece.pieceworks.member.model.vo.Member;
+import project.masterpiece.pieceworks.project.model.service.ProjectService;
+import project.masterpiece.pieceworks.project.model.vo.MainCalProject;
+import project.masterpiece.pieceworks.project.model.vo.Project;
 
 @Controller
 public class CalendarController {
 	
 	@Autowired
 	private CalendarService caService;
-
-//	@RequestMapping("fullCal.ca")
-//	public String fullCalView() {
-//		return "fullCalendar";
-//	}
 	
+	@Autowired
+	private ProjectService pService;
+
 	@RequestMapping("proCal.ca")
 	public String proCalView() {
 		return "calendar_p";
@@ -44,7 +48,8 @@ public class CalendarController {
 	
 	@RequestMapping(value="addEvent.ca", produces="application/json; charset=UTF-8")
 	@ResponseBody
-	public int addEvent(@RequestParam("eventData") String eventData, HttpServletRequest request) throws Exception {
+	public int addEvent(@RequestParam("eventData") String eventData, 
+						HttpServletRequest request) throws Exception {
 		
 		HttpSession session = request.getSession();
 		Member loginUser = (Member)session.getAttribute("loginUser");
@@ -59,6 +64,8 @@ public class CalendarController {
 		String bgColor = (String)jObj.get("backgroundColor");
 		Boolean allDayCheck = (Boolean)jObj.get("allDay");
 		String allDay = "";
+//		String projectNo = (String) jObj.get("projectNo");
+		String projectNo = Integer.toString(loginUser.getCurrPno());
 		
 		Calendar c = new Calendar();
 		c.setcCreator(loginUser.getEmail());
@@ -68,6 +75,7 @@ public class CalendarController {
 		c.setCategory(type);
 		c.setCalContent(description);
 		c.setBgColor(bgColor);
+		c.setProjectNo(projectNo);
 
 		
 		if(allDayCheck == true) {
@@ -78,14 +86,16 @@ public class CalendarController {
 		
 		c.setAllDay(allDay);
 		
-//		System.out.println(c);
+//		System.out.println("controller : " + c);
 		
 		return caService.addEvent(c);
+		
 	}
 	
 	@RequestMapping("eventList.ca")
 	public void getEventList(@RequestParam("startDate") String startDate,
 							   @RequestParam("endDate") String endDate,
+							   @RequestParam("projectNo") String projectNo,
 							   Model model,
 							   HttpServletResponse response) {
 		
@@ -93,8 +103,10 @@ public class CalendarController {
 		
 		c.setcStartDate(startDate);
 		c.setcEndDate(endDate);
+		c.setProjectNo(projectNo);
 		
-		ArrayList<Calendar> pList = caService.callProcedure(); //이벤트 리스트 가져오기 전에 프로시저 실행(end_date가 오늘날짜보다 전인것은 완료처리)
+		//이벤트 리스트 가져오기 전에 프로시저 실행(end_date가 오늘날짜보다 전인것은 완료처리)
+		ArrayList<Calendar> pList = caService.callProcedure(); 
 		
 		ArrayList<Calendar> list = caService.getEventList(c);
 		
@@ -136,6 +148,7 @@ public class CalendarController {
 	      } else {
 	         allDay = "N";
 	      }
+	      String projectNo = Integer.toString(loginUser.getCurrPno());
 	      
 	      Calendar c = new Calendar();
 	      
@@ -148,18 +161,14 @@ public class CalendarController {
 	      c.setCalContent(description);
 	      c.setBgColor(bgColor);
 	      c.setAllDay(allDay);
+	      c.setProjectNo(projectNo);
 	      
 	      int result = caService.editEvent(c);
 	      
 	      model.addAttribute("Calendar", c);
 	      
-	      System.out.println(c);
+//	      System.out.println(c);
 	      
-//	      if(result > 0) {
-//	         return "success";
-//	      } else {
-//	         return "fail";
-//	      }
 	 }
 	   
 	
@@ -186,6 +195,7 @@ public class CalendarController {
 		} else {
 			allDay = "N";
 		}
+	    String projectNo = Integer.toString(loginUser.getCurrPno());
 	    
 	    Calendar c = new Calendar();
 	    
@@ -198,18 +208,52 @@ public class CalendarController {
 	    c.setCalContent(description);
 	    c.setBgColor(bgColor);
 	    c.setAllDay(allDay);
+	    c.setProjectNo(projectNo);
 	    
 	    int result = caService.deleteEvent(c);
 	      
 	    model.addAttribute("Calendar", c);
 	     
-	    System.out.println(c);
+//	    System.out.println(c);
 		
-//	    if(result > 0) {
-//	         return "success";
-//	    } else {
-//	    	return "fail";
-//	    }
 	}
 	
+	@RequestMapping("mainCalendar.com")
+	public void getProjectList(@RequestParam("startDate") String startDate,
+								@RequestParam("endDate") String endDate,
+								HttpSession session, HttpServletResponse response,
+								Model model) {
+		
+		//세션에서 email받아옴
+		Member loginUser = (Member)session.getAttribute("loginUser");
+		String email = loginUser.getEmail();
+		
+		//JSON에 담기위해 시작일, 종료일의 자료형이 String인 객체 추가 생성
+		MainCalProject mp = new MainCalProject();
+		mp.setpStartDate(startDate);
+		mp.setpEndDate(endDate);
+		mp.setpCreater(email);
+		
+		//이벤트 리스트 가져오기 전에 프로시저 실행(오늘날짜 기준으로 진행중 또는 완료 처리)
+		ArrayList<MainCalProject> pListStart = caService.callProcedureForMain1(); 
+		ArrayList<MainCalProject> pListEnd = caService.callProcedureForMain2(); 
+		
+		ArrayList<MainCalProject> pList2= pService.getPListForMain2(mp);
+//		System.out.println("pList2 : " + pList2);
+		
+		response.setContentType("application/json; charset=UTF-8");
+		model.addAttribute("pList2", pList2);
+		
+		GsonBuilder gb = new GsonBuilder().setDateFormat("yyyy-MM-dd");
+		Gson gson = gb.create();
+		
+		try {
+			gson.toJson(pList2, response.getWriter());
+		} catch (JsonIOException e) {
+			e.printStackTrace();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		
+	}
 }

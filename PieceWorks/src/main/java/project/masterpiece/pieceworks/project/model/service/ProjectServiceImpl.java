@@ -10,6 +10,7 @@ import org.springframework.stereotype.Service;
 import project.masterpiece.pieceworks.calendar.model.vo.Calendar;
 import project.masterpiece.pieceworks.member.model.vo.Member;
 import project.masterpiece.pieceworks.project.model.dao.ProjectDAO;
+import project.masterpiece.pieceworks.project.model.vo.MainCalProject;
 import project.masterpiece.pieceworks.project.model.vo.JoinProject;
 import project.masterpiece.pieceworks.project.model.vo.Project;
 
@@ -45,6 +46,16 @@ public class ProjectServiceImpl implements ProjectService {
 	@Override
 	public ArrayList<Calendar> selectCalendar(int pNo) {
 		return pDAO.selectCalendar(sqlSession, pNo);
+	}
+
+	@Override
+	public ArrayList<Project> getPListForMain(Project p) {
+		return pDAO.getPListForMain(sqlSession, p);
+	}
+
+	@Override
+	public ArrayList<MainCalProject> getPListForMain2(MainCalProject mp) {
+		return pDAO.getPListForMain2(sqlSession, mp);
 	}
 	
 	@Override
