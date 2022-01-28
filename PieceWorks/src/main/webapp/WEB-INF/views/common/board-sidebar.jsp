@@ -99,6 +99,46 @@
 	        </div>
         </ul>
         <!-- End of Sidebar -->
+        <script>
+			$(function(){
+				getPChatAlarmCount();
+				
+				setInterval(function(){
+					getPChatAlarmCount();
+				}, 5000);
+			});
+	
+			
+			document.getElementById('chatList').onclick = function(){
+				window.open('chatList.ch', 'chattingList', 'width=500,height=560');
+			}
+			
+			function getPChatAlarmCount(){
+				$.ajax({
+					url:'getPChatAlarmCount.ch',
+					data:{projectNo:'${loginUser.currPno}'},
+					success:function(data){
+						console.log(data);
+						if(data.trim() > 0){
+							if(document.getElementById('umControl').innerHTML == ''){
+								document.getElementById('umControl').innerHTML = '<div id="unreadMessage" class="unreadMessage"></div>';
+							}
+							document.getElementById('unreadMessage').innerHTML = data;
+						}else{
+							document.getElementById('umControl').innerHTML = '';
+						}
+					},
+					error:function(data){
+						console.log(data);
+					}
+				});
+			}
+			
+			document.getElementById('prjinvite').onclick = function(){
+				window.open('invitePrj.pr', '초대하기', 'width=500,height=260');
+			}
+		
+		</script>
     
 
     <!-- Bootstrap core JavaScript-->
