@@ -80,9 +80,9 @@
                 data-parent="#accordionSidebar">
                 <div class="bg-white py-2 collapse-inner rounded">
                     <h6 class="collapse-header">MY PROJECTS</h6>
-<!--                     <a class="collapse-item" href="pInsertView.pr">새 프로젝트 생성</a> -->
-					<a class="collapse-item" href="pDetailViewBack.pr">상세 내역 및 일정</a>	
-					<a class="collapse-item" href="fullCal.ca">캘린더</a>
+                    <a class="collapse-item" href="pDetailViewBack.pr">상세 내역 및 일정</a>
+                    <a class="collapse-item" href="fullCal.ca">캘린더</a>
+<!--                     <a class="collapse-item" id="prjinvite">초대하기</a> -->
                     <a class="collapse-item" id="chatList">채팅<div class="umControl" id="umControl"><div id="unreadMessage" class="unreadMessage"></div></div></a>
                     <a class="collapse-item" href="boardList.bo">게시판</a>
                     <a class="collapse-item" href="fileList.bo">파일함</a>

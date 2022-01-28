@@ -142,6 +142,8 @@ public class ProjectController {
 		} else {
 			throw new ProjectException("프로젝트 상세 조회에 실패하였습니다.");
 		}
+	}
+		
 	public String pDetailView2(@RequestParam("pNo") int projectNo, HttpSession session, Model model) {
 		System.out.println(projectNo);
 	    

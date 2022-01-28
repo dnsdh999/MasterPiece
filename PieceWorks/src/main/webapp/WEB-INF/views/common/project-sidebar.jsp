@@ -51,17 +51,6 @@
         <!-- Divider -->
         <hr class="sidebar-divider my-0">
 
-        <!-- Nav Item - Dashboard -->
-<!--         <li class="nav-item active"> -->
-<!--             <a class="nav-link" href="index.jsp"> -->
-<!--                 <i class="fas fa-fw fa-tachometer-alt"></i> -->
-<!--                 <span>Dashboard(Index.jsp)</span></a> -->
-<!--         </li> -->
-        <li class="nav-item active">
-            <a class="nav-link" href="index.jsp">
-                <i class="fas fa-fw fa-tachometer-alt"></i>
-                <span>Dashboard</span></a>
-        </li>
         <li class="nav-item active">
             <a class="nav-link" href="main.com">
                 <i class="fas fa-fw fa-tachometer-alt"></i>
@@ -104,10 +93,14 @@
                     <h6 class="collapse-header">DETAILS</h6>
                     <a class="collapse-item" href="pDetailViewBack.pr">상세 내역 및 일정</a>
                     <a class="collapse-item" href="fullCal.ca">캘린더</a>
-                    <a class="collapse-item" href="#">상세 정보</a>
-                    <a class="collapse-item" href="#">일정 및 캘린더</a>
-                    <a class="collapse-item" id="prjinvite">초대하기</a>
-                    <a class="collapse-item" id="chatList">채팅<div class="umControl" id="umControl"><div id="unreadMessage" class="unreadMessage"></div></div></a>
+<!--                     <a class="collapse-item" id="prjinvite">초대하기</a> -->
+                   
+                    <a class="collapse-item" id="chatList">채팅
+                    	<div class="umControl" id="umControl">
+                    		<div id="unreadMessage" class="unreadMessage"></div>
+                    	</div>
+                    </a>
+                   
                     <a class="collapse-item" href="boardList.bo">게시판</a>
                     <a class="collapse-item" href="fileList.bo">파일함</a>
                 </div>
@@ -115,43 +108,43 @@
         </li>
 	
 		<script>
-		$(function(){
-			getPChatAlarmCount();
-			
-			setInterval(function(){
+			$(function(){
 				getPChatAlarmCount();
-			}, 5000);
-		});
-
-		
-		document.getElementById('chatList').onclick = function(){
-			window.open('chatList.ch', 'chattingList', 'width=500,height=560');
-		}
-		
-		function getPChatAlarmCount(){
-			$.ajax({
-				url:'getPChatAlarmCount.ch',
-				data:{projectNo:'${loginUser.currPno}'},
-				success:function(data){
-					console.log(data);
-					if(data.trim() > 0){
-						if(document.getElementById('umControl').innerHTML == ''){
-							document.getElementById('umControl').innerHTML = '<div id="unreadMessage" class="unreadMessage"></div>';
-						}
-						document.getElementById('unreadMessage').innerHTML = data;
-					}else{
-						document.getElementById('umControl').innerHTML = '';
-					}
-				},
-				error:function(data){
-					console.log(data);
-				}
+				
+				setInterval(function(){
+					getPChatAlarmCount();
+				}, 5000);
 			});
-		}
-		
-		document.getElementById('prjinvite').onclick = function(){
-			window.open('invitePrj.pr', '초대하기', 'width=500,height=260');
-		}
+	
+			
+			document.getElementById('chatList').onclick = function(){
+				window.open('chatList.ch', 'chattingList', 'width=500,height=560');
+			}
+			
+			function getPChatAlarmCount(){
+				$.ajax({
+					url:'getPChatAlarmCount.ch',
+					data:{projectNo:'${loginUser.currPno}'},
+					success:function(data){
+						console.log(data);
+						if(data.trim() > 0){
+							if(document.getElementById('umControl').innerHTML == ''){
+								document.getElementById('umControl').innerHTML = '<div id="unreadMessage" class="unreadMessage"></div>';
+							}
+							document.getElementById('unreadMessage').innerHTML = data;
+						}else{
+							document.getElementById('umControl').innerHTML = '';
+						}
+					},
+					error:function(data){
+						console.log(data);
+					}
+				});
+			}
+			
+			document.getElementById('prjinvite').onclick = function(){
+				window.open('invitePrj.pr', '초대하기', 'width=500,height=260');
+			}
 		
 		</script>
 		

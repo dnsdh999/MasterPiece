@@ -7,17 +7,24 @@
 <meta charset="UTF-8">
 <title>프로젝트</title>
 <script src="http://code.jquery.com/jquery-latest.js"></script>
-<!-- <script src="${ contextPath }/resources/js/jquery-3.6.0.min.js"></script>  -->
 
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
 
 <style>
 	.h3 { margin-left: 1%; }
+	
+	.img-profile { 
+		height: 2rem;
+    	width: 2rem;
+    	border-radius: 50%;
+ 	}
 		
 	#projectDetail {
 		float: left;
 	}
+	
+	
 	
 	#detail-content {
 		display: flex; 
@@ -45,7 +52,7 @@
 	
 	.row1 {width: 70%;}
 	.psImg {
-		eight: 30px; 
+		height: 30px; 
 		display: inline-block; 
 		vertical-align: bottom; 
 		margin-right: 10px;
@@ -92,12 +99,6 @@
     	padding-top:500px;
    	}
     	
-	
- 	.img-profile { 
-		height: 2rem;
-    	width: 2rem;
-    	border-radius: 50%;
- 	} 
 </style>
 
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -132,20 +133,13 @@
 			<!-- Main Content -->
             <div id="content">
             
-				<!-- TOPBAR -->
-<%-- 				<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %> --%>
-<%-- <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %> --%>
-	
 	<!-- Topbar -->
 	
-	
-<!-- 		<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous"> -->
 	<nav class="navbar navbar-expand navbar-light bg-white topbar mb-4 static-top shadow">
  	<script src="https://cdn.jsdelivr.net/npm/sockjs-client@1/dist/sockjs.min.js"></script>
 	<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
-<!-- 		<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.10.2/dist/umd/popper.min.js" integrity="sha384-7+zCNj/IqJ95wo16oMtfsKbZ9ccEh31eOz1HGyDuCQ6wgnyJNSYdrPa03rtR1zdB" crossorigin="anonymous"></script> -->
-<!-- 		<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.min.js" integrity="sha384-QJHtvGhmr9XOIpI6YVutG+2QOK9T+ZnN4kzFN1RtK3zEFEIsxhlmWl5/YESvpZ13" crossorigin="anonymous"></script> -->
+
 	<!-- Topbar Navbar -->
 	<ul class="navbar-nav ml-auto">
 	
@@ -174,6 +168,7 @@
 			</div>
 		</li>
 		
+		<!-- 구분선 -->
 		<div class="topbar-divider d-none d-sm-block"></div>
 
 		<!-- Nav Item - Search Dropdown (Visible Only XS) -->
@@ -199,6 +194,8 @@
 			</div>
 		</li>
 		<div id="msgStack" style="margin-top:30px;"></div>
+	
+	<!-- 스크립트 -->
 	<script>
 		function clicktoggle(){
 			$.ajax({
@@ -319,6 +316,7 @@
 		}
 		
 	</script>
+	
 		<!-- Nav Item - Alerts -->
 		<li class="nav-item dropdown no-arrow mx-1">
 			<a class="nav-link dropdown-toggle" onclick="clicktoggle();" id="alertsDropdown" role="button"
@@ -341,12 +339,9 @@
 				<a class="dropdown-item text-center small text-gray-500" onclick="showAllAlarm();">모든 알림 보기</a>
 			</div>
 		</li>
-	
 	</ul>
-	
 	</nav>
-	
-	<!-- End of Topbar -->
+	<!-- End of Topbar / 탑바 끝 -->
 
 
     <!-- Scroll to Top Button-->
@@ -373,177 +368,118 @@
         </div>
     </div>
 
-<!-------------------------------------------------------------------- 컨텐츠 영역 -------------------------------------------------------------------->
-<!-- 			<div class="container-fluid"> -->
-<!-- 				<div id="detail-content" > -->
-<!-- 					<div id="projectDetail" class="container text-gray-800"> -->
-<%-- 						<h3>${ list[0].pTitle } 상세 일정</h3> --%>
-<!-- 						<br> -->
-<!-- 						<form action="fullCal.ca" method="post"> -->
-<%-- 						<input type="hidden" id="pNo" name="pNo" value="${ list[0].projectNo }"> --%>
-						
-<!-- 							<div class="card-body"> -->
-<!-- 							일정 생성 & 일정 수정<button type="submit" id="btn" class="btn-open-popup7"><i class="fas fa-plus"></i></button> -->
-<!-- 								<div id="listContainer"> -->
-<!-- 									<div id="detailList"> -->
-<!-- 										<input type="checkbox" id="checkAll" onclick="checkAll();">전체 선택 -->
-<!-- 										<input type="hidden" id="result"> -->
-<!-- 									</div> -->
-<!-- 								<div id="done"></div> -->
-<!-- 							</div> -->
-<!-- 								<div id="done"></div> -->
-<!-- 							</div> -->
-<!-- 						</form> -->
-<!-- 					</div> -->
-<!-- 				</div> -->
-<!-- 			</div> -->
-				<div class="container-fluid">
-                	    <div class="d-sm-flex align-items-center justify-content-between mb-4">
-                    	    <h1 class="h3 mb-0 text-gray-800">${ list[0].pTitle } 상세 내용</h1>
-                    	    <div style="text-align: right;">${ list[0].pContent }</div>
-                    	</div>
-<!--                     	<br> -->
-                    	
-                    	<div class="row">
-                    	
-                    		<form action="fullCal.ca" method="post"> 
-							<input type="hidden" id="pNo" name="pNo" value="${ list[0].projectNo }">
-							
-								<div class="card-body">
-<!-- 								일정 생성 & 일정 수정<button type="submit" id="btn" class="btn-open-popup7"><i class="fas fa-plus"></i></button> -->
-									<button type="submit" class="btn btn-info btn-icon-split">
-										<span class="icon text-white-600">
-											<i class="fas fa-plus"></i>
-										</span>
-										<span class="text">일정 생성 & 일정 수정</span>
-									</button>
+<!-------------------------------------------------------------------- 컨텐츠 영역 시작 -------------------------------------------------------------------->
+	<div class="container-fluid">
+		<div class="d-sm-flex align-items-center justify-content-between mb-4">
+	        <h1 class="h3 mb-0 text-gray-800">${ list[0].pTitle } 상세 내용</h1>
+	        <div style="text-align: right;">${ list[0].pContent }</div>
+        </div>
+
+		<div class="row">
+	        <form action="fullCal.ca" method="post"> 
+				<input type="hidden" id="pNo" name="pNo" value="${ list[0].projectNo }">
 									
-				<div class="title">
-					<h3 class="h3 mb-4 text-gray-800">${ list[0].pTitle } 상세 일정</h3>
+				<div class="card-body">
+					<button type="submit" class="btn btn-info btn-icon-split">
+						<span class="icon text-white-600">
+							<i class="fas fa-plus"></i>
+						</span>
+						<span class="text">일정 생성 & 일정 수정</span>
+					</button>
+					
+					<div id="listContainer">
+						<div id="detailList">
+							<input type="checkbox" id="checkAll" onclick="checkAll();">전체 선택
+							<input type="hidden" id="result">
+						</div>
+						<div id="done"></div>
+					</div>
+				</div>	
+			</form>
+		</div>
+		
+		<div id="Participant" class="col-xl-3 col-md-4 mb-4">
+			<div class="card shadow mb-4" id="memberList">
+				<div class="card-header py-3">
+					<h6 class="m-0 font-weight-bold text-primary">참여자 목록</h6>
 				</div>
-				<div id="detail-content" >
-					<div id="projectDetail" class="container text-gray-800">
-						<form action="fullCal.ca">
-							<input type="hidden" id="pNo" name="pNo" value="${ list[0].projectNo }">
-							<div>
-								<div class="card-body">
-									일정 생성<button id="btn" class="btn-open-popup7"><i class="fas fa-plus"></i></button>
-									<div id="listContainer">
-										<div id="detailList">
-											<input type="checkbox" id="checkAll" onclick="checkAll();">전체 선택
-											<input type="hidden" id="result">
-										</div>
-									<div id="done"></div>
-								</div>
-									<div id="done"></div>
-								</div>
-							</form>
-                    	</div>
-                    </div>
-		<!-- 									<div class="card border-bottom-primary shadow h-100 py-2"> -->
-		<!-- 										<div class="card-body"> -->
-		<!-- 											<div class="row no-gutters align-items-center"> -->
-		<!-- 												<div class="col mr-2"> -->
-		<!-- 													<div class="text-s font-weight-bold text-primary text-uppercase mb-1"> -->
-		<!-- 													<input type="checkbox" value="title"> 제목 -->
-		<!-- 													</div> -->
-		<!-- 													<div class="text-s mb-0 font-weight-bold text-gray-800"> -->
-		<!-- 													내용 -->
-		<!-- 													</div> -->
-		<!-- 												</div> -->
-		<!-- 											</div> -->
-		<!-- 										</div> -->
-		<!-- 									</div> -->
-										</div>
-										<div id="done"></div>
+				<div class="card-body">
+					<c:forEach var="p" items="${ list }">
+						<c:choose>
+							<c:when test="${ p eq null }">
+								<div class="text-gray-900 p-3">참여자가 없습니다.</div>
+							</c:when>
+							<c:when test="${ p ne null }">
+								<div class="text-gray-900 p-3">
+									<div class="psImg">
+										<c:choose>
+											<c:when test="${ member.reProfile eq null }">
+												<img class="img-profile rounded-circle" id="profile" name="profile" alt="프로필 사진" src="resource/img/undraw_profile.svg">
+											</c:when>
+											<c:otherwise>
+												<img class="img-profile rounded-circle" id="profile" name="profile" alt="프로필 사진" src="resource/profileFiles/${ member.reProfile }">
+											</c:otherwise>
+										</c:choose>	
 									</div>
+									<div class="psName">${ p.pNickName }</div>
 								</div>
-							</div>
-						</form>
-							<div id="Participant" class="col-xl-3 col-md-4 mb-4">
-								<div class="card shadow mb-4" id="memberList">
-								<div class="card-header py-3">
-									<h6 class="m-0 font-weight-bold text-primary">참여자 목록</h6>
-								</div>
-								<div class="card-body">
-								<c:forEach var="p" items="${ list }">
-									<c:choose>
-										<c:when test="${ p eq null }">
-											<div class="text-gray-900 p-3">참여자가 없습니다.</div>
-										</c:when>
-										<c:when test="${ p ne null }">
-	<%-- 									<c:otherwise> --%>
-											<div class="text-gray-900 p-3">
-												<div class="psImg">
-												<c:choose>
-													<c:when test="${ member.reProfile eq null }">
-														<img class="img-profile rounded-circle" id="profile" name="profile" alt="프로필 사진" src="resource/img/undraw_profile.svg">
-													</c:when>
-													<c:otherwise>
-														<img class="img-profile rounded-circle" id="profile" name="profile" alt="프로필 사진" src="resource/profileFiles/${ member.reProfile }">
-													</c:otherwise>
-												</c:choose>	
-												</div>
-												<div class="psName">${ p.pNickName }</div>
-											</div>
-	<%-- 									</c:otherwise> --%>
-										</c:when>
-									</c:choose>
-								</c:forEach>
-									<div class="text-gray-900 p-3">
-										<div class="d-grid gap-2 col-12 d-md-block" align="center">
-											<button type="button" class="btn btn-dark" id="invite" data-toggle="modal" data-target="#projectMemberAddModal">초대하기</button>
-										</div>
-									</div>
-								</div>
-							</div>
+							</c:when>
+						</c:choose>
+					</c:forEach>
+					<div class="text-gray-900 p-3">
+						<div class="d-grid gap-2 col-12 d-md-block" align="center">
+							<button type="button" class="btn btn-dark" id="invite" data-toggle="modal" data-target="#projectMemberAddModal">초대하기</button>
 						</div>
-						</div>
-						<!-- 초대하기 model -->
-						 <div class="modal fade" id="projectMemberAddModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
-				        	aria-hidden="true">
-				         <div class="modal-dialog" role="document">
-				            <div class="modal-content">
-				                <div class="modal-header">
-				                    <h5 class="modal-title" id="exampleModalLabel">프로젝트 초대하기</h5>
-				                    <button class="close" type="button" data-dismiss="modal" aria-label="Close">
-				                        <span aria-hidden="true">×</span>
-				                    </button>
-				                    <div class="dropdown-divider"></div>
-				                </div>
-				                <div class="modal-body">
-					                <div class="input-group">
-					                	<input type="text" id="emailSearch" class="form-control bg-light border-0 small" placeholder="이메일검색 ..."
-					                           aria-label="Search" aria-describedby="basic-addon2">
-					                </div>
-					                <div id="addMemberList">
-					                <c:forEach var="p" items="${ Memberlist }">
-					             		<div class="text-gray-900 p-3">
-					              		   <input type="checkbox" name="userEmail" value="${ p.email }">
-												<div class="psImg">
-													<c:choose>
-														<c:when test="${ Member.reProfile eq null }">
-															<img class="pImg" id="profile" name="profile" alt="프로필 사진" src="resource/img/undraw_profile.svg">
-													 </c:when>
-														 <c:otherwise>
-																<img class="pImg" id="profile" name="profile" alt="프로필 사진" src="resource/profileFiles/${ Member.reProfile }">
-														 </c:otherwise>
-													</c:choose>
-												</div>
-												<div class="psName">${ p.email }</div>
-										</div>
-					                 </c:forEach>
-									</div>
-								</div>
-				                <div class="chatBottom" align="right"><input class="chatAllBottom" type="checkbox" name="allCheck">전체선택 </div>
-								<div class="modal-footer">
-				                    <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancel</button>
-				                    <span  id="addMember" class="btn btn-primary">초대하기</span>
-				                </div>
-				            </div>
-				        </div>
 					</div>
 				</div>
+			</div>
+		</div>
+	</div>
+					
+	<!-- 초대하기 model -->
+	<div class="modal fade" id="projectMemberAddModal" tabindex="-1" role="dialog" 
+			aria-labelledby="exampleModalLabel" aria-hidden="true">
+		<div class="modal-dialog" role="document">
+			<div class="modal-content">
+				<div class="modal-header">
+					<h5 class="modal-title" id="exampleModalLabel">프로젝트 초대하기</h5>
+				   	<button class="close" type="button" data-dismiss="modal" aria-label="Close">
+				       	<span aria-hidden="true">×</span>
+				    </button>
+				    <div class="dropdown-divider"></div>
+				</div>
+				<div class="modal-body">
+					<div class="input-group">
+					 	<input type="text" id="emailSearch" class="form-control bg-light border-0 small" placeholder="이메일검색 ..."
+					                           aria-label="Search" aria-describedby="basic-addon2">
+					</div>
+					<div id="addMemberList">
+						<c:forEach var="p" items="${ Memberlist }">
+							<div class="text-gray-900 p-3">
+						    	<input type="checkbox" name="userEmail" value="${ p.email }">
+								<div class="psImg">
+									<c:choose>
+										<c:when test="${ Member.reProfile eq null }">
+											<img class="pImg" id="profile" name="profile" alt="프로필 사진" src="resource/img/undraw_profile.svg">
+										</c:when>
+										<c:otherwise>
+											<img class="pImg" id="profile" name="profile" alt="프로필 사진" src="resource/profileFiles/${ Member.reProfile }">
+										</c:otherwise>
+									</c:choose>
+								</div>
+								<div class="psName">${ p.email }</div>
+							</div>
+						</c:forEach>
+					</div>
+				</div>
+				<div class="chatBottom" align="right"><input class="chatAllBottom" type="checkbox" name="allCheck">전체선택 </div>
+					<div class="modal-footer">
+				    	<button class="btn btn-secondary" type="button" data-dismiss="modal">Cancel</button>
+				        <span  id="addMember" class="btn btn-primary">초대하기</span>
+				    </div>
+				</div>
+			</div>
+		</div>
 <!-------------------------------------------------------------------- 컨텐츠 영역 끝 -------------------------------------------------------------------->
 <!-------------------------------------------------------------------- 스크립트 -------------------------------------------------------------------->
 			<script>
@@ -600,27 +536,6 @@
 					});
 				};
 			
-// 				function Chk(){
-// 					var result = Array();
-// 					var count = 0;
-// 					var chkBox = $('.chkSelect');
-// 					for(var i in chkBox){
-// 						if(chkBox[i].checked == true){
-// 							result[count] = chkBox[i].val();
-// 							count++;
-// 						}
-// 					}
-// 					$('#result').val(result);
-// 				}
-				
-// 				function checkAll(){
-// 					var chkBox = $('.chkSelect');
-// 					var chkAll = $('#checkAll');
-// 					for(var i in chkBox){
-// 						chkBox[i].check = chkAll.checked;
-// 					}
-// 					Chk();
-// 				}
 				function Chk(){
 					
 					var chkBoxValues = [];
@@ -677,22 +592,14 @@
 				});
 			</script>
 <!-------------------------------------------------------------------- 스크립트 끝 -------------------------------------------------------------------->
-<!-- End of Main content -->
-			<!-- Main Content 끝 -->
-			</div>
 			
 			<!-- Main Content 끝 -->
 			</div>
 			
-			<!-- Footer -->
-			<c:import url="../common/footer.jsp" />
-		
 		<!-- Content Wrapper 끝 -->
 			<!-- Footer -->
 			<c:import url="../common/footer.jsp" />
 			
-			<!-- Content Wrapper 끝 -->
-			</div>
 		<!-- Wrapper 끝 -->    
 		</div>
 	<!-- Page Wrapper 끝-->

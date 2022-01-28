@@ -144,8 +144,9 @@ var calendar = $('#calendar').fullCalendar({
 		        		JSONArray.push(obj);
 		        	}
 		        	callback(JSONArray);
-		        }
-		      },
+		        },
+		      
+		      
 	  error: function(data){
 		  console.log("fail to get Calendar")
 	  }
