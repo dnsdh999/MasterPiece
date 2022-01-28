@@ -70,13 +70,6 @@
                                             <input type="button" class="btn btn-secondary btn-user btn-block" value="취소" onclick="cancel();">
                                         </div>
                                     </form>
-<!--                                     <hr> -->
-<!--                                     <div class="text-center"> -->
-<!--                                         <a class="small" href="signUpView.me">계정이 없으신가요?</a> -->
-<!--                                     </div> -->
-<!--                                     <div class="text-center"> -->
-<!--                                         <a class="small" href="loginView.me">이미 계정이 있습니다!</a> -->
-<!--                                     </div> -->
                                 </div>
                             </div>
                         </div>
@@ -125,7 +118,7 @@
                 clearInterval(this.timer);
             }
         }
-
+        
         $(document).ready(function(){
           var AuthTimer = new $ComTimer()
           AuthTimer.comSecond = 180;
@@ -154,7 +147,7 @@
         			return true;
         		} else {
         			if(count > 3){
-        				alert("인증번호가 일치하지 않습니다. 재시도 가능 횟수를 초과하여 메일 인증 페이지로 돌아갑니다.");
+        				alert("인증번호가 일치하지 않습니다. 재시도 가능 횟수를 초과하여 비밀번호 찾기 페이지로 돌아갑니다.");
         				location.href="sPwdView.me";
         				return false;
         			}
@@ -163,7 +156,6 @@
         			return false;
         		}
         	}
-        
     </script>
 </body>
 
