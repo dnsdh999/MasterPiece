@@ -38,15 +38,20 @@ DB RED
 
 구현 기능 
 ===============
-## 회원
-- 회원가입
-- 로그인
-- 이메일 찾기
-- 비밀번호 찾기
-- 마이페이지
-- 회원 정보 수정
-- 회원 탈퇴
-
+## 로그인
+![로그인 페이지](https://user-images.githubusercontent.com/90914001/152689984-c45bd3fc-9a32-4e65-afaf-8485c447bf05.PNG)
+## 회원가입
+![회원가입 페이지](https://user-images.githubusercontent.com/90914001/152690308-6445a9ea-4b28-4aab-ae7a-93a54e5e911d.PNG)
+## 이메일 찾기
+![이메일 찾기 페이지](https://user-images.githubusercontent.com/90914001/152690328-69f0432b-85c8-4191-af88-d34321e83a09.PNG)
+## 비밀번호 찾기
+![비밀번호 찾기 페이지1](https://user-images.githubusercontent.com/90914001/152690333-3439e7a4-55e0-43b7-b8c3-e82bc9f9278b.PNG)
+---------------
+![비밀번호 찾기 페이지2](https://user-images.githubusercontent.com/90914001/152690338-80714d81-bf81-49eb-8a18-618c5da06341.PNG)
+---------------
+![비밀번호 찾기 페이지5](https://user-images.githubusercontent.com/90914001/152690349-2703f9f0-df27-4988-bfbe-70b45b6fb85f.PNG)
+## 마이페이지
+![마이페이지](https://user-images.githubusercontent.com/90914001/152690567-9d0fa07d-5976-44e2-8324-046ba4f28435.PNG)
 ## 메인페이지
 ![메인페이지](https://user-images.githubusercontent.com/85299367/152671709-056dfb72-c7f8-4341-a8b9-53bf9a927ce4.PNG)
 ## 프로젝트 
