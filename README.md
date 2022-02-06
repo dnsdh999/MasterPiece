@@ -48,19 +48,20 @@ DB RED
 - 회원 탈퇴
 
 ## 메인페이지
-
+![메인페이지](https://user-images.githubusercontent.com/85299367/152671709-056dfb72-c7f8-4341-a8b9-53bf9a927ce4.PNG)
 ## 프로젝트 
-
+![프로젝트상세](https://user-images.githubusercontent.com/85299367/152671718-65198499-8e17-4a26-b7e2-5f1e1ebc5144.PNG)
 ## 캘린더
-
+![캘린더](https://user-images.githubusercontent.com/85299367/152671719-4391126f-1323-4f88-ad9c-a52575ea7287.PNG)
 ## 게시판
-
+![게시판](https://user-images.githubusercontent.com/85299367/152671731-68b160ff-7dc4-41fd-80e1-b27075c7d4d8.PNG)
 ## 채팅
-
+![채팅방](https://user-images.githubusercontent.com/85299367/152671742-00454aab-06b1-4863-967b-285dddb078f0.PNG)
 ## 채팅방 상세
-
+![채팅방상세](https://user-images.githubusercontent.com/85299367/152671750-02a5affe-4d26-4c98-b0e5-309b41adfedc.PNG)
 ## 파일함
-
+![파일함](https://user-images.githubusercontent.com/85299367/152671760-28cd3d8c-5e18-4ce8-b30d-c6d170f0cc92.PNG)
 ## 알림
-
+![알림](https://user-images.githubusercontent.com/85299367/152671762-fd0a49f8-57ec-4521-a66d-007f1e957afa.PNG)
+![알림2](https://user-images.githubusercontent.com/85299367/152671763-7e8d782e-35c6-46bc-bcc3-12a7448fdc99.PNG)
 
