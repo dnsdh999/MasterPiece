@@ -62,6 +62,5 @@ DB RED
 ## 파일함
 ![파일함](https://user-images.githubusercontent.com/85299367/152671760-28cd3d8c-5e18-4ce8-b30d-c6d170f0cc92.PNG)
 ## 알림
-![알림](https://user-images.githubusercontent.com/85299367/152671762-fd0a49f8-57ec-4521-a66d-007f1e957afa.PNG)
 ![알림2](https://user-images.githubusercontent.com/85299367/152671763-7e8d782e-35c6-46bc-bcc3-12a7448fdc99.PNG)
 
