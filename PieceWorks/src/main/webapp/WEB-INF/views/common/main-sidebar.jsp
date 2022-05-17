@@ -35,11 +35,16 @@
         <hr class="sidebar-divider my-0">
 
         <!-- Nav Item - Dashboard -->
-        <li class="nav-item active">
-            <a class="nav-link" href="index.jsp">
-                <i class="fas fa-fw fa-tachometer-alt"></i>
-                <span>Dashboard</span></a>
-        </li>
+<!--         <li class="nav-item active"> -->
+<!--             <a class="nav-link" href="index.jsp"> -->
+<!--                 <i class="fas fa-fw fa-tachometer-alt"></i> -->
+<!--                 <span>Dashboard(Index.jsp)</span></a> -->
+<!--         </li> -->
+<!--         <li class="nav-item active"> -->
+<!--             <a class="nav-link" href="index.jsp"> -->
+<!--                 <i class="fas fa-fw fa-tachometer-alt"></i> -->
+<!--                 <span>Dashboard</span></a> -->
+<!--         </li> -->
         <li class="nav-item active">
             <a class="nav-link" href="main.com">
                 <i class="fas fa-fw fa-tachometer-alt"></i>
@@ -80,9 +85,9 @@
                 data-parent="#accordionSidebar">
                 <div class="bg-white py-2 collapse-inner rounded">
                     <h6 class="collapse-header">MY PROJECTS</h6>
-                    <a class="collapse-item" href="pListView.pr">프로젝트 목록</a>
+<!--                     <a class="collapse-item" href="pListView.pr">프로젝트 목록</a> -->
                     <a class="collapse-item" href="pInsertView.pr">새 프로젝트 생성</a>
-                    <a class="collapse-item" href="fullCal.ca">프로젝트상세일정(임시)</a>
+<!--                     <a class="collapse-item" href="fullCal.ca">프로젝트상세일정(임시)</a> -->
                 </div>
             </div>
         </li>

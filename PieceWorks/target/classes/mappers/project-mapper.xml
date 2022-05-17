@@ -18,7 +18,7 @@
 		from project
 			 join project_join using(project_no)
 			 join member on(project_member=email)
-		where p_status like '진행%' and project_member = #{email}
+		where project_member = #{email}
 		order by project_no
 	</select>
 	
@@ -35,7 +35,7 @@
 	</resultMap>
 	
 	<select id="selectProject" resultMap="ProjectListSet">
-		select project_no, project_title, project_member, nickname
+		select project_no, project_content, project_title, project_member, nickname
 		from project
 			 join project_join using(project_no)
 			 join member on(project_member = email)
@@ -46,7 +46,7 @@
 		select *
 		from calendar
 			 join member on(c_creator=email)
-		where project_no = #{pNo} and c_status not like '완료'
+		where project_no = #{pNo} and c_category like '진행%' and c_status = 'Y'
 		order by calendar_no
 	</select>
 	
@@ -65,28 +65,67 @@
 		<result column="ALLDAY" property="allDay"/>
 		<result column="PROJECT_NO" property="projectNo"/>
 	</resultMap>
+
+	<select id="getPListForMain" resultMap="ProjectListSet">
+		select * 
+		from (select *
+				from project
+				join project_join using(project_no)
+				join member on(project_member=email)
+		 		where p_status like '진행%' and project_member = #{pCreater})
+		 where (p_start_date between #{pStartDate} and #{pEndDate})
+			  		or (p_end_date between #{pStartDate} and #{pEndDate})
+		 order by project_no
+		
+	</select>
+	
+	<select id="getPListForMain2" resultMap="MainCalProjectListSet">
+		select * 
+		from (select *
+				from project
+				join project_join using(project_no)
+				join member on(project_member=email)
+		 		where project_member = #{pCreater})
+		 where (p_start_date between to_date(#{pStartDate}, 'YYYY-MM-DD') and to_date(#{pEndDate}, 'YYYY-MM-DD'))
+			  		or (p_end_date between to_date(#{pStartDate}, 'YYYY-MM-DD') and to_date(#{pEndDate}, 'YYYY-MM-DD'))
+		 order by project_no
+	</select>
+	
+	<resultMap type="MainCalProject" id="MainCalProjectListSet">
+		<id column="PROJECT_NO" property="projectNo"/>
+		<result column="PROJECT_TITLE" property="pTitle"/>
+		<result column="PROJECT_CREATER" property="pCreater"/>
+		<result column="NICKNAME" property="pNickName"/>
+		<result column="PROJECT_CONTENT" property="pContent"/>
+		<result column="P_STATUS" property="pStatus"/>
+		<result column="P_START_DATE" property="pStartDate"/>
+		<result column="P_END_DATE" property="pEndDate"/>
+		<result column="CREATE_DATE" property="createDate"/>
+	</resultMap>
 	
 	<select id="memberProjectList" resultType="Member">
-		 select email,name,nickname,reprofile
+		select email,name,nickname,reprofile
         from project_join
-        join member on(project_member = email)
+        	join member on(project_member = email)
         where project_no = #{projectNo}
-		</select>
-		<select id="notMemberProjectList" resultType="Member">
+	</select>
+	
+	<select id="notMemberProjectList" resultType="Member">
 		select email,name,nickname,reprofile
         from member
-        join project_join on(project_member = email)
+       		join project_join on(project_member = email)
         where project_no != #{projectNo} 
-		</select>
-		<select id="emailSearch" resultType="Member">
+	</select>
+	
+	<select id="emailSearch" resultType="Member">
 		select email,name,nickname,reprofile
         from member
-        join project_join on(project_member = email)
-        where project_no != #{projectNo}  and
-        email like '%'||#{email}||'%'
-		</select>
-		<insert id="addProjectMember">
+       		 join project_join on(project_member = email)
+        where project_no != #{projectNo} and email like '%'||#{email}||'%'
+	</select>
+	
+	<insert id="addProjectMember">
 		insert into project_join
 		values(#{projectNo},#{pMember})
-		</insert>
+	</insert>
 </mapper>

@@ -83,7 +83,7 @@ public class MemberController {
 		System.out.println(bcrypt.encode(m.getPwd()));
 		
 		Member loginMember = mService.memberLogin(m); 
-		
+		String msg = null;
 		// 암호화 했을 때 로그인 
 		if(bcrypt.matches(m.getPwd(), loginMember.getPwd())) {
 			model.addAttribute("loginUser", loginMember);
@@ -133,7 +133,7 @@ public class MemberController {
 		
 		System.out.println(originProfile);
 		System.out.println(reProfile);
-		
+		System.out.println(renamePath);
 		return reProfile;	
 	}
 	
@@ -178,7 +178,7 @@ public class MemberController {
 	
 	@RequestMapping("mdelete.me")
 	public String deleteMember(@RequestParam("email")String email, SessionStatus session){
-	
+		
 		int result = mService.deleteMember(email);
 		
 		if(result > 0) {
@@ -220,36 +220,6 @@ public class MemberController {
 		return "searchPwd";
 	}
 	
-	// 메일 전송
-	public void sendEmail(String email, int random) {
-		
-		String subject = "[PIECE WORKS] 이메일 인증번호입니다.";
-		String content = "<div style='text-align:center;'>"
-							+ "<h1>[인증번호]<h1><hr style='width: 50%;'>"
-							+ "<h3>안녕하십니까!<h3>"
-							+ "<h3>PIECE WORKS입니다.<h3><br>"
-							+ "<div style='text-align:center;'>요청하신 인증번호는 <b>"+ random +"</b>입니다.</div>"
-							+ "진행 중인 화면으로 돌아가 인증번호를 입력해주세요.<br>"
-							+ "<br><hr style='width: 50%;'><br>"
-							+ "PIECE WORKS를 이용해 주셔서 감사합니다.</div>";
-		String from = "wjddms0700@gmail.com";
-		String to = email;
-		
-		try {
-			MimeMessage mail = mailSender.createMimeMessage();
-			MimeMessageHelper mailHelper = new MimeMessageHelper(mail,true,"UTF-8");
-			
-			mailHelper.setFrom(from);
-			mailHelper.setTo(to);
-			mailHelper.setSubject(subject);
-			mailHelper.setText(content, true);
-			
-			mailSender.send(mail);
-			
-		} catch (MessagingException e) {
-			e.printStackTrace();
-		}
-	}
 	
 	// 비밀번호 인증번호 메일 보내기
 	@RequestMapping("sPwd.me")
@@ -268,6 +238,37 @@ public class MemberController {
 		mv.setViewName("pwdCode");
 			
 		return mv;
+	}
+	
+	// 메일 전송
+	public void sendEmail(String email, int random) {
+		
+		String subject = "[PIECE WORKS] 이메일 인증번호입니다.";
+		String content = "<div style='text-align:center;'>"
+				+ "<h1>[인증번호]<h1><hr style='width: 50%;'>"
+				+ "<h3>안녕하십니까!<h3>"
+				+ "<h3>PIECE WORKS입니다.<h3><br>"
+				+ "<div style='text-align:center;'>요청하신 인증번호는 <b>"+ random +"</b>입니다.</div>"
+				+ "진행 중인 화면으로 돌아가 인증번호를 입력해 주세요.<br>"
+				+ "<br><hr style='width: 50%;'><br>"
+				+ "PIECE WORKS를 이용해 주셔서 감사합니다.</div>";
+		String from = "wjddms0700@gmail.com";
+		String to = email;
+		
+		try {
+			MimeMessage mail = mailSender.createMimeMessage();
+			MimeMessageHelper mailHelper = new MimeMessageHelper(mail,true,"UTF-8");
+			
+			mailHelper.setFrom(from);  			// 보내는 사람 세팅	
+			mailHelper.setTo(to);				// 받는 사람 세팅
+			mailHelper.setSubject(subject);		// 제목 세팅
+			mailHelper.setText(content, true);	// 내용 세팅
+			
+			mailSender.send(mail); // 메일 전송
+			
+		} catch (MessagingException e) {
+			e.printStackTrace();
+		}
 	}
 	
 	// 인증번호
@@ -307,3 +308,4 @@ public class MemberController {
 	}
 	
 }
+

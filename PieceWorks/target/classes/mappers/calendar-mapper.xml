@@ -4,7 +4,8 @@
 	
 	<insert id="addEvent">
 		insert into calendar
-		values(seq_cal.nextval, #{cCreator}, to_date(#{cStartDate}, 'YYYY-MM-DD HH24:MI'), to_date(#{cEndDate}, 'YYYY-MM-DD HH24:MI'), sysdate, #{category}, default, #{calTitle}, #{calContent}, #{bgColor}, #{allDay}, 1)
+		values(seq_cal.nextval, #{cCreator}, to_date(#{cStartDate}, 'YYYY-MM-DD HH24:MI'), to_date(#{cEndDate}, 'YYYY-MM-DD HH24:MI'), 
+				sysdate, #{category}, default, #{calTitle}, #{calContent}, #{bgColor}, #{allDay}, to_number(#{projectNo}))
 	</insert>
 	
 	<select id="getEventList" resultMap="EventResultSet">
@@ -16,7 +17,7 @@
 			  					 and to_date(#{cEndDate}, 'YYYY-MM-DD HH24:MI')
 			  		or c_end_date between to_date(#{cStartDate}, 'YYYY-MM-DD HH24:MI')
 			  					  and to_date(#{cEndDate}, 'YYYY-MM-DD HH24:MI'))
-		where c_status = 'Y'
+		where c_status = 'Y' and project_no = to_number(#{projectNo})
 <!-- 		select * -->
 <!-- 		from calendar -->
 <!-- 			 join member on(c_creator = email) -->
@@ -66,18 +67,25 @@
          <if test= "allDay != null">
          allday = #{allDay}
          </if>
-      where calendar_no = #{calendarNo}
+      where calendar_no = #{calendarNo} and project_no = to_number(#{projectNo})
    </update>
 	
 	<update id="deleteEvent">
 		update calendar
 		set c_status = 'N'
-		where calendar_no = #{calendarNo}
+		where calendar_no = #{calendarNo} and project_no = to_number(#{projectNo})
 	</update>
 	
 	<select id="callProcedure" statementType="CALLABLE">
 		{call UPDATE_ALL_EVENTS}
 	</select>
 	
+	<select id="callProcedureForMain1" statementType="CALLABLE">
+		{call UPDATE_START_PROJECT}
+	</select>
+	
+	<select id="callProcedureForMain2" statementType="CALLABLE">
+		{call UPDATE_END_PROJECT}
+	</select>
 
 </mapper>

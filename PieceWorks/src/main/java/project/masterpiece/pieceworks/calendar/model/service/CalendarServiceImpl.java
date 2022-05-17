@@ -7,6 +7,7 @@ import org.springframework.stereotype.Service;
 
 import project.masterpiece.pieceworks.calendar.model.dao.CalendarDAO;
 import project.masterpiece.pieceworks.calendar.model.vo.Calendar;
+import project.masterpiece.pieceworks.project.model.vo.MainCalProject;
 
 @Service("caService")
 public class CalendarServiceImpl implements CalendarService {
@@ -39,6 +40,16 @@ public class CalendarServiceImpl implements CalendarService {
 	@Override
 	public ArrayList<Calendar> callProcedure() {
 		return cDAO.callProcedure();
+	}
+
+	@Override
+	public ArrayList<MainCalProject> callProcedureForMain1() {
+		return cDAO.callProcedureForMain1();
+	}
+
+	@Override
+	public ArrayList<MainCalProject> callProcedureForMain2() {
+		return cDAO.callProcedureForMain2();
 	}
 
 }

@@ -8,6 +8,7 @@ var editEnd = $('#edit-end');
 var editType = $('#edit-type');
 var editColor = $('#edit-color');
 var editDesc = $('#edit-desc');
+var projectNo = $('#projectNo');
 
 var addBtnContainer = $('.modalBtnContainer-addEvent');
 var modifyBtnContainer = $('.modalBtnContainer-modifyEvent');
@@ -48,8 +49,11 @@ var newEvent = function (start, end, eventType) {
             type: editType.val(),
             backgroundColor: editColor.val(),
             textColor: '#ffffff',
-            allDay: false
+            allDay: false,
+            projectNo: projectNo.val()
         };
+        
+        console.log(eventData);
 
         if (eventData.start > eventData.end) {
             alert('끝나는 날짜가 앞설 수 없습니다.');
@@ -85,7 +89,6 @@ var newEvent = function (start, end, eventType) {
             dataType: 'json',
             data: {eventData: JSON.stringify(eventData)},
             success: function (response) {
-            	console.log(eventData);
             	alert('일정이 추가되었습니다.');
             	location.reload();
             	
@@ -95,7 +98,7 @@ var newEvent = function (start, end, eventType) {
                 
             },
             error: function(response){
-            	console.log("실패");
+            	console.log("일정 저장 실패");
             }
         });
     });
